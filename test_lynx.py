@@ -37,11 +37,22 @@ def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
 
-    named = Process.get(comm="munin-node")
-    assert named.user == "root"
-    assert named.group == "root"
+    munin= Process.get(comm="munin-node")
+    assert munin.user == "root"
+    assert munin.group == "root"
 
     assert Socket("tcp://:::4949").is_listening
+
+def test_nginx_running(Process, Service, Socket, Command):
+    assert Service("nginx").is_enabled
+    assert Service("nginx").is_running
+
+    nginx = Process.filter(comm="nginx")
+
+    assert Socket("tcp://0.0.0.0:443").is_listening
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://:::443").is_listening
+    assert Socket("tcp://:::80").is_listening
 
 
 # systemctl list-unit-files | grep enabled
