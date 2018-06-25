@@ -76,6 +76,15 @@ def test_zabbix_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
 
+def test_postfix_running(Process, Service, Socket, Command):
+    assert Service("postfix").is_enabled
+    assert Service("postfix").is_running
+
+    postgres = Process.get(comm="master")
+
+    assert Socket("tcp://0.0.0.0:25").is_listening
+
+
 
 
 # systemctl list-unit-files | grep enabled
@@ -104,7 +113,7 @@ def test_zabbix_running(Process, Service, Socket, Command):
 #unattended-upgrades.service                enabled
 #ureadahead.service                         enabled
 #vgauth.service                             enabled
-#zabbix-agent.service                       enabled
+#zabbix-agent.service                       enabled ok
 #acpid.socket                               enabled
 #apport-forward.socket                      enabled
 #dm-event.socket                            enabled
@@ -133,20 +142,20 @@ def test_zabbix_running(Process, Service, Socket, Command):
 # orthphonto.net.conf
 
 # root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
-#tcp        0      0 167.114.54.62:53        0.0.0.0:*               LISTEN      1352/named      
-#tcp        0      0 127.0.0.1:53            0.0.0.0:*               LISTEN      1352/named      
+#tcp        0      0 167.114.54.62:53        0.0.0.0:*               LISTEN      1352/named      ok
+#tcp        0      0 127.0.0.1:53            0.0.0.0:*               LISTEN      1352/named      ok
 #tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1346/sshd       
-#tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      1553/postgres   
-#tcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      2560/master     
-#tcp        0      0 127.0.0.1:953           0.0.0.0:*               LISTEN      1352/named      
-#tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      2254/nginx -g daemo
-#tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      1546/zabbix_agentd
-#tcp        0      0 127.0.0.1:27017         0.0.0.0:*               LISTEN      1353/mongod     
-#tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      2011/mysqld     
+#tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      1553/postgres   ok
+#tcp        0      0 0.0.0.0:25              0.0.0.0:*               LISTEN      2560/master     ok
+#tcp        0      0 127.0.0.1:953           0.0.0.0:*               LISTEN      1352/named       ok
+#tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      2254/nginx -g daemo ok
+#tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      1546/zabbix_agentd ok
+#tcp        0      0 127.0.0.1:27017         0.0.0.0:*               LISTEN      1353/mongod     ok
+#tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      2011/mysqld       
 #tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      2254/nginx -g daemo
-#tcp6       0      0 :::4949                 :::*                    LISTEN      1564/perl       
+#tcp6       0      0 :::4949                 :::*                    LISTEN      1564/perl        ok
 #tcp6       0      0 :::22                   :::*                    LISTEN      1346/sshd       
-#tcp6       0      0 ::1:5432                :::*                    LISTEN      1553/postgres   
+#tcp6       0      0 ::1:5432                :::*                    LISTEN      1553/postgres    ok
 #tcp6       0      0 :::25                   :::*                    LISTEN      2560/master     
 #tcp6       0      0 :::443                  :::*                    LISTEN      2254/nginx -g daemo
 #tcp6       0      0 :::10080                :::*                    LISTEN      2293/apache2    
