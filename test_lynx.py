@@ -54,29 +54,26 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert Socket("tcp://:::443").is_listening
     assert Socket("tcp://:::80").is_listening
 
+def test_postgres_running(Process, Service, Socket, Command):
+    assert Service("postgresql").is_enabled
+    assert Service("postgresql").is_running
+
+    postgres = Process.filter(comm="postgres")
+
+    assert Socket("tcp://127.0.0.1:5432").is_listening
+    assert Socket("tcp://::1:5432").is_listening
+
 
 # systemctl list-unit-files | grep enabled
 #
 #root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
-#acpid.path                                 enabled
-#accounts-daemon.service                    enabled
-#atd.service                                enabled
 #autovt@.service                            enabled
 #bind9.service                              enabled ok
 #cron.service                               enabled
-#friendly-recovery.service                  enabled
-#getty@.service                             enabled
-#iscsi.service                              enabled
-#iscsid.service                             enabled
-#lvm2-monitor.service                       enabled
-#lxcfs.service                              enabled
-#lxd-containers.service                     enabled
 #mongod.service                             enabled
 #munin-node.service                         enabled ok
 #networking.service                         enabled
 #nginx.service                              enabled
-#open-iscsi.service                         enabled
-#open-vm-tools.service                      enabled
 #postgresql.service                         enabled
 #resolvconf.service                         enabled
 #rsyslog.service                            enabled
