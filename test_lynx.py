@@ -67,6 +67,14 @@ def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running
 
+def test_zabbix_running(Process, Service, Socket, Command):
+    assert Service("zabbix-agent").is_enabled
+    assert Service("zabbix-agent").is_running
+
+    postgres = Process.filter(comm="zabbix_agentd")
+
+    assert Socket("tcp://0.0.0.0:10050").is_listening
+
 
 
 
@@ -92,7 +100,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 #sshd.service                               enabled
 #syslog.service                             enabled
 #systemd-timesyncd.service                  enabled
-#ufw.service                                enabled
+#ufw.service                                enabled ok
 #unattended-upgrades.service                enabled
 #ureadahead.service                         enabled
 #vgauth.service                             enabled
