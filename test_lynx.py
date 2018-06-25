@@ -63,6 +63,12 @@ def test_postgres_running(Process, Service, Socket, Command):
     assert Socket("tcp://127.0.0.1:5432").is_listening
     assert Socket("tcp://::1:5432").is_listening
 
+def test_ufw_running(Process, Service, Socket, Command):
+    assert Service("ufw").is_enabled
+    assert Service("ufw").is_running
+
+
+
 
 # systemctl list-unit-files | grep enabled
 #
@@ -74,7 +80,7 @@ def test_postgres_running(Process, Service, Socket, Command):
 #munin-node.service                         enabled ok
 #networking.service                         enabled
 #nginx.service                              enabled
-#postgresql.service                         enabled
+#postgresql.service                         enabled ok
 #resolvconf.service                         enabled
 #rsyslog.service                            enabled
 #snapd.autoimport.service                   enabled
