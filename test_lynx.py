@@ -13,6 +13,18 @@ def test_mongod_running(Process, Service, Socket, Command):
 
     assert Socket("tcp://127.0.0.1:27017").is_listening
 
+def test_bind_running(Process, Service, Socket, Command):
+    assert Service("bind9").is_enabled
+    assert Service("bind9").is_running
+
+    mongod = Process.get(comm="named")
+    assert mongod.user == "bind"
+    assert mongod.group == "bind"
+
+    assert Socket("tcp://127.0.0.1:53").is_listening
+    assert Socket("tcp://167.114.54.62:53").is_listening
+    assert Socket("tcp://127.0.0.1:953").is_listening
+
 # systemctl list-unit-files | grep enabled
 #
 #root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
