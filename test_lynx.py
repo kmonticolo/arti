@@ -25,6 +25,15 @@ def test_bind_running(Process, Service, Socket, Command):
     assert Socket("tcp://167.114.54.62:53").is_listening
     assert Socket("tcp://127.0.0.1:953").is_listening
 
+def test_cron_running(Process, Service, Socket, Command):
+    assert Service("cron").is_enabled
+    assert Service("cron").is_running
+
+    named = Process.get(comm="cron")
+    assert named.user == "root"
+    assert named.group == "root"
+
+
 # systemctl list-unit-files | grep enabled
 #
 #root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
@@ -32,7 +41,7 @@ def test_bind_running(Process, Service, Socket, Command):
 #accounts-daemon.service                    enabled
 #atd.service                                enabled
 #autovt@.service                            enabled
-#bind9.service                              enabled
+#bind9.service                              enabled ok
 #cron.service                               enabled
 #friendly-recovery.service                  enabled
 #getty@.service                             enabled
