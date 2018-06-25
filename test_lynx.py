@@ -33,6 +33,16 @@ def test_cron_running(Process, Service, Socket, Command):
     assert named.user == "root"
     assert named.group == "root"
 
+def test_munin_running(Process, Service, Socket, Command):
+    assert Service("munin-node").is_enabled
+    assert Service("munin-node").is_running
+
+    named = Process.get(comm="munin-node")
+    assert named.user == "root"
+    assert named.group == "root"
+
+    assert Socket("tcp://:::4949").is_listening
+
 
 # systemctl list-unit-files | grep enabled
 #
@@ -51,7 +61,7 @@ def test_cron_running(Process, Service, Socket, Command):
 #lxcfs.service                              enabled
 #lxd-containers.service                     enabled
 #mongod.service                             enabled
-#munin-node.service                         enabled
+#munin-node.service                         enabled ok
 #networking.service                         enabled
 #nginx.service                              enabled
 #open-iscsi.service                         enabled
