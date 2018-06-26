@@ -146,6 +146,11 @@ def test_mysql_running(Process, Service, Socket, Command):
 # adam  root
 
 # na kazdym firewall ufw ufw status
+#ufw
+def test_ufw(Command):
+    command = Command('sudo ufw status | grep -qw active')
+    assert command.rc == 0
+
 
 # certbot od letsencrypt plugins nginx
 
