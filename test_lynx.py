@@ -177,4 +177,28 @@ def test_ufw(Command):
 #tcp6       0      0 :::80                   :::*                    LISTEN      2254/nginx -g daemo
 #
 
+def test_listening_socket(host):
+    listening = host.socket.get_listening_sockets()
+    for spec in (
+"tcp://167.114.54.62:53",
+"tcp://127.0.0.1:53",
+"tcp://0.0.0.0:22",
+"tcp://127.0.0.1:5432",
+"tcp://0.0.0.0:25",
+"tcp://127.0.0.1:953",
+"tcp://0.0.0.0:443",
+"tcp://0.0.0.0:10050",
+"tcp://127.0.0.1:27017",
+"tcp://0.0.0.0:3306",
+"tcp://0.0.0.0:80",
+"tcp://:::4949",
+"tcp://:::22",
+"tcp://::1:5432",
+"tcp://:::25",
+"tcp://:::443",
+"tcp://:::10080",
+"tcp://:::80"
+    ):  
+        socket = host.socket(spec)
+        assert socket.is_listening
 

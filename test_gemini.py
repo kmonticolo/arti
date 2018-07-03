@@ -170,3 +170,25 @@ def test_ufw(Command):
 # orthphonto.net.conf
 
 # root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
+# netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
+
+def test_listening_socket(host):
+    listening = host.socket.get_listening_sockets()
+    for spec in (
+"tcp://0.0.0.0:111",
+"tcp://0.0.0.0:80",
+"tcp://0.0.0.0:4949",
+"tcp://0.0.0.0:22",
+"tcp://127.0.0.1:25",
+"tcp://0.0.0.0:10050",
+"tcp://:::111",
+"tcp://:::80",
+"tcp://:::1521",
+"tcp://:::22",
+"tcp://::1:25",
+"tcp://:::32098"
+    ):  
+        socket = host.socket(spec)
+        assert socket.is_listening
+
+

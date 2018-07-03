@@ -1,7 +1,7 @@
 # ubuntu 16.04 lts
 
 # userzy grep sh$ /etc/passwd
-# adam root mmursztyn postgres kamilm
+#root postgres adam mlickiewicz art kamilm
 
 
 #ufw
@@ -13,9 +13,9 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-    named = Process.get(comm="cron")
-    assert named.user == "root"
-    assert named.group == "root"
+    cron = Process.get(comm="cron")
+    assert cron.user == "root"
+    assert cron.group == "root"
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
@@ -36,14 +36,14 @@ def test_postgres_running(Process, Service, Socket, Command):
     assert Socket("tcp://127.0.0.1:5432").is_listening
     assert Socket("tcp://::1:5432").is_listening
 
+def test_nginx_running(Process, Service, Socket, Command):
+    assert Service("nginx").is_enabled
+    assert Service("nginx").is_running
+    nginx = Process.filter(comm="nginx")
+
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running
-
-def test_zabbix_server_running(Process, Service, Socket, Command):
-    assert Service("zabbix-server").is_enabled
-    assert Service("zabbix-server").is_running
-    assert Socket("tcp://0.0.0.0:10051").is_listening
 
 
 def test_zabbix_agent_running(Process, Service, Socket, Command):
@@ -52,26 +52,14 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
 
-def test_mysql_running(Process, Service, Socket, Command):
-    assert Service("mysql").is_enabled
-    assert Service("mysql").is_running
-
-    mysql = Process.get(comm="mysqld_safe")
-    assert mysql.user == "root"
-    assert mysql.group == "root"
-
-    assert Socket("tcp://127.0.0.1:3306").is_listening
-
 #fail2ban.service                           enabled 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
 
-# systemctl list-unit-files | grep enabled
-#
-#root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
-## acpid.path                                 enabled 
+## systemctl list-unit-files | grep enabled
+#acpid.path                                 enabled 
 #accounts-daemon.service                    enabled 
 #atd.service                                enabled 
 #autovt@.service                            enabled 
@@ -83,15 +71,21 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 #fail2ban.service                           enabled 
 #friendly-recovery.service                  enabled 
 #getty@.service                             enabled 
+#haveged.service                            enabled 
 #lvm2-monitor.service                       enabled 
 #munin-node.service                         enabled 
 #networking.service                         enabled 
+#nfs-kernel-server.service                  enabled 
+#nfs-server.service                         enabled 
+#nginx.service                              enabled 
 #postgresql.service                         enabled 
 #pppd-dns.service                           enabled 
 #resolvconf.service                         enabled 
 #rsyslog.service                            enabled 
 #ssh.service                                enabled 
 #sshd.service                               enabled 
+#sssd.service                               enabled 
+#strongswan.service                         enabled 
 #syslog.service                             enabled 
 #systemd-timesyncd.service                  enabled 
 #thermald.service                           enabled 
@@ -99,16 +93,18 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 #unattended-upgrades.service                enabled 
 #ureadahead.service                         enabled 
 #zabbix-agent.service                       enabled 
-#zabbix-server.service                      enabled 
 #acpid.socket                               enabled 
 #apport-forward.socket                      enabled 
 #dm-event.socket                            enabled 
 #lvm2-lvmetad.socket                        enabled 
 #lvm2-lvmpolld.socket                       enabled 
+#rpcbind.socket                             enabled 
 #uuidd.socket                               enabled 
+#nfs-client.target                          enabled 
 #remote-fs.target                           enabled 
 #apt-daily-upgrade.timer                    enabled 
 #apt-daily.timer                            enabled 
+#
 #
 #systemctl list-units --type=service --state=active
 
@@ -118,40 +114,64 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 
 # na kazdym firewall ufw ufw status
 
-# root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
+## root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
+## netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
+
+#tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      7869/postgres   
+#tcp        0      0 127.0.0.1:5433          0.0.0.0:*               LISTEN      7868/postgres   
+#tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      1009/nginx -g daemo
+#tcp        0      0 0.0.0.0:445             0.0.0.0:*               LISTEN      2238/smbd       
+#tcp        0      0 0.0.0.0:36321           0.0.0.0:*               LISTEN      -               
+#tcp        0      0 0.0.0.0:2049            0.0.0.0:*               LISTEN      -               
+#tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      7860/zabbix_agentd
+#tcp        0      0 0.0.0.0:38212           0.0.0.0:*               LISTEN      886/rpc.mountd  
+#tcp        0      0 0.0.0.0:139             0.0.0.0:*               LISTEN      2238/smbd       
+#tcp        0      0 0.0.0.0:111             0.0.0.0:*               LISTEN      883/rpcbind     
+#tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      1009/nginx -g daemo
+#tcp        0      0 0.0.0.0:37360           0.0.0.0:*               LISTEN      886/rpc.mountd  
+#tcp        0      0 0.0.0.0:4949            0.0.0.0:*               LISTEN      1053/perl       
+#tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      856/sshd        
+#tcp        0      0 0.0.0.0:46902           0.0.0.0:*               LISTEN      886/rpc.mountd  
+#tcp6       0      0 ::1:5432                :::*                    LISTEN      7869/postgres   
+#tcp6       0      0 ::1:5433                :::*                    LISTEN      7868/postgres   
+#tcp6       0      0 :::35547                :::*                    LISTEN      -               
+#tcp6       0      0 :::55004                :::*                    LISTEN      886/rpc.mountd  
+#tcp6       0      0 :::445                  :::*                    LISTEN      2238/smbd       
+#
 ##
-#tcp        0      0 0.0.0.0:4949            0.0.0.0:*               LISTEN      969/perl        
-#tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      887/sshd        
-#tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      979/postgres    
-#tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      970/zabbix_agentd
-#tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      27578/zabbix_server
-#tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      4360/mysqld     
-#tcp6       0      0 :::22                   :::*                    LISTEN      887/sshd        
-#tcp6       0      0 ::1:5432                :::*                    LISTEN      979/postgres    
-#tcp6       0      0 :::10051                :::*                    LISTEN      27578/zabbix_server
-#tcp6       0      0 :::80                   :::*                    LISTEN      1289/apache2    
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
+"tcp://127.0.0.1:5432",
+"tcp://127.0.0.1:5433",
+"tcp://0.0.0.0:443",
+"tcp://0.0.0.0:445",
+"tcp://0.0.0.0:36321",
+"tcp://0.0.0.0:2049",
+"tcp://0.0.0.0:10050",
+"tcp://0.0.0.0:38212",
+"tcp://0.0.0.0:139",
+"tcp://0.0.0.0:111",
+"tcp://0.0.0.0:80",
+"tcp://0.0.0.0:37360",
 "tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
-"tcp://127.0.0.1:5432",
-"tcp://0.0.0.0:10050",
-"tcp://0.0.0.0:10051",
-"tcp://127.0.0.1:3306",
-"tcp://:::22",
+"tcp://0.0.0.0:46902",
 "tcp://::1:5432",
-"tcp://:::10051",
-"tcp://:::80"
-    ):  
+"tcp://::1:5433",
+"tcp://:::35547",
+"tcp://:::55004",
+"tcp://:::445",
+"tcp://:::2049",
+"tcp://:::40903",
+"tcp://:::139",
+"tcp://:::111",
+"tcp://:::80",
+"tcp://:::60785",
+"tcp://:::22"
+    ):
         socket = host.socket(spec)
         assert socket.is_listening
 
 
 #procesy
-#/usr/sbin/apache2 -k start
-#postgres
-#/usr/bin/mysqld_safe
-#/usr/bin/fail2ban-server
-#/usr/sbin/zabbix_server
-#
