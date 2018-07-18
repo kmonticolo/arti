@@ -1,0 +1,120 @@
+# ubuntu 16.04 lts
+
+# amq	
+#  vim /etc/activemq/instances-^Cabled/main/activemq.xml 
+
+# userzy grep sh$ /etc/passwd
+# adam root postgres amq activemq kamilm
+
+
+#ufw
+def test_ufw(Command):
+    command = Command('sudo ufw status | grep -qw active')
+    assert command.rc == 0
+
+def test_cron_running(Process, Service, Socket, Command):
+    assert Service("cron").is_enabled
+    assert Service("cron").is_running
+
+    named = Process.get(comm="cron")
+    assert named.user == "root"
+    assert named.group == "root"
+
+def test_munin_running(Process, Service, Socket, Command):
+    assert Service("munin-node").is_enabled
+    assert Service("munin-node").is_running
+
+    munin= Process.get(comm="munin-node")
+    assert munin.user == "root"
+    assert munin.group == "root"
+
+    assert Socket("tcp://:::4949").is_listening
+
+def test_postgres_running(Process, Service, Socket, Command):
+    assert Service("postgresql").is_enabled
+    assert Service("postgresql").is_running
+
+    postgres = Process.filter(comm="postgres")
+
+    assert Socket("tcp://127.0.0.1:5432").is_listening
+    assert Socket("tcp://::1:5432").is_listening
+
+def test_ufw_running(Process, Service, Socket, Command):
+    assert Service("ufw").is_enabled
+    assert Service("ufw").is_running
+
+def test_zabbix_agent_running(Process, Service, Socket, Command):
+    assert Service("zabbix-agent").is_enabled
+    assert Service("zabbix-agent").is_running
+    assert Socket("tcp://0.0.0.0:10050").is_listening
+
+#fail2ban.service                           enabled 
+def test_fail2ban_running(Process, Service, Socket, Command):
+    assert Service("fail2ban").is_enabled
+    assert Service("fail2ban").is_running
+
+def test_haproxy_running(Process, Service, Socket, Command):
+    assert Service("haproxy").is_enabled
+    assert Service("haproxy").is_running
+
+def test_haproxy_conf(host):
+    conf = host.file("/etc/haproxy/haproxy.cfg")
+    assert conf.user == "root"
+    assert conf.group == "root"
+    assert conf.mode == 0o644
+    assert conf.contains("stats socket /run/haproxy/admin.sock mode 660 level admin")
+    assert conf.contains("ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS")
+
+def test_activemq_running(Process, Service, Socket, Command):
+    assert Service("activemq").is_enabled
+    assert Service("activemq").is_running
+    amq = Process.get(comm="java")
+    assert amq.user == "root"
+    assert amq.group == "root"
+    assert Socket("tcp://0.0.0.0:33719").is_listening
+    assert Socket("tcp://0.0.0.0:40510").is_listening
+    assert Socket("tcp://0.0.0.0:8161").is_listening
+    assert Socket("tcp://0.0.0.0:1099").is_listening
+    assert Socket("tcp://0.0.0.0:61613").is_listening
+    assert Socket("tcp://0.0.0.0:61616").is_listening
+    assert Socket("tcp://0.0.0.0:61617").is_listening
+
+
+# systemctl list-unit-files | grep enabled
+#
+#root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
+#
+#systemctl list-units --type=service --state=active
+
+#haproxy.service
+#activemq.service
+
+# root@lynx:/home/kamilm# ls /var/spool/cron/crontabs/
+# brak
+
+# na kazdym firewall ufw ufw status
+
+# root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
+## netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
+def test_listening_socket(host):
+    listening = host.socket.get_listening_sockets()
+    for spec in (
+"tcp://0.0.0.0:4949",
+"tcp://0.0.0.0:22",
+"tcp://0.0.0.0:33719",
+"tcp://127.0.0.1:5432",
+"tcp://127.0.0.1:5433",
+"tcp://0.0.0.0:40510",
+"tcp://0.0.0.0:8161",
+"tcp://0.0.0.0:10050",
+"tcp://0.0.0.0:1099",
+"tcp://0.0.0.0:61613",
+"tcp://0.0.0.0:61616",
+"tcp://0.0.0.0:61617",
+"tcp://:::22",
+"tcp://::1:5432",
+"tcp://::1:5433"
+    ):  
+        socket = host.socket(spec)
+        assert socket.is_listening
+
