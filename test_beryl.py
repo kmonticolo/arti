@@ -1,8 +1,15 @@
 # ubuntu 16.04 lts
 
 # userzy grep sh$ /etc/passwd
-# adam root mmursztyn postgres kamilm
-
+#
+#root:x:0:0:root:/root:/bin/bash
+#adam:x:1000:1000:Adam Bartoszuk,,,:/home/adam:/bin/bash
+#postgres:x:106:114:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+#speech-dispatcher:x:119:29:Speech Dispatcher,,,:/var/run/speech-dispatcher:/bin/sh
+#jboss:x:1004:1004:,,,:/home/jboss:/bin/bash
+#splunk:x:1005:1005:Splunk Server:/opt/splunk:/bin/bash
+#kamilm:x:1001:1001:Kamil M,,,:/home/kamilm:/bin/bash
+#
 
 #bind
 def test_bind_running(Process, Service, Socket, Command):
@@ -26,9 +33,9 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-    named = Process.get(comm="cron")
-    assert named.user == "root"
-    assert named.group == "root"
+    cron = Process.get(comm="cron")
+    assert cron.user == "root"
+    assert cron.group == "root"
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
@@ -56,6 +63,11 @@ def test_ufw_running(Process, Service, Socket, Command):
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
+    assert Socket("tcp://0.0.0.0:10050").is_listening
+
+def test_whoopsie_running(Process, Service, Socket, Command):
+    assert Service("whoopsie").is_enabled
+    assert Service("whoopsie").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
 def test_nginx_running(Process, Service, Socket, Command):
@@ -201,7 +213,7 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 
 
 # root@lynx:/home/kamilm# ls /var/spool/cron/crontabs/
-# jboxx
+# jboss
 # m h  dom mon dow   command
 #0 * * * * find /opt/ppos/doco/load/done/ -type f -mmin +60 -delete
 #2 * * * * find /opt/ppos/doco/load/err/ -type f -mmin +60 -delete
