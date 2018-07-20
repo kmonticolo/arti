@@ -43,6 +43,8 @@ def test_serv(host):
 "ufw",
 "unattended-upgrades",
 "user@1001",
+"wildfly-ntms",
+"wildfly-vtms",
     ):  
         service= host.service(spec)
         assert service.is_running

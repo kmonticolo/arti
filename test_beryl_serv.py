@@ -56,6 +56,8 @@ def test_serv(host):
 "ureadahead",
 "whoopsie",
 "zabbix-agent",
+"wildfly-ntms",
+"wildfly-vtms",
     ):  
         service= host.service(spec)
         assert service.is_enabled
