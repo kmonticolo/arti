@@ -175,13 +175,13 @@ def test_ufw(Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://0.0.0.0:111",
+#"tcp://0.0.0.0:111",
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
 "tcp://127.0.0.1:25",
 "tcp://0.0.0.0:10050",
-"tcp://:::111",
+#"tcp://:::111",
 "tcp://:::80",
 "tcp://:::1521",
 "tcp://:::22",
