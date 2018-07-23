@@ -80,7 +80,7 @@ def test_haproxy_running(Process, Service, Socket, Command):
     assert Service("haproxy").is_running
     assert Socket("tcp://0.0.0.0:9084").is_listening
     assert Socket("tcp://0.0.0.0:9085").is_listening
-    assert Socket("udp://0.0.0.0:37743").is_listening
+    #assert Socket("udp://0.0.0.0:37743").is_listening
 
 def test_haproxy_conf(host):
     conf = host.file("/etc/haproxy/haproxy.cfg")
@@ -162,7 +162,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:9085",
 "tcp://0.0.0.0:10050",
 "tcp://127.0.0.1:3306",
-"tcp://0.0.0.0:33297",
+#"tcp://0.0.0.0:33297",
 "tcp://0.0.0.0:22",
 "tcp://:::5432",
 "tcp://::1:5433",
@@ -170,7 +170,7 @@ def test_listening_socket(host):
 "tcp://:::443",
 #"tcp://127.0.0.1:8000",
 "tcp://:::9090",
-"tcp://:::36770",
+#"tcp://:::36770",
 "tcp://:::9095",
 #"tcp://127.0.0.1:9005",
 "tcp://:::80",
