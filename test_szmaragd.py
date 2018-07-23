@@ -71,8 +71,6 @@ def test_activemq_running(Process, Service, Socket, Command):
     amq = Process.get(comm="java")
     assert amq.user == "root"
     assert amq.group == "root"
-    assert Socket("tcp://0.0.0.0:33719").is_listening
-    assert Socket("tcp://0.0.0.0:40510").is_listening
     assert Socket("tcp://0.0.0.0:8161").is_listening
     assert Socket("tcp://0.0.0.0:1099").is_listening
     assert Socket("tcp://0.0.0.0:61613").is_listening
@@ -101,10 +99,8 @@ def test_listening_socket(host):
     for spec in (
 "tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
-"tcp://0.0.0.0:33719",
 "tcp://127.0.0.1:5432",
 "tcp://127.0.0.1:5433",
-"tcp://0.0.0.0:40510",
 "tcp://0.0.0.0:8161",
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:1099",
