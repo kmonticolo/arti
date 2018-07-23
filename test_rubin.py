@@ -63,9 +63,6 @@ def test_sonar_running(Process, Service, Socket, Command):
     assert Service("sonar").is_enabled
     assert Service("sonar").is_running
     assert Socket("tcp://127.0.0.1:32001").is_listening
-    assert Socket("tcp://:::46721").is_listening
-    assert Socket("tcp://:::37796").is_listening
-    assert Socket("tcp://:::33267").is_listening
     assert Socket("tcp://:::9000").is_listening
 
 def test_apache2_running(Process, Service, Socket, Command):
@@ -154,7 +151,6 @@ def test_apache2_conf(host):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://127.0.0.1:5433",
@@ -166,13 +162,8 @@ def test_listening_socket(host):
 "tcp://:::5432",
 "tcp://::1:5433",
 "tcp://:::443",
-"tcp://:::46721",
-"tcp://:::37796",
 "tcp://:::9000",
-#"tcp://127.0.0.1:9001",
 "tcp://:::80",
-#"tcp://127.0.0.1:37681",
-"tcp://:::33267"
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
