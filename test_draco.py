@@ -64,7 +64,9 @@ def test_nginx_running(Process, Service, Socket, Command):
     nginx = Process.filter(comm="nginx")
 
     assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
     assert Socket("tcp://:::80").is_listening
+    assert Socket("tcp://:::443").is_listening
 
 
 #fail2ban.service                           enabled 
