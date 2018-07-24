@@ -68,6 +68,14 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert Socket("tcp://:::80").is_listening
     assert Socket("tcp://:::443").is_listening
 
+def test_nginx_conf(host):
+    conf = host.file("/etc/nginx/sites-enabled/draco")
+    assert conf.user == "root"
+    assert conf.group == "root"
+    assert conf.contains("server_name draco.artifact.pl")
+    assert conf.contains("ssl_certificate_key /etc/nginx/ssl/artifact.key")
+    assert conf.contains("ssl_certificate.*/etc/nginx/ssl/artifact.pem")
+    assert conf.contains("proxy_pass http://localhost:9090/jenkins")
 
 #fail2ban.service                           enabled 
 def test_fail2ban_running(Process, Service, Socket, Command):
