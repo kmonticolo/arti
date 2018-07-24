@@ -25,6 +25,11 @@ def test_cron_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
+def test_jenkins_running(Process, Service, Socket, Command):
+    assert Service("jenkins").is_enabled
+    assert Service("jenkins").is_running
+    assert Socket("tcp://:::9090").is_listening
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
