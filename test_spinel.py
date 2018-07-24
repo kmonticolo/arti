@@ -18,6 +18,30 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
+def test_apache2_running(Process, Service, Socket, Command):
+    assert Service("apache2").is_enabled
+    assert Service("apache2").is_running
+    assert Socket("tcp://:::80").is_listening
+
+#000-default.conf  002-mirror-ssl.conf
+def test_apache2_conf000default(host):
+    conf = host.file("/etc/apache2/sites-enabled/000-default.conf")
+    assert conf.user == "root"
+    assert conf.group == "root"
+    assert conf.contains("ProxyPass       http://localhost:8080/lustro")
+
+def test_apache2_conf002mirror_ssl(host):
+    conf = host.file("/etc/apache2/sites-enabled/002-mirror-ssl.conf")
+    assert conf.user == "root"
+    assert conf.group == "root"
+    assert conf.contains("SSLEngine on")
+    assert conf.contains("VirtualHost mirror.artifact.pl:443")
+    assert conf.contains("ServerName mirror.artifact.pl")
+    assert conf.contains("ServerAlias.*mirror.artifact.pl")
+    assert conf.contains("DocumentRoot /var/www/mirror")
+    assert conf.contains("SSLCertificateFile.*/etc/apache2/ssl/artifact.pem")
+    assert conf.contains("SSLCertificateKeyFile.*/etc/apache2/ssl/artifact.key")
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
@@ -25,6 +49,9 @@ def test_cron_running(Process, Service, Socket, Command):
     cron = Process.get(comm="cron")
     assert cron.user == "root"
     assert cron.group == "root"
+
+def test_java_running(Process, Service, Socket, Command):
+    cron = Process.filter(comm="java")
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
@@ -77,6 +104,20 @@ def test_mysql_running(Process, Service, Socket, Command):
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
+
+# sms_gsmsservice
+    #wrapper = Process.get(comm="/opt/sms/bin/./wrapper")
+def test_gsm_wrapper(Process, Service, Socket, Command):
+    wrapper = Process.get(comm="wrapper")
+    assert wrapper.user == "jboss"
+    assert wrapper.group == "jboss"
+def test_gsm_wrapper_pid(host):
+    conf = host.file("/opt/sms/bin/./sms_gsmsservice.pid")
+    assert conf.user == "jboss"
+    assert conf.group == "jboss"
+    assert conf.mode == 0o664
+
+
 
 
 # systemctl list-unit-files | grep enabled
@@ -217,7 +258,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:81",
 "tcp://0.0.0.0:8787",
-"tcp://0.0.0.0:5012",
+"tcp://0.0.0.0:5012", # java sms
 "tcp://164.132.30.191:4949",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
@@ -225,7 +266,7 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:5433",
 "tcp://0.0.0.0:8443",
 "tcp://0.0.0.0:1883",
-"tcp://127.0.0.1:32000",
+"tcp://127.0.0.1:32000", # java sms
 "tcp://0.0.0.0:8161",
 "tcp://0.0.0.0:10050",
 "tcp://127.0.0.1:9990",
