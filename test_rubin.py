@@ -17,16 +17,16 @@ def test_cron_running(Process, Service, Socket, Command):
     assert cron.user == "root"
     assert cron.group == "root"
 
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-    munin= Process.get(comm="munin-node")
-    assert munin.user == "root"
-    assert munin.group == "root"
-
-    assert Socket("tcp://:::4949").is_listening
-
+#def test_munin_running(Process, Service, Socket, Command):
+#    assert Service("munin-node").is_enabled
+#    assert Service("munin-node").is_running
+#
+#    munin= Process.get(comm="munin-node")
+#    assert munin.user == "root"
+#    assert munin.group == "root"
+#
+#    assert Socket("tcp://:::4949").is_listening
+#
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
