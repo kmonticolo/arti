@@ -21,6 +21,10 @@ def test_gssproxy_running(Process, Service, Socket, Command):
     assert gssproxy.user == "root"
     assert gssproxy.group == "root"
 
+def test_crond_running(Process, Service, Socket, Command):
+    assert Service("crond").is_enabled
+    assert Service("crond").is_running
+
 def test_chronyd_running(Process, Service, Socket, Command):
     assert Service("chronyd").is_enabled
     assert Service("chronyd").is_running
