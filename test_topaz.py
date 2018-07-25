@@ -43,6 +43,36 @@ def test_mysql_running(Process, Service, Socket, Command):
     assert mysql.group == "root"
     assert Socket("tcp://127.0.0.1:3306").is_listening
 
+def test_apache2_running(Process, Service, Socket, Command):
+    assert Service("apache2").is_enabled
+    assert Service("apache2").is_running
+    assert Socket("tcp://:::80").is_listening
+
+def test_apache_validate(Command):
+    command = Command('sudo apache2ctl -t')
+    assert command.rc == 0
+
+#def test_apache2_conf000default(host):
+#    conf = host.file("/etc/apache2/sites-enabled/000-default.conf")
+#    assert conf.user == "root"
+#    assert conf.group == "root"
+#    assert conf.contains("ProxyPass       http://localhost:8080/lustro")
+#
+##000-default.conf           002-demo-ssl.conf          004-vtms-cluster-ssl.conf  006-vtms-node2-ssl.conf    008-confluence-ssl.conf    default-ssl.conf           
+##001-jira-ssl.conf          003-topaz-ssl.conf         005-vtms-node1-ssl.conf    007-fisheye-ssl.conf       009-pst-ssl.conf           
+#
+#def test_apache2_conf002mirror_ssl(host):
+#    conf = host.file("/etc/apache2/sites-enabled/002-mirror-ssl.conf")
+#    assert conf.user == "root"
+#    assert conf.group == "root"
+#    assert conf.contains("SSLEngine on")
+#    assert conf.contains("VirtualHost mirror.artifact.pl:443")
+#    assert conf.contains("ServerName mirror.artifact.pl")
+#    assert conf.contains("ServerAlias.*mirror.artifact.pl")
+#    assert conf.contains("DocumentRoot /var/www/mirror")
+#    assert conf.contains("SSLCertificateFile.*/etc/apache2/ssl/artifact.pem")
+#    assert conf.contains("SSLCertificateKeyFile.*/etc/apache2/ssl/artifact.key")
+#
 def test_fisheye_running(Process, Service, Socket, Command):
     assert Service("fisheye").is_enabled
     assert Service("fisheye").is_running
