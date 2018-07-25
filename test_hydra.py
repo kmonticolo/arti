@@ -14,6 +14,10 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
+def test_testlot_website(Command):
+    command = Command('curl -s https://testlot.novelpay.pl |grep "POS Lot"')
+    assert command.rc == 0
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
@@ -23,7 +27,13 @@ def test_cron_running(Process, Service, Socket, Command):
     assert cron.group == "root"
 
 def test_java_running(Process, Service, Socket, Command):
-    cron = Process.filter(comm="java")
+    java = Process.get(comm="java")
+    assert java.user == "jboss"
+    assert java.group == "jboss"
+    assert Socket("tcp://0.0.0.0:41616").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://127.0.0.1:9990").is_listening
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
