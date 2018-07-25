@@ -13,9 +13,9 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-    named = Process.get(comm="cron")
-    assert named.user == "root"
-    assert named.group == "root"
+    cron = Process.get(comm="cron")
+    assert cron.user == "root"
+    assert cron.group == "root"
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled

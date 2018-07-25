@@ -3,8 +3,9 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-    named = Process.get(comm="cron")
-    assert named.user == "root"
+    cron = Process.get(comm="cron")
+    assert cron.user == "root"
+    assert cron.group == "root"
 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled

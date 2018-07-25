@@ -3,36 +3,6 @@
 # userzy grep sh$ /etc/passwd
 # root adam dpiekarek oracle hklekowicz kamilm
 
-#def test_mongod_running(Process, Service, Socket, Command):
-#    assert Service("mongod").is_enabled
-#    assert Service("mongod").is_running
-#
-#    mongod = Process.get(comm="mongod")
-#    assert mongod.user == "mongodb"
-#    assert mongod.group == "mongodb"
-#
-#    assert Socket("tcp://127.0.0.1:27017").is_listening
-#
-#def test_bind_running(Process, Service, Socket, Command):
-#    assert Service("bind9").is_enabled
-#    assert Service("bind9").is_running
-#
-#    named = Process.get(comm="named")
-#    assert named.user == "bind"
-#    assert named.group == "bind"
-#
-#    assert Socket("tcp://127.0.0.1:53").is_listening
-#    assert Socket("tcp://167.114.54.62:53").is_listening
-#    assert Socket("tcp://127.0.0.1:953").is_listening
-#
-#def test_cron_running(Process, Service, Socket, Command):
-#    assert Service("cron").is_enabled
-#    assert Service("cron").is_running
-#
-#    named = Process.get(comm="cron")
-#    assert named.user == "root"
-#    assert named.group == "root"
-#
 def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
     assert Service("firewalld").is_running
@@ -67,20 +37,7 @@ def test_nginx_running(Process, Service, Socket, Command):
 
     assert Socket("tcp://0.0.0.0:80").is_listening
     assert Socket("tcp://:::80").is_listening
-#
-#def test_postgres_running(Process, Service, Socket, Command):
-#    assert Service("postgresql").is_enabled
-#    assert Service("postgresql").is_running
-#
-#    postgres = Process.filter(comm="postgres")
-#
-#    assert Socket("tcp://127.0.0.1:5432").is_listening
-#    assert Socket("tcp://::1:5432").is_listening
-#
-#def test_ufw_running(Process, Service, Socket, Command):
-#    assert Service("ufw").is_enabled
-#    assert Service("ufw").is_running
-#
+
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
@@ -97,18 +54,6 @@ def test_postfix_running(Process, Service, Socket, Command):
     postfix = Process.get(comm="master")
 
     assert Socket("tcp://127.0.0.1:25").is_listening
-#
-#def test_mysql_running(Process, Service, Socket, Command):
-#    assert Service("mysql").is_enabled
-#    assert Service("mysql").is_running
-#
-#    mysql = Process.get(comm="mysqld_safe")
-#    assert mysql.user == "root"
-#    assert mysql.group == "root"
-#
-#    assert Socket("tcp://0.0.0.0:3306").is_listening
-#
-#
 
 #
 ## systemctl list-unit-files | grep enabled
