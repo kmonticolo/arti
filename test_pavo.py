@@ -13,6 +13,16 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
+def test_mongod_running(Process, Service, Socket, Command):
+    assert Service("mongodb").is_enabled
+    assert Service("mongodb").is_running
+
+    mongod = Process.get(comm="mongod")
+    assert mongod.user == "mongodb"
+    assert mongod.group == "nogroup"
+
+    assert Socket("tcp://127.0.0.1:27017").is_listening
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
