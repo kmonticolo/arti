@@ -15,9 +15,15 @@ def test_ufw(Command):
 
 
 #cron
+def test_gssproxy_running(Process, Service, Socket, Command):
+    assert Service("gssproxy").is_running
+    gssproxy= Process.get(comm="munin-node")
+    assert gssproxy.user == "root"
+    assert gssproxy.group == "root"
+
 def test_chronyd_running(Process, Service, Socket, Command):
     assert Service("chronyd").is_enabled
-    assert Service("chornyd").is_running
+    assert Service("chronyd").is_running
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
