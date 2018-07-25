@@ -5,8 +5,7 @@
 #root:x:0:0:root:/root:/bin/bash
 #adam:x:1000:1000:adam,,,:/home/adam:/bin/bash
 #postgres:x:112:119:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
-#works:x:1001:1001:,,,:/home/works:/bin/bash
-#mmursztyn:x:1002:1002:,,,:/home/mmursztyn:/bin/bash
+# jboss
 #kamilm:x:1003:1003:Kamil M,,,:/home/kamilm:/bin/bash
 #
 #ufw
@@ -21,35 +20,7 @@ def test_cron_running(Process, Service, Socket, Command):
     cron = Process.get(comm="cron")
     assert cron.user == "root"
     assert cron.group == "root"
-#
-#def test_mongod_running(Process, Service, Socket, Command):
-#    assert Service("mongodb").is_enabled
-#    assert Service("mongodb").is_running
-#
-#    mongod = Process.get(comm="mongod")
-#    assert mongod.user == "mongodb"
-#    assert mongod.group == "nogroup"
-#    assert Socket("tcp://127.0.0.1:27017").is_listening
-#
-#def test_java_running(Process, Service, Socket, Command):
-#    java = Process.filter(comm="java")
-#    assert Socket("tcp://:::8080").is_listening
-#    assert Socket("tcp://:::8180").is_listening
-#
-###def test_haproxy_running(Process, Service, Socket, Command):
-#    assert Service("haproxy").is_enabled
-#    assert Service("haproxy").is_running
-#
-#def test_haproxy_conf(host):
-#    conf = host.file("/etc/haproxy/haproxy.cfg")
-#    assert conf.user == "root"
-#    assert conf.group == "root"
-#    assert conf.mode == 0o644
-#    assert conf.contains("stats socket /run/haproxy/admin.sock mode 660 level admin")
-#    assert conf.contains("ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS")
-#    assert conf.contains("server s1 127.0.0.1:81 maxconn 32 check inter 1000 fall 5")
-#    assert conf.contains("server s2 127.0.0.1:82 maxconn 32 check backup")
-#
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
@@ -58,6 +29,10 @@ def test_munin_running(Process, Service, Socket, Command):
     assert munin.user == "root"
     assert munin.group == "root"
     assert Socket("tcp://:::4949").is_listening
+
+def test_wildfly_running(Process, Service, Socket, Command):
+    assert Service("wildfly").is_enabled
+    assert Service("wildfly").is_running
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
