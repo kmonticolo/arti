@@ -23,6 +23,17 @@ def test_mongod_running(Process, Service, Socket, Command):
 
     assert Socket("tcp://127.0.0.1:27017").is_listening
 
+def test_nginx_running(Process, Service, Socket, Command):
+    assert Service("nginx").is_enabled
+    assert Service("nginx").is_running
+
+    nginx = Process.filter(comm="nginx")
+
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
+    assert Socket("tcp://167.114.54.59:443").is_listening
+    assert Socket("tcp://:::80").is_listening
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
