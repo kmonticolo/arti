@@ -34,6 +34,14 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert Service("wildfly").is_enabled
     assert Service("wildfly").is_running
 
+def test_java_running(Process, Service, Socket, Command):
+    java = Process.get(comm="java")
+    assert java.user == "jboss"
+    assert java.group == "jboss"
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://127.0.0.1:9990").is_listening
+
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
