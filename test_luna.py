@@ -4,19 +4,15 @@
 ##
 #root:x:0:0:root:/root:/bin/bash
 #adam:x:1000:1000:adam,,,:/home/adam:/bin/bash
-#jenkins:x:112:118:Jenkins,,,:/var/lib/jenkins:/bin/bash
-#postgres:x:114:122:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
-#kamilm:x:1001:1001:Kamil M,,,:/home/kamilm:/bin/bash
+#postgres:x:112:119:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
+#works:x:1001:1001:,,,:/home/works:/bin/bash
+#mmursztyn:x:1002:1002:,,,:/home/mmursztyn:/bin/bash
+#kamilm:x:1003:1003:Kamil M,,,:/home/kamilm:/bin/bash
 #
-
 #ufw
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
-
-#def test_testlot_website(Command):
-    #command = Command('curl -s https://testlot.novelpay.pl |grep "POS Lot"')
-    #assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
@@ -26,10 +22,14 @@ def test_cron_running(Process, Service, Socket, Command):
     assert cron.user == "root"
     assert cron.group == "root"
 
-#haproxy
-#mongodb
-# haproxy-systemd-wrapper
-# /usr/sbin/haproxy
+def test_mongod_running(Process, Service, Socket, Command):
+    assert Service("mongodb").is_enabled
+    assert Service("mongodb").is_running
+
+    mongod = Process.get(comm="mongod")
+    assert mongod.user == "mongodb"
+    assert mongod.group == "nogroup"
+    assert Socket("tcp://127.0.0.1:27017").is_listening
 
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(comm="java")
@@ -47,6 +47,8 @@ def test_haproxy_conf(host):
     assert conf.mode == 0o644
     assert conf.contains("stats socket /run/haproxy/admin.sock mode 660 level admin")
     assert conf.contains("ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS")
+    assert conf.contains("server s1 127.0.0.1:81 maxconn 32 check inter 1000 fall 5")
+    assert conf.contains("server s2 127.0.0.1:82 maxconn 32 check backup")
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
@@ -79,10 +81,6 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
-
-
-
-
 
 # systemctl list-unit-files | grep enabled
 #
