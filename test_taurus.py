@@ -41,6 +41,19 @@ def test_munin_running(Process, Service, Socket, Command):
     assert munin.group == "root"
     #assert Socket("tcp://:::4949").is_listening
 
+def test_nginx_running(Process, Service, Socket, Command):
+    assert Service("nginx").is_enabled
+    assert Service("nginx").is_running
+
+    nginx = Process.filter(comm="nginx")
+
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://:::80").is_listening
+
+def test_nginxvalidate(Command):
+    command = Command('sudo nginx -t')
+    assert command.rc == 0
+
 #def test_ufw_running(Process, Service, Socket, Command):
     #assert Service("ufw").is_enabled
     #assert Service("ufw").is_running
