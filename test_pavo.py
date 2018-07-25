@@ -67,10 +67,8 @@ def test_java_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:61613").is_listening
     assert Socket("tcp://0.0.0.0:61614").is_listening
     assert Socket("tcp://0.0.0.0:61616").is_listening
-    assert Socket("tcp://0.0.0.0:33400").is_listening
     assert Socket("tcp://0.0.0.0:1883").is_listening
     assert Socket("tcp://0.0.0.0:8161").is_listening
-    assert Socket("tcp://0.0.0.0:35074").is_listening
     assert Socket("tcp://0.0.0.0:5672").is_listening
     assert Socket("tcp://:::9090").is_listening
 
@@ -118,18 +116,14 @@ def test_listening_socket(host):
 "tcp://167.114.54.59:53",
 "tcp://127.0.0.1:53",
 "tcp://0.0.0.0:22",
-"tcp://0.0.0.0:33400",
 "tcp://0.0.0.0:25",
 "tcp://127.0.0.1:953",
 "tcp://0.0.0.0:1883",
 "tcp://0.0.0.0:443",
-"tcp://0.0.0.0:46108",
 "tcp://0.0.0.0:8161",
-"tcp://0.0.0.0:35074",
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:5672",
 "tcp://:::80",
-"tcp://:::39059",
 "tcp://:::4949",
 "tcp://:::53",
 "tcp://:::22",
