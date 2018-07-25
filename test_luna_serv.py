@@ -2,6 +2,7 @@
 
 def test_serv(host):
     for spec in (
+
 "accounts-daemon",
 "atd",
 "autovt@",
@@ -38,8 +39,7 @@ def test_serv(host):
 "ureadahead",
 "vgauth",
 "zabbix-agent",
+
     ):  
         service= host.service(spec)
         assert service.is_enabled
-
-
