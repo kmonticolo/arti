@@ -54,6 +54,23 @@ def test_nginxvalidate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
+def test_firewalld_running(Process, Service, Socket, Command):
+    assert Service("firewalld").is_enabled
+    assert Service("firewalld").is_running
+
+def test_ora11g_running(Process, Service, Socket, Command):
+    proc= Process.filter(comm="oracle")
+    assert Socket("tcp://:::26053").is_listening
+    assert Socket("tcp://167.114.54.60:1521").is_listening
+
+def test_oracle_running(Process, Service, Socket, Command):
+
+    proc= Process.get(comm="tnslsnr")
+    assert proc.user == "oracle"
+    assert proc.group == "oinstall"
+
+    assert Socket("tcp://:::1521").is_listening
+
 #def test_ufw_running(Process, Service, Socket, Command):
     #assert Service("ufw").is_enabled
     #assert Service("ufw").is_running
