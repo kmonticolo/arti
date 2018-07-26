@@ -14,6 +14,10 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
+def test_pg_isready_output(Command):
+    command = Command('/usr/bin/pg_isready')
+    assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
+    assert command.rc == 0
 
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled

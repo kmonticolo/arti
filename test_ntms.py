@@ -28,6 +28,11 @@ def test_postgres_running(Process, Service, Socket, Command):
 
     postgres = Process.filter(comm="postgres")
 
+def test_pg_isready_output(Command):
+    command = Command('/usr/bin/pg_isready')
+    assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
+    assert command.rc == 0
+
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0

@@ -68,6 +68,11 @@ def test_postgres_running(Process, Service, Socket, Command):
     assert Socket("tcp://127.0.0.1:5432").is_listening
     assert Socket("tcp://::1:5432").is_listening
 
+def test_pg_isready_output(Command):
+    command = Command('/usr/bin/pg_isready')
+    assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
+    assert command.rc == 0
+
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running

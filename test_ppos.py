@@ -16,7 +16,6 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
-
 # netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
 
 def test_listening_socket(host):
