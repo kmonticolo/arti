@@ -45,14 +45,17 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
 
-    nginx = Process.filter(comm="nginx")
+    nginxmaster = Process.get(user="root", ppid='1', comm="nginx")
+    assert nginxmaster.user == "root"
+    assert nginxmaster.group == "root"
 
+    nginxworker = Process.filter(ppid=nginxmaster.pid)
     assert Socket("tcp://0.0.0.0:80").is_listening
     assert Socket("tcp://:::80").is_listening
 
-def test_nginxvalidate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
+
 
 def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
