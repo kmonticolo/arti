@@ -39,7 +39,20 @@ def test_postgres_running(Process, Service, Socket, Command):
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
-    nginx = Process.filter(comm="nginx")
+
+    nginxmaster = Process.get(user="root", ppid='1', comm="nginx")
+    assert nginxmaster.user == "root"
+    assert nginxmaster.group == "root"
+
+    nginxworker = Process.get(ppid=nginxmaster.pid)
+    assert nginxworker.user == "www-data"
+    assert nginxworker.group == "www-data"
+    assert nginxworker.comm == "nginx"
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
+
+    command = Command('sudo nginx -t')
+    assert command.rc == 0
 
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
