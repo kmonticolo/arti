@@ -74,10 +74,17 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
 
-    nginx = Process.filter(comm="nginx")
+    nginxmaster = Process.get(user="root", ppid='1', comm="nginx")
+    assert nginxmaster.user == "root"
+    assert nginxmaster.group == "root"
 
+    nginxworker = Process.filter(comm="nginx", ppid=nginxmaster.pid)
     assert Socket("tcp://0.0.0.0:80").is_listening
     assert Socket("tcp://:::80").is_listening
+
+    command = Command('sudo nginx -t')
+    assert command.rc == 0
+
 
 def test_mysql_running(Process, Service, Socket, Command):
     assert Service("mysql").is_enabled
