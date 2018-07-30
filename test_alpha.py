@@ -11,6 +11,23 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
+def test_jboss_running(Process, Service, Socket, Command):
+
+    jbossstandalone = Process.get(user="jboss", ppid='1', comm="standalone.sh")
+    assert jbossstandalone.user == "jboss"
+    assert jbossstandalone.group == "jboss"
+
+    jboss = Process.get(ppid=jbossstandalone.pid)
+    assert jboss.user == "jboss"
+    assert jboss.group == "jboss"
+    assert jboss.comm == "java"
+    assert Socket("tcp://127.0.0.1:9990").is_listening
+    assert Socket("tcp://127.0.0.1:9999").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+    assert Socket("tcp://0.0.0.0:8787").is_listening
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://0.0.0.0:4447").is_listening
+
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
@@ -50,8 +67,6 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
-
-
 
 
 # netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
