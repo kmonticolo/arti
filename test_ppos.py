@@ -1,7 +1,7 @@
 
 # cron /var/spool/cron/jboss istnieje
 
-# dodac firewall!
+# dodac firewall! i fail2ban
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
@@ -15,6 +15,10 @@ def test_java_running(Process, Service, Socket, Command):
     assert Socket("tcp://127.0.0.1:9990").is_listening
     assert Socket("tcp://127.0.0.1:9999").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
+
+def test_jboss_running(Process, Service, Socket, Command):
+    assert Service("jboss").is_enabled
+    assert Service("jboss").is_running
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
