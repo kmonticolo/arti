@@ -55,6 +55,20 @@ def test_apache2_conf(host):
     assert conf.contains("ProxyPassReverse.*/napi.*http://localhost:8443/napi")
     assert conf.contains("ProxyPass.*/PPOS.*https://localhost:8443/PPOS")
 
+def test_ppos_conf(host):
+    conf = host.file("/etc/httpd/conf.d/ppos.conf")
+    assert conf.user == "root"
+    assert conf.group == "root"
+    assert conf.contains("VirtualHost _default_:443")
+    assert conf.contains("ProxyPassReverse.*/ http://localhost:8080/PPOS/")
+    assert conf.contains("ProxyPass.*/ http://localhost:8080/PPOS/ retry=1")
+    assert conf.contains("SSLEngine.*on")
+    assert conf.contains("SSLProxyEngine.*on")
+    assert conf.contains("SSLCertificateFile.*/etc/httpd/ssl/novelpay.pl.pem")
+    assert conf.contains("SSLCertificateKeyFile.*/etc/httpd/ssl/novelpay.pl.key")
+    assert conf.contains("ServerName ppos.novelpay.pl")
+
+
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql-9.4").is_enabled
     assert Service("postgresql-9.4").is_running
