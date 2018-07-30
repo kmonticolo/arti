@@ -15,8 +15,6 @@ def test_serv(host):
 "cron",
 "dbus",
 "fail2ban",
-"getty@tty1",
-"getty@tty2",
 "grub-common",
 "ifup@eth0",
 "irqbalance",
