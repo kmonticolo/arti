@@ -31,6 +31,12 @@ def test_ppos_cert_file(host):
     assert file.group == "jboss"
     assert file.mode == 0o664
 
+def test_ppos_key_file(host):
+    file = host.file("/etc/httpd/ssl/ppos.key")
+    assert file.user == "jboss"
+    assert file.group == "jboss"
+    assert file.mode == 0o664
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
