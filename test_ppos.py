@@ -4,12 +4,22 @@ def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_running
 
 def test_java_running(Process, Service, Socket, Command):
-    cron = Process.filter(comm="java")
+    java = Process.get(comm="java")
+    assert java.user == "jboss"
+    assert java.group == "jboss"
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
 
+def test_postgres_running(Process, Service, Socket, Command):
+    assert Service("postgresql-9.4").is_enabled
+    assert Service("postgresql-9.4").is_running
+
+    postgres = Process.filter(comm="postgres")
+
+    assert Socket("tcp://0.0.0.0:5432").is_listening
+    assert Socket("tcp://::1:5432").is_listening
 
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
