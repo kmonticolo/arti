@@ -1,4 +1,7 @@
 
+# cron /var/spool/cron/jboss istnieje
+
+# dodac firewall!
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
@@ -16,6 +19,20 @@ def test_java_running(Process, Service, Socket, Command):
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
+
+def test_httpd_running(Process, Service, Socket, Command):
+    assert Service("httpd").is_enabled
+    assert Service("httpd").is_running
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
+
+def test_apache2_conf(host):
+    conf = host.file("/etc/httpd/sites-enabled/ppos.conf")
+    assert conf.user == "root"
+    assert conf.group == "root"
+    assert conf.contains("VirtualHost \*:80")
+    assert conf.contains("ProxyPassReverse.*/napi.*http://localhost:8443/napi")
+    assert conf.contains("ProxyPass.*/PPOS.*https://localhost:8443/PPOS")
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql-9.4").is_enabled
