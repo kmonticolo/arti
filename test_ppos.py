@@ -17,8 +17,12 @@ def test_java_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8080").is_listening
 
 def test_jboss_running(Process, Service, Socket, Command):
-    assert Service("jboss").is_enabled
+    #assert Service("jboss").is_enabled
     assert Service("jboss").is_running
+
+def test_firewalld_running(Process, Service, Socket, Command):
+    assert Service("firewalld").is_enabled
+    assert Service("firewalld").is_running
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
