@@ -7,6 +7,11 @@ def test_java_running(Process, Service, Socket, Command):
     java = Process.get(comm="java")
     assert java.user == "jboss"
     assert java.group == "jboss"
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://0.0.0.0:4447").is_listening
+    assert Socket("tcp://127.0.0.1:9990").is_listening
+    assert Socket("tcp://127.0.0.1:9999").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
