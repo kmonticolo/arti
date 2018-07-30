@@ -23,6 +23,13 @@ def test_jboss_running(Process, Service, Socket, Command):
 def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
     assert Service("firewalld").is_running
+# /usr/bin/firewall-cmd --state
+# /etc/httpd/ssl/ppos.crt
+def test_ppos_cert_file(host):
+    file = host.file("/etc/httpd/ssl/ppos.crt")
+    assert file.user == "jboss"
+    assert file.group == "jboss"
+    assert file.mode == 0o664
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
