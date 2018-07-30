@@ -1,13 +1,19 @@
+#centos
+def test_oracle_running(Process, Service, Socket, Command):
+    assert Service("oracle-xe").is_enabled
+    assert Service("oracle-xe").is_running
+
+def test_rsyslogd_running(Process, Service, Socket, Command):
+    assert Service("rsyslog").is_enabled
+    assert Service("rsyslog").is_running
 
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
 
-
 def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
     assert Service("firewalld").is_running
-
 
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
