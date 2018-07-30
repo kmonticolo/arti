@@ -67,7 +67,7 @@ def test_ppos_conf(host):
     assert conf.contains("SSLCertificateFile.*/etc/httpd/ssl/novelpay.pl.pem")
     assert conf.contains("SSLCertificateKeyFile.*/etc/httpd/ssl/novelpay.pl.key")
     assert conf.contains("ServerName ppos.novelpay.pl")
-
+    assert conf.contains("DocumentRoot /var/www/ppos/")
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql-9.4").is_enabled
