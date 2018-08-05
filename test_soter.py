@@ -37,6 +37,12 @@ def test_lua_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:5224").is_listening 
     assert Socket("tcp://0.0.0.0:5000").is_listening
 
+def test_lmgrd_running(Process, Service, Socket, Command):
+    lmgrd = Process.get(comm="lmgrd")
+    assert lmgrd.user == "flexlm"
+    assert lmgrd.group == "flexlm"
+    assert Socket("tcp://0.0.0.0:8224").is_listening
+
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
