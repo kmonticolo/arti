@@ -73,6 +73,10 @@ def test_confluence_running(Process, Service, Socket, Command):
     #assert Socket("tcp://:::8087").is_listening
     #assert Socket("tcp://127.0.0.1:8000").is_listening
 
+def test_exim_running(Process, Service, Socket, Command):
+    assert Service("exim4").is_enabled
+    assert Service("exim4").is_running
+    assert Socket("tcp://127.0.0.1:25").is_listening
 
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
