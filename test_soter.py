@@ -80,6 +80,27 @@ def test_exim_running(Process, Service, Socket, Command):
     assert Service("exim4").is_running
     assert Socket("tcp://127.0.0.1:25").is_listening
 
+def test_apache2_running(Process, Service, Socket, Command):
+    assert Service("apache2").is_enabled
+    assert Service("apache2").is_running
+    assert Socket("tcp://:::80").is_listening
+    assert Socket("tcp://:::443").is_listening
+    assert Socket("tcp://:::8061").is_listening
+    assert Socket("tcp://:::8005").is_listening
+    assert Socket("tcp://:::8070").is_listening
+    assert Socket("tcp://:::9000").is_listening
+
+def test_jenkins_running(Process, Service, Socket, Command):
+    assert Service("jenkins").is_enabled
+    assert Service("jenkins").is_running
+    assert Socket("tcp://0.0.0.0:8081").is_listening
+
+def test_ejabberd_running(Process, Service, Socket, Command):
+    #assert Service("jabberd").is_enabled
+    #assert Service("jabberd").is_running
+    assert Socket("tcp://0.0.0.0:4369").is_listening
+
+
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
