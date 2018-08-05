@@ -23,8 +23,7 @@ def test_jboss_running(Process, Service, Socket, Command):
 def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
     assert Service("firewalld").is_running
-# /usr/bin/firewall-cmd --state
-# /etc/httpd/ssl/ppos.crt
+
 def test_ppos_cert_file(host):
     file = host.file("/etc/httpd/ssl/ppos.crt")
     assert file.user == "jboss"
@@ -105,5 +104,4 @@ def test_listening_socket(host):
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
-
 
