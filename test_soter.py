@@ -32,6 +32,10 @@ def test_lua_running(Process, Service, Socket, Command):
     lua = Process.get(comm="lua5.1")
     assert lua.user == "prosody"
     assert lua.group == "prosody"
+    assert Socket("tcp://0.0.0.0:5322").is_listening
+    assert Socket("tcp://0.0.0.0:5223").is_listening
+    assert Socket("tcp://0.0.0.0:5224").is_listening 
+    assert Socket("tcp://0.0.0.0:5000").is_listening
 
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
