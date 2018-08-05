@@ -28,7 +28,9 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_running
 
 
-def test_lua_running(Process, Service, Socket, Command):
+def test_prosody_running(Process, Service, Socket, Command):
+    assert Service("prosody").is_enabled
+    assert Service("prosody").is_running
     lua = Process.get(comm="lua5.1")
     assert lua.user == "prosody"
     assert lua.group == "prosody"
