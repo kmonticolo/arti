@@ -43,6 +43,12 @@ def test_lmgrd_running(Process, Service, Socket, Command):
     assert lmgrd.group == "flexlm"
     assert Socket("tcp://0.0.0.0:8224").is_listening
 
+def test_armlmd_running(Process, Service, Socket, Command):
+    armlmd = Process.get(comm="lmgrd")
+    assert armlmd.user == "flexlm"
+    assert armlmd.group == "flexlm"
+    assert Socket("tcp://0.0.0.0:27010").is_listening
+
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
