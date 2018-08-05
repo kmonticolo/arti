@@ -4,6 +4,17 @@ def test_apache2_running(Process, Service, Socket, Command):
     assert Socket("tcp://:::80").is_listening
     assert Socket("tcp://:::443").is_listening
 
+
+def test_mysql_running(Process, Service, Socket, Command):
+    assert Service("mysql").is_enabled
+    assert Service("mysql").is_running
+
+    mysql = Process.get(comm="mysqld")
+    assert mysql.user == "mysql"
+    assert mysql.group == "mysql"
+
+    assert Socket("tcp://127.0.0.1:3306").is_listening
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
@@ -78,5 +89,3 @@ def test_listening_socket(host):
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
-
-
