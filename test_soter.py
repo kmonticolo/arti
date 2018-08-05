@@ -49,6 +49,12 @@ def test_armlmd_running(Process, Service, Socket, Command):
     assert armlmd.group == "flexlm"
     assert Socket("tcp://0.0.0.0:27010").is_listening
 
+def test_slapd_running(Process, Service, Socket, Command):
+    slapd= Process.get(comm="slapd")
+    assert slapd.user == "openldap"
+    assert slapd.group == "openldap"
+    assert Socket("tcp://0.0.0.0:389").is_listening
+
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
