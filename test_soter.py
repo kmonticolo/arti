@@ -55,8 +55,24 @@ def test_slapd_running(Process, Service, Socket, Command):
     assert slapd.group == "openldap"
     assert Socket("tcp://0.0.0.0:389").is_listening
 
-def test_java_running(Process, Service, Socket, Command):
-    cron = Process.filter(comm="java")
+
+def test_jira_running(Process, Service, Socket, Command):
+    assert Service("jira").is_enabled
+    assert Service("jira").is_running
+    jira = Process.get(user="jira1", comm="java")
+    assert jira.user == "jira1"
+    assert jira.group == "jira1"
+    assert Socket("tcp://:::8080").is_listening
+
+def test_confluence_running(Process, Service, Socket, Command):
+    assert Service("confluence").is_enabled
+    assert Service("confluence").is_running
+    #conflu = Process.get(user="confluence", comm="java")
+    #assert conflu.user == "confluence"
+    #assert conflu.group == "confluence"
+    #assert Socket("tcp://:::8087").is_listening
+    #assert Socket("tcp://127.0.0.1:8000").is_listening
+
 
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
