@@ -28,6 +28,11 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_running
 
 
+def test_lua_running(Process, Service, Socket, Command):
+    lua = Process.get(comm="lua5.1")
+    assert lua.user == "prosody"
+    assert lua.group == "prosody"
+
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
