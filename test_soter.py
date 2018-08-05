@@ -51,6 +51,9 @@ def test_armlmd_running(Process, Service, Socket, Command):
     assert armlmd.group == "flexlm"
     assert Socket("tcp://0.0.0.0:27010").is_listening
 
+def test_pinpadlogserver_running(Process, Service, Socket, Command):
+    assert Socket("tcp://:::61234").is_listening
+
 def test_slapd_running(Process, Service, Socket, Command):
     slapd= Process.get(comm="slapd")
     assert slapd.user == "openldap"
