@@ -14,6 +14,11 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/ufw/user.rules')
+    assert command.stdout.rstrip() == '59c1167cb892a8eecfe1ddd646e37ef9  /etc/ufw/user.rules'
+    assert command.rc == 0
+
 def test_testlot_website(Command):
     command = Command('curl -s https://testlot.novelpay.pl |grep "POS Lot"')
     assert command.rc == 0
