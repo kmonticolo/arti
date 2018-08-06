@@ -13,6 +13,10 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/iptables-save')
+    assert command.stdout.rstrip() == '9df0f21749cd1fae03e9bef0b8182867  /etc/iptables-save'
+    assert command.rc == 0
 
 def test_gssproxy_running(Process, Service, Socket, Command):
     assert Service("gssproxy").is_running
