@@ -29,6 +29,11 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/ufw/user.rules')
+    assert command.stdout.rstrip() == '50086536504b2ff04835a10e44cd48c9  /etc/ufw/user.rules'
+    assert command.rc == 0
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
