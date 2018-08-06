@@ -37,6 +37,29 @@ def test_cron_running(Process, Service, Socket, Command):
     assert cron.user == "root"
     assert cron.group == "root"
 
+def test_wildfly_ntms_running(Process, Service, Socket, Command):
+    assert Service("wildfly-ntms").is_enabled
+    assert Service("wildfly-ntms").is_running
+    assert Socket("tcp://164.132.30.190:4747").is_listening
+    assert Socket("tcp://0.0.0.0:5010").is_listening
+    assert Socket("tcp://127.0.0.1:32001").is_listening
+    assert Socket("tcp://0.0.0.0:5011").is_listening
+    assert Socket("tcp://127.0.0.1:32002").is_listening
+    assert Socket("tcp://164.132.30.190:18181").is_listening
+    assert Socket("tcp://127.0.0.1:10000").is_listening
+    assert Socket("tcp://0.0.0.0:8090").is_listening
+    assert Socket("tcp://0.0.0.0:8453").is_listening
+    assert Socket("tcp://0.0.0.0:9797").is_listening
+
+def test_wildfly_vtms_running(Process, Service, Socket, Command):
+    assert Service("wildfly-vtms").is_enabled
+    assert Service("wildfly-vtms").is_running
+    assert Socket("tcp://0.0.0.0:41616").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+    assert Socket("tcp://0.0.0.0:8787").is_listening
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://127.0.0.1:9990").is_listening
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
