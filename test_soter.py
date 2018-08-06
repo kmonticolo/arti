@@ -1,3 +1,17 @@
+def test_ufw(Command):
+    command = Command('sudo ufw status | grep -qw active')
+    assert command.rc == 0
+
+def test_ufw_running(Process, Service, Socket, Command):
+    assert Service("ufw").is_enabled
+    assert Service("ufw").is_running
+
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/ufw/user.rules')
+    assert command.stdout.rstrip() == '8f5d4b08be09e319a480d26ed3703d82  /etc/ufw/user.rules'
+    assert command.rc == 0
+
+
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
@@ -103,14 +117,6 @@ def test_ejabberd_running(Process, Service, Socket, Command):
     #assert Service("jabberd").is_running
     assert Socket("tcp://0.0.0.0:4369").is_listening
 
-
-def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
-    assert command.rc == 0
-
-def test_ufw_running(Process, Service, Socket, Command):
-    assert Service("ufw").is_enabled
-    assert Service("ufw").is_running
 
 
 def test_zabbix_agent_running(Process, Service, Socket, Command):
