@@ -1,3 +1,11 @@
+def test_firewalld_running(Process, Service, Socket, Command):
+    assert Service("firewalld").is_enabled
+    assert Service("firewalld").is_running
+
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
+    assert command.stdout.rstrip() == '616d56b2cd4eb85a77423bc0ff35da4c  /etc/firewalld/zones/public.xml'
+    assert command.rc == 0
 
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
@@ -6,12 +14,6 @@ def test_crond_running(Process, Service, Socket, Command):
 def test_chronyd_running(Process, Service, Socket, Command):
     assert Service("chronyd").is_enabled
     assert Service("chronyd").is_running
-
-
-def test_firewalld_running(Process, Service, Socket, Command):
-    assert Service("firewalld").is_enabled
-    assert Service("firewalld").is_running
-
 
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
