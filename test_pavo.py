@@ -13,6 +13,11 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/ufw/user.rules')
+    assert command.stdout.rstrip() == 'adb25e57e9f83547e77a59a9404db4d0  /etc/ufw/user.rules'
+    assert command.rc == 0
+
 def test_mongod_running(Process, Service, Socket, Command):
     assert Service("mongodb").is_enabled
     assert Service("mongodb").is_running

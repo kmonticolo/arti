@@ -3,6 +3,15 @@
 # userzy grep sh$ /etc/passwd
 # root adam jboss op porgres kamilm
 
+def test_ufw_running(Process, Service, Socket, Command):
+    assert Service("ufw").is_enabled
+    assert Service("ufw").is_running
+
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/ufw/user.rules')
+    assert command.stdout.rstrip() == 'e3be437c35c58d7a17de7e89f953105f  /etc/ufw/user.rules'
+    assert command.rc == 0
+
 def test_mongod_running(Process, Service, Socket, Command):
     assert Service("mongod").is_enabled
     assert Service("mongod").is_running
@@ -70,10 +79,6 @@ def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
     assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
     assert command.rc == 0
-
-def test_ufw_running(Process, Service, Socket, Command):
-    assert Service("ufw").is_enabled
-    assert Service("ufw").is_running
 
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
