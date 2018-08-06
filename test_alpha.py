@@ -23,8 +23,8 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
+# su - jboss; cd ~/jboss-eap-6.4$ ./bin/start_tms.sh
 def test_jboss_running(Process, Service, Socket, Command):
-
     jbossstandalone = Process.get(user="jboss", ppid='1', comm="standalone.sh")
     assert jbossstandalone.user == "jboss"
     assert jbossstandalone.group == "jboss"

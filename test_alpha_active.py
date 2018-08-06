@@ -18,8 +18,6 @@ def test_serv(host):
 "dbus",
 "ebtables",
 "fail2ban",
-"getty@tty1",
-"getty@tty2",
 "grub-common",
 "iscsid",
 "keyboard-setup",
