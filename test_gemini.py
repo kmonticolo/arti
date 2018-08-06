@@ -7,6 +7,11 @@ def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
     assert Service("firewalld").is_running
 
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/iptables-save')
+    assert command.stdout.rstrip() == '612878c34e58183b2efc4935c444a9bc  /etc/iptables-save'
+    assert command.rc == 0
+
 def test_ora11g_running(Process, Service, Socket, Command):
     proc= Process.filter(comm="oracle")
     assert Socket("tcp://:::32098").is_listening
