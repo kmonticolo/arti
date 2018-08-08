@@ -4,6 +4,10 @@ def test_apache2_running(Process, Service, Socket, Command):
     assert Socket("tcp://:::80").is_listening
     assert Socket("tcp://:::443").is_listening
 
+def test_apache_validate(Command):
+    command = Command('sudo apache2ctl -t')
+    assert command.rc == 0
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running

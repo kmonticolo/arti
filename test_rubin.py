@@ -81,6 +81,10 @@ def test_apache2_running(Process, Service, Socket, Command):
     assert Socket("tcp://:::80").is_listening
     assert Socket("tcp://:::443").is_listening
 
+def test_apache_validate(Command):
+    command = Command('sudo apache2ctl -t')
+    assert command.rc == 0
+
 def test_apache2_conf(host):
     conf = host.file("/etc/apache2/sites-enabled/default-ssl.conf")
     assert conf.user == "root"

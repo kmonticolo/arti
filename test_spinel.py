@@ -28,6 +28,10 @@ def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_running
     assert Socket("tcp://:::80").is_listening
 
+def test_apache_validate(Command):
+    command = Command('sudo apache2ctl -t')
+    assert command.rc == 0
+
 #000-default.conf  002-mirror-ssl.conf
 def test_apache2_conf000default(host):
     conf = host.file("/etc/apache2/sites-enabled/000-default.conf")
