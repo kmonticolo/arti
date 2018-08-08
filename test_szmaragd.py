@@ -67,6 +67,10 @@ def test_haproxy_running(Process, Service, Socket, Command):
     assert Service("haproxy").is_enabled
     assert Service("haproxy").is_running
 
+def test_haproxy_config_test(Command):
+    command = Command('sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg')
+    assert command.rc == 0
+
 def test_haproxy_conf(host):
     conf = host.file("/etc/haproxy/haproxy.cfg")
     assert conf.user == "root"

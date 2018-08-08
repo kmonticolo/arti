@@ -122,6 +122,10 @@ def test_haproxy_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:9085").is_listening
     #assert Socket("udp://0.0.0.0:37743").is_listening
 
+def test_haproxy_config_test(Command):
+    command = Command('sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg')
+    assert command.rc == 0
+
 def test_haproxy_conf(host):
     conf = host.file("/etc/haproxy/haproxy.cfg")
     assert conf.user == "root"
