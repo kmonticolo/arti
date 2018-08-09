@@ -67,7 +67,7 @@ def test_firewalld_running(Process, Service, Socket, Command):
 
 def test_ora11g_running(Process, Service, Socket, Command):
     proc= Process.filter(comm="oracle")
-    assert Socket("tcp://:::26053").is_listening
+    #assert Socket("tcp://:::26053").is_listening
     assert Socket("tcp://167.114.54.60:1521").is_listening
 
 def test_oracle_running(Process, Service, Socket, Command):
@@ -110,7 +110,16 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
+"tcp://0.0.0.0:10050",
+"tcp://0.0.0.0:80",
+"tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
+"tcp://127.0.0.1:25",
+"tcp://:::25381",
+"tcp://:::80",
+"tcp://:::1521",
+"tcp://:::22",
+"tcp://::1:25",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
