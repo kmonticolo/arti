@@ -1,4 +1,14 @@
 #centos
+def test_firewalld_running(Process, Service, Socket, Command):
+    assert Service("firewalld").is_enabled
+    assert Service("firewalld").is_running
+
+# disabled requiretty in sudoers
+def test_firewalld_unchanged(Command):
+    command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
+    assert command.stdout.rstrip() == '27066023b1b5b60bd5345b421d73125f  /etc/firewalld/zones/public.xml'
+    assert command.rc == 0
+
 def test_oracle_running(Process, Service, Socket, Command):
     assert Service("oracle-xe").is_enabled
     assert Service("oracle-xe").is_running
@@ -29,10 +39,6 @@ def test_rsyslogd_running(Process, Service, Socket, Command):
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
-
-def test_firewalld_running(Process, Service, Socket, Command):
-    assert Service("firewalld").is_enabled
-    assert Service("firewalld").is_running
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
