@@ -159,7 +159,7 @@ def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
 "tcp://127.0.0.1:3306",
-"tcp://164.132.30.191:61613",
+#"tcp://164.132.30.191:61613",
 "tcp://0.0.0.0:61614",
 "tcp://0.0.0.0:8080",
 "tcp://0.0.0.0:61616",
