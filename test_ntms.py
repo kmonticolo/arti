@@ -1,3 +1,22 @@
+def test_ufw(Command):
+    command = Command('sudo ufw status | grep -qw active')
+    assert command.rc == 0
+
+def test_ufw_running(Process, Service, Socket, Command):
+    assert Service("ufw").is_enabled
+    assert Service("ufw").is_running
+
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/iptables/rules.v4')
+    assert command.stdout.rstrip() == '9fe2577f342bb1d39e7bb75cee8a4391  /etc/iptables/rules.v4'
+    assert command.rc == 0
+    command = Command('sudo md5sum /etc/ufw/before.init')
+    assert command.stdout.rstrip() == 'cd7783526a1a2b25581cecd3c2daa1a4  /etc/ufw/before.init'
+    assert command.rc == 0
+    command = Command('sudo md5sum /etc/ufw/before.rules')
+    assert command.stdout.rstrip() == 'ba34f926d08b14b2ba22aadc5d077a5b  /etc/ufw/before.rules'
+    assert command.rc == 0
+
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
@@ -36,14 +55,6 @@ def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
     assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
     assert command.rc == 0
-
-def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
-    assert command.rc == 0
-
-def test_ufw_running(Process, Service, Socket, Command):
-    assert Service("ufw").is_enabled
-    assert Service("ufw").is_running
 
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
