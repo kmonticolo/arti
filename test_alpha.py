@@ -43,6 +43,14 @@ def test_jboss_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
+def test_postgres_running(Process, Service, Socket, Command):
+    assert Service("postgresql").is_enabled
+    assert Service("postgresql").is_running
+
+    postgres = Process.filter(comm="postgres")
+
+    assert Socket("tcp://0.0.0.0:5432").is_listening
+
 def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
     assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
@@ -72,16 +80,3 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
-
-# netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
-#
-#
-#def test_listening_socket(host):
-#    listening = host.socket.get_listening_sockets()
-#    for spec in (
-#"tcp://0.0.0.0:22",
-#    ):  
-#        socket = host.socket(spec)
-#        assert socket.is_listening
-#
-#
