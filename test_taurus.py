@@ -9,9 +9,10 @@
 #kamilm:x:1003:1003:Kamil M,,,:/home/kamilm:/bin/bash
 #
 #ufw
-def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
-    assert command.rc == 0
+# disable when firewalld is in use
+#def test_ufw(Command):
+#    command = Command('sudo ufw status | grep -qw active')
+#    assert command.rc == 0
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables-save')
