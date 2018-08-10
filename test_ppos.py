@@ -1,7 +1,19 @@
 
 # cron /var/spool/cron/jboss istnieje
 
-# dodac firewall! i fail2ban
+def test_firewalld_running(Process, Service, Socket, Command):
+    assert Service("firewalld").is_enabled
+    assert Service("firewalld").is_running
+
+def test_firewalld_unchanged(Command):
+    command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
+    assert command.stdout.rstrip() == 'e15dbb4c81944741255bd17bc20fcce4  /etc/firewalld/zones/public.xml'
+    assert command.rc == 0
+
+def test_fail2ban_running(Process, Service, Socket, Command):
+    assert Service("fail2ban").is_enabled
+    assert Service("fail2ban").is_running
+
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
@@ -19,10 +31,6 @@ def test_java_running(Process, Service, Socket, Command):
 def test_jboss_running(Process, Service, Socket, Command):
     #assert Service("jboss").is_enabled
     assert Service("jboss").is_running
-
-def test_firewalld_running(Process, Service, Socket, Command):
-    assert Service("firewalld").is_enabled
-    assert Service("firewalld").is_running
 
 def test_ppos_cert_file(host):
     file = host.file("/etc/httpd/ssl/ppos.crt")
