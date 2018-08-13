@@ -40,9 +40,6 @@ def test_jboss_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8443").is_listening
     assert Socket("tcp://0.0.0.0:4447").is_listening
 
-def test_java_running(Process, Service, Socket, Command):
-    cron = Process.filter(comm="java")
-
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
