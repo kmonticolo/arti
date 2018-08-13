@@ -25,7 +25,6 @@ def test_mongod_running(Process, Service, Socket, Command):
     mongod = Process.get(comm="mongod")
     assert mongod.user == "mongodb"
     assert mongod.group == "nogroup"
-
     assert Socket("tcp://127.0.0.1:27017").is_listening
 
 def test_nginx_running(Process, Service, Socket, Command):
@@ -45,6 +44,23 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:443").is_listening
     assert Socket("tcp://167.114.54.59:443").is_listening
     assert Socket("tcp://:::80").is_listening
+
+def test_activemq_running(Process, Service, Socket, Command):
+    assert Service("activemq").is_enabled
+    assert Service("activemq").is_running
+    #amq = Process.get(comm="java")
+    #assert amq.user == "root"
+    #assert amq.group == "root"
+    assert Socket("tcp://0.0.0.0:1100").is_listening
+    assert Socket("tcp://0.0.0.0:61613").is_listening
+    assert Socket("tcp://0.0.0.0:61614").is_listening
+    assert Socket("tcp://0.0.0.0:43983").is_listening
+    assert Socket("tcp://0.0.0.0:61616").is_listening
+    assert Socket("tcp://0.0.0.0:1883").is_listening
+    assert Socket("tcp://0.0.0.0:46655").is_listening
+    assert Socket("tcp://0.0.0.0:8161").is_listening
+    assert Socket("tcp://0.0.0.0:5672").is_listening
+
 
 def test_jenkins_running(Process, Service, Socket, Command):
     assert Service("jenkins").is_enabled
