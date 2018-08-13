@@ -7,6 +7,18 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '616d56b2cd4eb85a77423bc0ff35da4c  /etc/firewalld/zones/public.xml'
     assert command.rc == 0
 
+def test_oracle_running(Process, Service, Socket, Command):
+    assert Service("oracle-xe").is_enabled
+    assert Service("oracle-xe").is_running
+    assert Socket("tcp://46.105.232.0:1521").is_listening
+
+def test_tnslsnr_running(Process, Service, Socket, Command):
+    proc= Process.get(comm="tnslsnr")
+    assert proc.user == "oracle"
+    assert proc.group == "dba"
+    assert Socket("tcp://:::1521").is_listening
+    assert Socket("tcp://46.105.232.0:1521").is_listening
+
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
