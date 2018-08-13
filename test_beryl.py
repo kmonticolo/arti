@@ -63,7 +63,7 @@ def test_wildfly_vtms_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8080").is_listening
     assert Socket("tcp://0.0.0.0:8787").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
-    assert Socket("tcp://127.0.0.1:9990").is_listening
+    #assert Socket("tcp://127.0.0.1:9990").is_listening
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
@@ -293,7 +293,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:8453",
 "tcp://0.0.0.0:9797",
 "tcp://164.132.30.190:18181",
-"tcp://127.0.0.1:9990",
+#"tcp://127.0.0.1:9990",
 "tcp://:::80",
 "tcp://:::53",
 "tcp://:::22",
