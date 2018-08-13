@@ -132,13 +132,12 @@ def test_gsm_wrapper(Process, Service, Socket, Command):
     wrapper = Process.get(comm="wrapper")
     assert wrapper.user == "jboss"
     assert wrapper.group == "jboss"
-def test_gsm_wrapper_pid(host):
+def test_gsm_wrapper_pid(host,Socket):
     conf = host.file("/opt/sms/bin/./sms_gsmsservice.pid")
     assert conf.user == "jboss"
     assert conf.group == "jboss"
     assert conf.mode == 0o664
-
-
+    assert Socket("tcp://0.0.0.0:5012").is_listening
 
 
 # systemctl list-unit-files | grep enabled
