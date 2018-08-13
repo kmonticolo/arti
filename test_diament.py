@@ -22,6 +22,10 @@ def test_cron_running(Process, Service, Socket, Command):
     assert cron.user == "root"
     assert cron.group == "root"
 
+def test_samba_ad_dc_running(Process, Service, Socket, Command):
+    assert Service("samba-ad-dc").is_enabled
+    assert Service("samba-ad-dc").is_running
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
