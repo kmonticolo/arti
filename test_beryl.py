@@ -59,7 +59,7 @@ def test_wildfly_ntms_running(Process, Service, Socket, Command):
 def test_wildfly_vtms_running(Process, Service, Socket, Command):
     assert Service("wildfly-vtms").is_enabled
     assert Service("wildfly-vtms").is_running
-    assert Socket("tcp://0.0.0.0:41616").is_listening
+    #assert Socket("tcp://0.0.0.0:41616").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
     assert Socket("tcp://0.0.0.0:8787").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
@@ -270,7 +270,7 @@ def test_listening_socket(host):
     for spec in (
 "tcp://127.0.0.1:3306",
 "tcp://164.132.30.190:4747",
-"tcp://0.0.0.0:41616",
+#"tcp://0.0.0.0:41616",
 "tcp://0.0.0.0:8080",
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:5010",
