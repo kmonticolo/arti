@@ -24,6 +24,18 @@ def test_tnslsnr_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(user="vcs", ppid='1', comm="java")
 
+def test_openejb_running(Process, Service, Socket, Command):
+    openejb = Process.get(user="vcs", ppid='1', comm="openejb")
+    assert openejb.user == "vcs"
+    assert openejb.group == "vcs"
+    assert Socket("tcp://127.0.0.1:4200").is_listening 
+    assert Socket("tcp://127.0.0.1:4201 ").is_listening
+    assert Socket("tcp://127.0.0.1:4203").is_listening 
+    assert Socket("tcp://0.0.0.0:1099").is_listening
+    assert Socket("tcp://127.0.0.1:4204").is_listening
+    assert Socket("tcp://0.0.0.0:61613").is_listening
+    assert Socket("tcp://0.0.0.0:37166").is_listening
+
 def test_vcs_running(Process, Service, Socket, Command):
     assert Service("vcs").is_enabled
     assert Service("vcs").is_running
@@ -50,7 +62,6 @@ def test_postfix_running(Process, Service, Socket, Command):
     assert Service("postfix").is_running
 
     postfix = Process.get(comm="master")
-
     assert Socket("tcp://127.0.0.1:25").is_listening
 
 def test_tuned_running(Process, Service, Socket, Command):
