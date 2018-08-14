@@ -59,6 +59,11 @@ def test_haproxy_conf(host):
     assert conf.contains("server s1 127.0.0.1:81 maxconn 32 check inter 1000 fall 5")
     assert conf.contains("server s2 127.0.0.1:82 maxconn 32 check backup")
 
+def test_tomcat7_running(Process, Service, Socket, Command):
+    assert Service("tomcat7").is_enabled
+    assert Service("tomcat7").is_running
+    assert Socket("tcp://:::8180").is_listening
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
