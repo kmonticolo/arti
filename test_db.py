@@ -7,6 +7,10 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '616d56b2cd4eb85a77423bc0ff35da4c  /etc/firewalld/zones/public.xml'
     assert command.rc == 0
 
+def test_fail2ban_running(Process, Service, Socket, Command):
+    assert Service("fail2ban").is_enabled
+    assert Service("fail2ban").is_running
+
 def test_oracle_running(Process, Service, Socket, Command):
     assert Service("oracle-xe").is_enabled
     assert Service("oracle-xe").is_running

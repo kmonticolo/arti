@@ -9,6 +9,10 @@ def test_firewalld_unchanged(Command):
     assert command.stdout.rstrip() == '27066023b1b5b60bd5345b421d73125f  /etc/firewalld/zones/public.xml'
     assert command.rc == 0
 
+def test_fail2ban_running(Process, Service, Socket, Command):
+    assert Service("fail2ban").is_enabled
+    assert Service("fail2ban").is_running
+
 def test_oracle_running(Process, Service, Socket, Command):
     assert Service("oracle-xe").is_enabled
     assert Service("oracle-xe").is_running
