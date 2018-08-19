@@ -13,6 +13,11 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == 'ed842a22a71f8081c77b513b3536cf2f  /etc/ufw/user.rules'
     assert command.rc == 0
 
+def test_jira_website(Command):
+    command = Command('curl -sSf https://jira.artifact.pl -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
