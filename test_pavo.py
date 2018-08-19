@@ -54,10 +54,8 @@ def test_activemq_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:1100").is_listening
     assert Socket("tcp://0.0.0.0:61613").is_listening
     assert Socket("tcp://0.0.0.0:61614").is_listening
-    assert Socket("tcp://0.0.0.0:43983").is_listening
     assert Socket("tcp://0.0.0.0:61616").is_listening
     assert Socket("tcp://0.0.0.0:1883").is_listening
-    assert Socket("tcp://0.0.0.0:46655").is_listening
     assert Socket("tcp://0.0.0.0:8161").is_listening
     assert Socket("tcp://0.0.0.0:5672").is_listening
 
