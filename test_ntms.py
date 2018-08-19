@@ -8,7 +8,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables/rules.v4')
-    assert command.stdout.rstrip() == '9fe2577f342bb1d39e7bb75cee8a4391  /etc/iptables/rules.v4'
+    assert command.stdout.rstrip() == '2103744b296b904068ec39defa201b71  /etc/iptables/rules.v4'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/before.init')
     assert command.stdout.rstrip() == 'cd7783526a1a2b25581cecd3c2daa1a4  /etc/ufw/before.init'
@@ -37,6 +37,20 @@ def test_cron_running(Process, Service, Socket, Command):
 
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
+
+def test_wildfly_running(Process, Service, Socket, Command):
+    standalone = Process.get(user="jboss", ppid='1', comm="standalone.sh")
+    assert standalone.user == "jboss"
+    assert standalone.group == "jboss"
+
+    wildfly = Process.get(ppid=standalone.pid)
+    assert wildfly.user == "jboss"
+    assert wildfly.group == "jboss"
+    assert wildfly.comm == "java"
+    assert Socket("tcp://127.0.0.1:10000").is_listening
+    assert Socket("tcp://0.0.0.0:8090").is_listening
+    assert Socket("tcp://127.0.0.1:62626").is_listening
+    assert Socket("tcp://0.0.0.0:8453").is_listening
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
