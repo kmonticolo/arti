@@ -16,6 +16,9 @@ def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/before.rules')
     assert command.stdout.rstrip() == 'ba34f926d08b14b2ba22aadc5d077a5b  /etc/ufw/before.rules'
     assert command.rc == 0
+    command = Command('sudo md5sum /etc/ufw/user.rules')
+    assert command.stdout.rstrip() == 'a3fbaef910466dcc137f9037106c78f7  /etc/ufw/user.rules'
+    assert command.rc == 0
 
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
