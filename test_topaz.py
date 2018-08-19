@@ -18,6 +18,51 @@ def test_jira_website(Command):
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
+def test_confluence_website(Command):
+    command = Command('curl -sSf "https://confluence.artifact.pl/login.action?os_destination=%2Findex.action&permissionViolation=true" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_demo_website(Command):
+    command = Command('curl -sSf "https://demo.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_topaz_website(Command):
+    command = Command('curl -sSf "http://topaz.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_vtms_website(Command):
+    command = Command('curl -sSf "https://vtms.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_vtms1_website(Command):
+    command = Command('curl -sSf "https://vtms1.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_vtms2_website(Command):
+    command = Command('curl -sSf "https://vtms2.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_fisheye_website(Command):
+    command = Command('curl -sSf "https://fisheye.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_pst_http_website(Command):
+    command = Command('curl -sSf "http://pst.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_pst_https_website(Command):
+    command = Command('curl -sSf "https://pst.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
