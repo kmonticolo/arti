@@ -11,7 +11,6 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '8f5d4b08be09e319a480d26ed3703d82  /etc/ufw/user.rules'
     assert command.rc == 0
 
-
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
@@ -20,6 +19,31 @@ def test_apache2_running(Process, Service, Socket, Command):
 
 def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
+    assert command.rc == 0
+
+def test_soter_website(Command):
+    command = Command('curl -sSf "https://soter.novelpay.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '301'
+    assert command.rc == 0
+
+def test_jira_website(Command):
+    command = Command('curl -sSf "https://jira.novelpay.pl/secure/Dashboard.jspa" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_ci_website(Command):
+    command = Command('curl -sSf "https://ci.novelpay.pl/login?from=" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_timesheet_website(Command):
+    command = Command('curl -sSf "https://timesheet.novelpay.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '301'
+    assert command.rc == 0
+
+def test_redmine_website(Command):
+    command = Command('curl -sSf "https://redmine.novelpay.pl/login" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
 def test_mysql_running(Process, Service, Socket, Command):
