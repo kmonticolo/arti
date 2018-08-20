@@ -66,6 +66,13 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert command.rc == 0
 
 
+def test_orthphoto_website(Command):
+    command = Command('curl -sSf "https://www.orthphoto.net" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+
+
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
