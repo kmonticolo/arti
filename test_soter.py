@@ -26,6 +26,11 @@ def test_soter_website(Command):
     assert command.stdout.rstrip() == '301'
     assert command.rc == 0
 
+def test_confluence_website(Command):
+    command = Command('curl -sSf "https://soter.novelpay.pl:8070/login.action" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
 def test_jira_website(Command):
     command = Command('curl -sSf "https://jira.novelpay.pl/secure/Dashboard.jspa" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
@@ -33,6 +38,11 @@ def test_jira_website(Command):
 
 def test_ci_website(Command):
     command = Command('curl -sSf "https://ci.novelpay.pl/login?from=" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_crucible_website(Command):
+    command = Command('curl -sSf "https://cr.novelpay.pl/browse" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
