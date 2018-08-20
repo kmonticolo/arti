@@ -45,6 +45,12 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert Socket("tcp://167.114.54.59:443").is_listening
     assert Socket("tcp://:::80").is_listening
 
+def test_teservice_website(Command):
+    command = Command('curl -sSf "https://teservice.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+
 def test_activemq_running(Process, Service, Socket, Command):
     assert Service("activemq").is_enabled
     assert Service("activemq").is_running
