@@ -2,7 +2,6 @@
 
 def test_serv(host):
     for spec in (
-"auditd",
 "autovt@",
 "chronyd",
 "crond",
