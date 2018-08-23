@@ -1,3 +1,4 @@
+# https://alpha.novelpay.pl/ntms-rel/descriptor.xml
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
@@ -18,6 +19,11 @@ def test_cron_running(Process, Service, Socket, Command):
     cron = Process.get(comm="cron")
     assert cron.user == "root"
     assert cron.group == "root"
+
+def test_ntms_rel_website(Command):
+    command = Command('curl -sSfk https://alpha.novelpay.pl/ntms-rel/descriptor.xml -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
