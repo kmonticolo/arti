@@ -76,6 +76,32 @@ def test_ppos_conf(host):
     assert conf.contains("ServerName ppos.novelpay.pl")
     assert conf.contains("DocumentRoot /var/www/ppos/")
 
+
+def test_napi_website(Command):
+    command = Command('curl -sSf "http://ppos.novelpay.pl/napi" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
+
+def test_napi_https_website(Command):
+    command = Command('curl -sSf "https://ppos.novelpay.pl/napi" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_PPOS_website(Command):
+    command = Command('curl -sSf "http://ppos.novelpay.pl/PPOS" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
+
+def test_PPOS_website(Command):
+    command = Command('curl -sSf "https://ppos.novelpay.pl/PPOS" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
+def test_PPOS_check_title_website(Command):
+    command = Command('curl -sSf "https://ppos.novelpay.pl/PPOS"  -w %{http_code} |grep -q "Portable Point of Sale"')
+    assert command.rc == 0
+
+
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql-9.4").is_enabled
     assert Service("postgresql-9.4").is_running
