@@ -14,7 +14,6 @@ def test_serv(host):
 "rhel-autorelabel-mark",
 "rhel-autorelabel",
 "rhel-configure",
-"rhel-dmesg",
 "rhel-domainname",
 "rhel-import-state",
 "rhel-loadmodules",
