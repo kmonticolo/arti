@@ -41,6 +41,12 @@ def test_cron_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
+# restart ntms, zeby zaczal sluchac na porcie 10000
+# su - jboss
+# cd /opt/ntms/wildfly
+# ./bin/start_server 
+# tail -F standalone/log/server.log
+
 def test_wildfly_running(Process, Service, Socket, Command):
     standalone = Process.get(user="jboss", ppid='1', comm="standalone.sh")
     assert standalone.user == "jboss"
@@ -51,9 +57,10 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert wildfly.group == "jboss"
     assert wildfly.comm == "java"
     assert Socket("tcp://127.0.0.1:10000").is_listening
-    assert Socket("tcp://0.0.0.0:8090").is_listening
+    assert Socket("tcp://0.0.0.0:8090").is_listening # backend do apache
     assert Socket("tcp://127.0.0.1:62626").is_listening
     assert Socket("tcp://0.0.0.0:8453").is_listening
+    assert Socket("tcp://0.0.0.0:9797").is_listening
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
@@ -73,6 +80,16 @@ def test_pg_isready_output(Command):
     assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
     assert command.rc == 0
 
+def test_redirect_website(Command):
+    command = Command('curl -sSf "http://localhost" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
+
+def test_https_website(Command):
+    command = Command('curl -ksSf "https://localhost" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
@@ -88,6 +105,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:10050",
 "tcp://127.0.0.1:62626",
 "tcp://0.0.0.0:8453",
+"tcp://0.0.0.0:9797",
 "tcp://:::80",
 "tcp://:::4949",
 "tcp://:::22",
