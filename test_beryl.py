@@ -32,7 +32,7 @@ def test_ufw(Command):
 # ssh beryl.artifact.pl sudo md5sum /etc/ufw/user.rules
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '30902740755891fe8ce252692b666e32  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '01825d4148ad91722d4de80dc67be7f4  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
