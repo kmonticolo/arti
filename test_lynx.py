@@ -1,15 +1,7 @@
-# ubuntu 16.04
-
-# userzy grep sh$ /etc/passwd
-# root adam jboss op porgres kamilm
-
-def test_ufw_running(Process, Service, Socket, Command):
-    assert Service("ufw").is_enabled
-    assert Service("ufw").is_running
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '7ddca674fe1d1ad3910a35e71ea7a68b  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'ebc8d15df435917025f2253bc288a498  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_mongod_running(Process, Service, Socket, Command):
