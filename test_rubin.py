@@ -69,6 +69,7 @@ def test_nexus_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8081").is_listening
 
 # sonar
+# service sonar restart
 def test_sonar_running(Process, Service, Socket, Command):
     assert Service("sonar").is_enabled
     assert Service("sonar").is_running
