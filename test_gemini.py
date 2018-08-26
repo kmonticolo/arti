@@ -16,9 +16,15 @@ def test_ora11g_running(Process, Service, Socket, Command):
     proc= Process.filter(comm="oracle")
     assert Socket("tcp://:::32098").is_listening
 
+# startowanie
+# [oracle@gemini ~]$ sqlplus '/ as sysdba'
+# SQL> startup
+# lsnrctl start
+# lsnrctl status
 def test_oracle_running(Process, Service, Socket, Command):
 
     proc= Process.get(comm="tnslsnr")
+    assert proc.ppid == 1
     assert proc.user == "oracle"
     assert proc.group == "oinstall"
 
