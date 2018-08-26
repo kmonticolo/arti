@@ -9,7 +9,7 @@ def test_firewalld_running(Process, Service, Socket, Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables-save')
-    assert command.stdout.rstrip() == '612878c34e58183b2efc4935c444a9bc  /etc/iptables-save'
+    assert command.stdout.rstrip() == '87e0f58ae87e893b300499435ea7599a  /etc/iptables-save'
     assert command.rc == 0
 
 def test_ora11g_running(Process, Service, Socket, Command):
