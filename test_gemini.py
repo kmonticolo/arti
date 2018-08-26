@@ -12,9 +12,9 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '87e0f58ae87e893b300499435ea7599a  /etc/iptables-save'
     assert command.rc == 0
 
-def test_ora11g_running(Process, Service, Socket, Command):
-    proc= Process.filter(comm="oracle")
-    assert Socket("tcp://:::32098").is_listening
+#def test_ora11g_running(Process, Service, Socket, Command):
+    #proc= Process.filter(comm="oracle")
+    #assert Socket("tcp://:::32098").is_listening
 
 # startowanie
 # [oracle@gemini ~]$ sqlplus '/ as sysdba'
@@ -148,7 +148,7 @@ def test_listening_socket(host):
 "tcp://:::1521",
 "tcp://:::22",
 "tcp://::1:25",
-"tcp://:::32098"
+#"tcp://:::32098"
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
