@@ -36,6 +36,11 @@ def test_jenkins_running(Process, Service, Socket, Command):
     assert Service("jenkins").is_running
     assert Socket("tcp://:::9090").is_listening
 
+def test_jenkins_website(Command):
+    command = Command('curl -sSf "https://draco.artifact.pl/jenkins/" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '403'
+    assert command.rc == 22
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
@@ -139,4 +144,4 @@ def test_listening_socket(host):
 
 
 ##procesy
-#root@beryl:/home/kamilm# netstat -alnp|grep LIST|head -20
+#root@beryl:/home/kamilm# netstat -alnp|grep LIST|head -21
