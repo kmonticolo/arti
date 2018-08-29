@@ -67,7 +67,7 @@ def test_orthphoto_website(Command):
     assert command.rc == 0
 
 def test_certbot_dry_run(Command):
-    command = Command('certbot --dry-run renew')
+    command = Command('sudo certbot --dry-run renew')
     assert command.rc == 0
 
 def test_postgres_running(Process, Service, Socket, Command):
