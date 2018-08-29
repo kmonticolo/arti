@@ -1,3 +1,6 @@
+def test_ufw(Command):
+    command = Command('sudo ufw status | grep -qw active')
+    assert command.rc == 0
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
@@ -63,7 +66,9 @@ def test_orthphoto_website(Command):
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
-
+def test_certbot_dry_run(Command):
+    command = Command('certbot --dry-run renew')
+    assert command.rc == 0
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
@@ -159,10 +164,6 @@ def test_mysql_running(Process, Service, Socket, Command):
 
 # na kazdym firewall ufw ufw status
 #ufw
-def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
-    assert command.rc == 0
-
 
 # certbot od letsencrypt plugins nginx
 
