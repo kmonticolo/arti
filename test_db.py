@@ -49,7 +49,7 @@ def test_postfix_running(Process, Service, Socket, Command):
 #
 
 def test_testlot_website(Command):
-    command = Command('curl -s https://testlot.novelpay.pl |grep "POS Lot"')
+    command = Command('curl -s https://testlot.novelpay.pl |grep "Lot POS"')
     assert command.rc == 0
 
 

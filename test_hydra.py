@@ -20,7 +20,7 @@ def test_ufw_unchanged(Command):
     assert command.rc == 0
 
 def test_testlot_website(Command):
-    command = Command('curl -s https://testlot.novelpay.pl |grep "POS Lot"')
+    command = Command('curl -s https://testlot.novelpay.pl |grep "Lot POS"')
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
