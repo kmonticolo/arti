@@ -48,7 +48,7 @@ def test_crucible_website(Command):
 
 def test_timesheet_website(Command):
     command = Command('curl -sSf "https://timesheet.novelpay.pl" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '200'
+    assert command.stdout.rstrip() == '200' or command.stdout.rstrip() == '301'
     assert command.rc == 0
 
 def test_redmine_website(Command):
