@@ -55,10 +55,10 @@ def test_vcs_running(Process, Service, Socket, Command):
     assert Service("vcs").is_running
 
 # /app/CommunicationModule/bin/ep2_server status
-def test_ep2_server_running(Command):
-    command = Command('/app/CommunicationModule/bin/ep2_server status|grep -c STARTED.*STARTED$')
-    assert command.stdout.rstrip() == '1'
-    assert command.rc == 0
+#def test_ep2_server_running(Command):
+#    command = Command('/app/CommunicationModule/bin/ep2_server status|grep -c STARTED.*STARTED$')
+#    assert command.stdout.rstrip() == '1'
+#    assert command.rc == 0
 
 def test_si_config_server_running(Command):
     command = Command('/app/CommunicationModule/bin/si-config-server status')
