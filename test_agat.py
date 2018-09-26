@@ -11,7 +11,7 @@ def test_ufw(Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == 'b7a5490e0cba07f4139ae2119b73c8cd  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '1e0468624d1e8e22e6ac0d35b16e57c5  /etc/ufw/user.rules'
 
     assert command.rc == 0
 
