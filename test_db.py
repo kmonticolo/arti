@@ -1,3 +1,7 @@
+# listener
+# export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+# -bash-4.2$ $ORACLE_HOME/bin/lsnrctl start
+
 def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
     assert Service("firewalld").is_running
@@ -20,8 +24,8 @@ def test_tnslsnr_running(Process, Service, Socket, Command):
     proc= Process.get(comm="tnslsnr")
     assert proc.user == "oracle"
     assert proc.group == "dba"
-    assert Socket("tcp://:::1521").is_listening
     assert Socket("tcp://46.105.232.0:1521").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
 
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
@@ -71,10 +75,8 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:22",
 "tcp://127.0.0.1:25",
 "tcp://0.0.0.0:10050",
-"tcp://:::8080",
-"tcp://:::1521",
+"tcp://0.0.0.0:8080",
 "tcp://:::22",
-"tcp://:::45656",
 "tcp://::1:25",
 "tcp://:::10050",
     ):  
