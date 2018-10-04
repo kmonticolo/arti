@@ -21,7 +21,6 @@ def test_serv(host):
 "getty@",
 "irqbalance",
 "iscsi",
-"iscsid",
 "keyboard-setup",
 "lvm2-monitor",
 "lxcfs",
