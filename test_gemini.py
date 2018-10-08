@@ -21,6 +21,10 @@ def test_ufw_unchanged(Command):
 # SQL> startup
 # lsnrctl start
 # lsnrctl status
+def test_lsnrctl_status(Process, Service, Socket, Command):
+    command = Command('sudo su - oracle -c "lsnrctl status"')
+    assert command.rc == 0
+
 def test_oracle_running(Process, Service, Socket, Command):
 
     proc= Process.get(comm="tnslsnr")
