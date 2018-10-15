@@ -139,6 +139,26 @@ def test_gsm_wrapper_pid(host,Socket):
     assert conf.mode == 0o664
     assert Socket("tcp://0.0.0.0:5012").is_listening
 
+def test_activemq_running(Process, Service, Socket, Command):
+    assert Service("activemq").is_enabled
+    assert Service("activemq").is_running
+    #amq = Process.get(comm="java")
+    #assert amq.user == "root"
+    #assert amq.group == "root"
+    assert Socket("tcp://0.0.0.0:40998").is_listening
+    assert Socket("tcp://0.0.0.0:5672").is_listening
+    assert Socket("tcp://164.132.30.191:61613").is_listening
+    assert Socket("tcp://0.0.0.0:61614").is_listening
+    assert Socket("tcp://0.0.0.0:61616").is_listening
+    assert Socket("tcp://0.0.0.0:1883").is_listening
+    assert Socket("tcp://0.0.0.0:8161").is_listening
+    assert Socket("tcp://127.0.0.1:61616").is_listening
+
+def test_spinel_website(Command):
+    command = Command('curl -sSf "http://spinel.artifact.pl/lustro" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '301'
+    assert command.rc == 0
+
 
 # systemctl list-unit-files | grep enabled
 #
