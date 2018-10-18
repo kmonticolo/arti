@@ -15,7 +15,7 @@ def test_ufw(Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '8be9ebb73543b9ae80e3ccd9d8a0cafc  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'a454aed34b23ca194965ff842390e3df  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_mongod_running(Process, Service, Socket, Command):
