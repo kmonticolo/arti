@@ -1,1 +1,5 @@
-py.test test_alpha*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts alpha.novelpay.pl
+#!/bin/bash
+
+HOST=alpha
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.novelpay.pl

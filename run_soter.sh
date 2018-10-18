@@ -1,1 +1,5 @@
-py.test test_soter*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts soter.novelpay.pl
+#!/bin/bash
+
+HOST=soter
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.novelpay.pl

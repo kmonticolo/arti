@@ -1,1 +1,5 @@
-py.test test_db*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts db.novelpay.pl
+#!/bin/bash
+
+HOST=db
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.novelpay.pl

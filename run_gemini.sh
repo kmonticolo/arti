@@ -1,1 +1,5 @@
-py.test test_gemini*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts gemini.artifact.pl
+#!/bin/bash
+
+HOST=gemini
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl

@@ -1,1 +1,5 @@
-py.test test_lynx*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts lynx.artifact.pl
+#!/bin/bash
+
+HOST=lynx
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl

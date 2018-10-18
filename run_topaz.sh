@@ -1,1 +1,5 @@
-py.test test_topaz*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts topaz.artifact.pl
+#!/bin/bash
+
+HOST=topaz
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl

@@ -1,1 +1,5 @@
-py.test test_diament*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts diament.artifact.pl
+#!/bin/bash
+
+HOST=diament
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl

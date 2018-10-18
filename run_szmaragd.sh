@@ -1,1 +1,5 @@
-py.test test_szmaragd*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts szmaragd.artifact.pl
+#!/bin/bash
+
+HOST=szmaragd
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl

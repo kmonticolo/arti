@@ -1,1 +1,5 @@
-py.test test_orion*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts orion.artifact.pl
+#!/bin/bash
+
+HOST=orion
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl

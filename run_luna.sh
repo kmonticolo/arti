@@ -1,1 +1,5 @@
-py.test test_luna*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts luna.artifact.pl
+#!/bin/bash
+
+HOST=luna
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl

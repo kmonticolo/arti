@@ -1,1 +1,5 @@
-py.test test_beryl*.py --ssh-config=/home/kmonti/.ssh/config $@ --hosts beryl.artifact.pl
+#!/bin/bash
+
+HOST=beryl
+SSHCONFIG=/home/kamil/.ssh/config
+py.test test_${HOST}*.py --ssh-config=${SSHCONFIG} $@ --hosts ${HOST}.artifact.pl
