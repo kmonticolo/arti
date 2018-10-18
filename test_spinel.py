@@ -145,7 +145,7 @@ def test_activemq_running(Process, Service, Socket, Command):
     #amq = Process.get(comm="java")
     #assert amq.user == "root"
     #assert amq.group == "root"
-    assert Socket("tcp://0.0.0.0:40998").is_listening
+    #assert Socket("tcp://0.0.0.0:40998").is_listening
     assert Socket("tcp://0.0.0.0:5672").is_listening
     assert Socket("tcp://164.132.30.191:61613").is_listening
     assert Socket("tcp://0.0.0.0:61614").is_listening
