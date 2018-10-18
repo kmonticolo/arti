@@ -69,7 +69,7 @@ def test_nginx_running(Process, Service, Socket, Command):
 def test_ora11g_running(Process, Service, Socket, Command):
     proc= Process.filter(comm="oracle")
     #assert Socket("tcp://:::26053").is_listening
-    assert Socket("tcp://167.114.54.60:1521").is_listening
+    assert Socket("tcp://0.0.0.0:1521").is_listening
 
 def test_oracle_running(Process, Service, Socket, Command):
 
@@ -77,7 +77,7 @@ def test_oracle_running(Process, Service, Socket, Command):
     assert proc.user == "oracle"
     assert proc.group == "oinstall"
 
-    assert Socket("tcp://:::1521").is_listening
+    assert Socket("tcp://0.0.0.0:1521").is_listening
 
 #def test_ufw_running(Process, Service, Socket, Command):
     #assert Service("ufw").is_enabled
@@ -115,11 +115,10 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
-"tcp://127.0.0.1:25",
+"tcp://0.0.0.0:25",
 "tcp://:::80",
-"tcp://:::1521",
+"tcp://0.0.0.0:1521",
 "tcp://:::22",
-"tcp://::1:25",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
