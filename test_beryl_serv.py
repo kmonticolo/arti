@@ -15,7 +15,6 @@ def test_serv(host):
 "cgproxy",
 "cron",
 "cups-browsed",
-"cups",
 "dbus-org.bluez",
 "dbus-org.freedesktop.Avahi",
 "dbus-org.freedesktop.ModemManager1",
