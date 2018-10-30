@@ -9,7 +9,7 @@ job('testinfra alpha') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -27,7 +27,7 @@ job('testinfra beta') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -45,7 +45,7 @@ job('testinfra beryl') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -63,7 +63,7 @@ job('testinfra db') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -81,7 +81,7 @@ job('testinfra diament') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -99,7 +99,7 @@ job('testinfra draco') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -117,7 +117,7 @@ job('testinfra gemini') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -135,7 +135,7 @@ job('testinfra hydra') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -153,7 +153,7 @@ job('testinfra luna') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -171,7 +171,7 @@ job('testinfra lynx') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -189,7 +189,7 @@ job('testinfra ntms') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -207,7 +207,7 @@ job('testinfra opal') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -225,7 +225,7 @@ job('testinfra orion') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -243,7 +243,7 @@ job('testinfra pavo') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -261,7 +261,7 @@ job('testinfra ppos') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -279,7 +279,7 @@ job('testinfra rubin') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -297,7 +297,7 @@ job('testinfra soter') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -315,7 +315,7 @@ job('testinfra spinel') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -333,7 +333,7 @@ job('testinfra szmaragd') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -341,6 +341,7 @@ job('testinfra szmaragd') {
     }
     }
 }
+
 
 job('testinfra taurus') {
   scm {
@@ -351,7 +352,7 @@ job('testinfra taurus') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
@@ -369,7 +370,7 @@ job('testinfra topaz') {
         }
       
     triggers {
-        scm('H * * * *')
+        cron('H * * * *')
     }
     steps {
      
