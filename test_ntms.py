@@ -41,7 +41,7 @@ def test_cron_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
-# restart ntms, zeby zaczal sluchac na porcie 10000
+# restart ntms, zeby zaczal sluchac na porcie 10000 i 9797
 # su - jboss
 # cd /opt/ntms/wildfly
 # ./bin/start_server 
@@ -60,7 +60,8 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8090").is_listening # backend do apache
     assert Socket("tcp://127.0.0.1:62626").is_listening
     assert Socket("tcp://0.0.0.0:8453").is_listening
-    assert Socket("tcp://0.0.0.0:9797").is_listening
+    assert Socket("tcp://0.0.0.0:9797").is_listening # nie slucha - patrz wyzej
+
 
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
