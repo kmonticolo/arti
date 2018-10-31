@@ -19,7 +19,6 @@ def test_serv(host):
 "ebtables",
 "fail2ban",
 "grub-common",
-"iscsid",
 "keyboard-setup",
 "kmod-static-nodes",
 "lvm2-lvmetad",
