@@ -8,7 +8,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables/rules.v4')
-    assert command.stdout.rstrip() == '2103744b296b904068ec39defa201b71  /etc/iptables/rules.v4'
+    assert command.stdout.rstrip() == '0a2c751e76ad007e734840aeac3a8ac1  /etc/iptables/rules.v4'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/before.init')
     assert command.stdout.rstrip() == 'cd7783526a1a2b25581cecd3c2daa1a4  /etc/ufw/before.init'
