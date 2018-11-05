@@ -76,6 +76,9 @@ def test_ppos_conf(host):
     assert conf.contains("ServerName ppos.novelpay.pl")
     assert conf.contains("DocumentRoot /var/www/ppos/")
 
+def test_apache_validate(Command):
+    command = Command('sudo apachectl -t')
+    assert command.rc == 0
 
 def test_napi_website(Command):
     command = Command('curl -sSf "http://ppos.novelpay.pl/napi" -o /dev/null -w %{http_code}')
