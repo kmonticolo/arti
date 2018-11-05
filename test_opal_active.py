@@ -55,8 +55,6 @@ def test_serv(host):
 "systemd-user-sessions",
 "ufw",
 "unattended-upgrades",
-"user@1000",
-"user@1001",
 "wildfly",
 "zabbix-agent",
     ):  
