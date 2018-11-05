@@ -38,9 +38,6 @@ def test_cron_running(Process, Service, Socket, Command):
     assert cron.user == "root"
     assert cron.group == "root"
 
-def test_java_running(Process, Service, Socket, Command):
-    cron = Process.filter(comm="java")
-
 # restart ntms, zeby zaczal sluchac na porcie 10000 i 9797
 # su - jboss
 # cd /opt/ntms/wildfly
