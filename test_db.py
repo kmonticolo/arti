@@ -35,9 +35,6 @@ def test_chronyd_running(Process, Service, Socket, Command):
     assert Service("chronyd").is_enabled
     assert Service("chronyd").is_running
 
-def test_java_running(Process, Service, Socket, Command):
-    cron = Process.filter(comm="java")
-
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
