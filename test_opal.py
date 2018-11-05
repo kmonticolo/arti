@@ -22,3 +22,11 @@ def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_running
 
 
+def test_wildfly_running(Process, Service, Socket, Command):
+    assert Service("wildfly").is_enabled
+    assert Service("wildfly").is_running
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://127.0.0.1:9990").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+
+# munin?
