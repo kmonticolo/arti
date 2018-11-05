@@ -29,7 +29,7 @@ def test_cron_running(Process, Service, Socket, Command):
     assert cron.group == "root"
 
 def test_java_running(Process, Service, Socket, Command):
-    cron = Process.filter(comm="java")
+    java = Process.filter(comm="java")
 
 def test_jenkins_running(Process, Service, Socket, Command):
     assert Service("jenkins").is_enabled
