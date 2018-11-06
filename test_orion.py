@@ -75,6 +75,25 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
+def test_nginx_running(Process, Service, Socket, Command):
+    assert Service("nginx").is_enabled
+    assert Service("nginx").is_running
+
+    nginxmaster = Process.get(user="root", ppid='1', comm="nginx")
+    assert nginxmaster.user == "root"
+    assert nginxmaster.group == "root"
+
+    nginxworker = Process.get(ppid=nginxmaster.pid)
+    assert nginxworker.user == "www-data"
+    assert nginxworker.group == "www-data"
+    assert nginxworker.comm == "nginx"
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
+
+    command = Command('sudo nginx -t')
+    assert command.rc == 0
+
+
 # systemctl list-unit-files | grep enabled
 #
 #root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
