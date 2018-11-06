@@ -45,6 +45,19 @@ def test_nginx_running(Process, Service, Socket, Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
+def test_postgres_running(Process, Service, Socket, Command):
+    assert Service("postgresql").is_enabled
+    assert Service("postgresql").is_running
+
+    postgres = Process.filter(comm="postgres")
+
+    assert Socket("tcp://127.0.0.1:5432").is_listening
+
+def test_pg_isready_output(Command):
+    command = Command('/usr/bin/pg_isready')
+    assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
+    assert command.rc == 0
+
 def test_board_website(Command):
     command = Command('curl -sSf "https://board.artifact.pl" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
