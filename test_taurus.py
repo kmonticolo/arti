@@ -37,10 +37,6 @@ def test_tuned_running(Process, Service, Socket, Command):
     assert Service("tuned").is_enabled
     assert Service("tuned").is_running
 
-def test_chronyd_running(Process, Service, Socket, Command):
-    assert Service("chronyd").is_enabled
-    assert Service("chronyd").is_running
-
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
