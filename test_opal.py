@@ -35,10 +35,7 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert nginxmaster.user == "root"
     assert nginxmaster.group == "root"
 
-    nginxworker = Process.get(ppid=nginxmaster.pid)
-    assert nginxworker.user == "www-data"
-    assert nginxworker.group == "www-data"
-    assert nginxworker.comm == "nginx"
+    nginxworker = Process.filter(ppid=nginxmaster.pid, user='www-data', group='www-data', comm='nginx')
     assert Socket("tcp://0.0.0.0:80").is_listening
     assert Socket("tcp://0.0.0.0:443").is_listening
 
