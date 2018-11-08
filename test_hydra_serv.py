@@ -30,7 +30,7 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-"systemd-timesyncd",
+
 "ufw",
 "unattended-upgrades",
 "ureadahead",

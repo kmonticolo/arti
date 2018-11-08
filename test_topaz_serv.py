@@ -24,7 +24,7 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-"systemd-timesyncd",
+
 "thermald",
 "ufw",
 "unattended-upgrades",

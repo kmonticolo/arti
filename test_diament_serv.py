@@ -29,7 +29,7 @@ def test_serv(host):
 "sssd",
 "strongswan",
 "syslog",
-"systemd-timesyncd",
+
 "thermald",
 "ufw",
 "unattended-upgrades",

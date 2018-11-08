@@ -47,7 +47,7 @@ def test_serv(host):
 "systemd-remount-fs",
 "systemd-resolved",
 "systemd-sysctl",
-"systemd-timesyncd",
+
 "systemd-tmpfiles-setup-dev",
 "systemd-tmpfiles-setup",
 "systemd-udev-trigger",

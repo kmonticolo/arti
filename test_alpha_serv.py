@@ -47,7 +47,7 @@ def test_serv(host):
 "systemd-networkd-wait-online",
 "systemd-networkd",
 "systemd-resolved",
-"systemd-timesyncd",
+
 "thermald",
 "ufw",
 "unattended-upgrades",

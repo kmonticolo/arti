@@ -53,7 +53,7 @@ def test_serv(host):
 "systemd-random-seed",
 "systemd-remount-fs",
 "systemd-sysctl",
-"systemd-timesyncd",
+
 "systemd-tmpfiles-setup-dev",
 "systemd-tmpfiles-setup",
 "systemd-udev-trigger",
