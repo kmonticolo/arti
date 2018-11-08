@@ -5,7 +5,7 @@ def test_serv(host):
 "auditd",
 "autovt@",
 "avahi-daemon",
-"chronyd",
+
 "crond",
 "dbus-org.fedoraproject.FirewallD1",
 "dbus-org.freedesktop.Avahi",

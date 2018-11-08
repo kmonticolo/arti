@@ -3,7 +3,7 @@
 def test_serv(host):
     for spec in (
 "autovt@",
-"chronyd",
+
 "crond",
 "dbus-org.fedoraproject.FirewallD1",
 "dbus-org.freedesktop.NetworkManager",

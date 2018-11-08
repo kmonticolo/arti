@@ -6,7 +6,7 @@ def test_serv(host):
     for spec in (
 "auditd",
 "avahi-daemon",
-"chronyd",
+
 "crond",
 "dbus",
 "firewalld",
