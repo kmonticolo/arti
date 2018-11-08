@@ -11,6 +11,11 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '726b683b312093531b5cc8458d6d890e  /etc/ufw/user.rules'
     assert command.rc == 0
 
+def test_fwstart_unchanged(Command):
+    command = Command('sudo md5sum /root/fwstart.sh')
+    assert command.stdout.rstrip() == '20ce13c40b54bbda1641e2aa187bbf52  /root/fwstart.sh'
+    assert command.rc == 0
+
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
