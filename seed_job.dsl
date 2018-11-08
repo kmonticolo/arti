@@ -25,7 +25,7 @@ for (host in [
     }
     steps {
      
-      shell("sudo -u ${user} /bin/py.test test_${host}*.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl")    
+      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl")    
     }
     }
 }
@@ -64,7 +64,7 @@ for (host in [
     }
     steps {
      
-      shell("sudo -u ${user} /bin/py.test test_${host}*.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl")    
+      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl")    
     }
     }
 }
