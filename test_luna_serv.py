@@ -19,7 +19,7 @@ def test_serv(host):
 "mongodb",
 "munin-node",
 "networking",
-"nginx",
+#"nginx",
 "open-iscsi",
 "open-vm-tools",
 "postgresql",
