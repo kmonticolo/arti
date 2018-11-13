@@ -151,7 +151,6 @@ def test_listening_socket(host):
 "tcp://:::80",
 "tcp://:::1521",
 "tcp://:::22",
-"tcp://::1:25",
 #"tcp://:::32098"
     ):  
         socket = host.socket(spec)
