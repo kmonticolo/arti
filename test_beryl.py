@@ -329,7 +329,6 @@ def test_listening_socket(host):
 #tcp        0      0 0.0.0.0:8443            0.0.0.0:*               LISTEN      2715/java       
 #tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      1572/nginx -g daemo
 #
-#/usr/sbin/apache2 -k start
 #postgres
 #/usr/bin/mysqld_safe
 #/usr/bin/fail2ban-server
