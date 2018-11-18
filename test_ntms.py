@@ -79,12 +79,12 @@ def test_pg_isready_output(Command):
     assert command.rc == 0
 
 def test_redirect_website(Command):
-    command = Command('curl -sSf "http://localhost" -o /dev/null -w %{http_code}')
+    command = Command('curl -sSf "http://ntms.novelpay.pl" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '302'
     assert command.rc == 0
 
 def test_https_website(Command):
-    command = Command('curl -ksSf "https://localhost" -o /dev/null -w %{http_code}')
+    command = Command('curl -ksSf "https://ntms.novelpay.pl" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
