@@ -24,8 +24,15 @@ for (host in [
         cron('H * * * *')
     }
     steps {
-     
-      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl")    
+      // needed for junit tests, run as jenkins
+      shell("mkdir -p target/test-reports/")
+      // spawn testinfra via sudo and store reports in junit.xml
+      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")    
+      // copy junit files from /tmp as jenkins
+      shell("cp /tmp/junit_${host}.xml target/test-reports/")
+    }
+     publishers {
+        archiveJunit('target/test-reports/*xml')
     }
     }
 }
@@ -62,9 +69,16 @@ for (host in [
     triggers {
         cron('H * * * *')
     }
-    steps {
-     
-      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl")    
+     steps {
+      // needed for junit tests, run as jenkins
+      shell("mkdir -p target/test-reports/")
+      // spawn testinfra via sudo and store reports in junit.xml
+      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")    
+      // copy junit files from /tmp as jenkins
+      shell("cp /tmp/junit_${host}.xml target/test-reports/")
+    }
+      publishers {
+        archiveJunit('target/test-reports/*xml')
     }
     }
 }
