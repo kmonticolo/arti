@@ -2,7 +2,7 @@
 # systemctl list-units --type=service --state=active
 # systemctl list-units --type=service --state=active|grep \.service |sed  's/.service//g' | awk '{print "\""$1"\","}'
 
-def test_serv(host):
+def test_serv_active(host):
     for spec in (
 "accounts-daemon",
 "acpid",
