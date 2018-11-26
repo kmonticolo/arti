@@ -83,3 +83,57 @@ for (host in [
     }
 }
 }
+
+	
+ job("ansible is reboot needed") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 22 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory")
+     }
+              
+ }
+
+	
+ job("ansible debian_upgrade") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 21 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory")
+     }
+              
+ }
+
+job("ansible centos_upgrade") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 20 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/centos_upgrade.yml -i /home/kmonti/ansible/inventory")
+     }
+              
+ }
+
+job("ansible aide update") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 4 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide.yml -i /home/kmonti/ansible/inventory")
+     }
+              
+ }
