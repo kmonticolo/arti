@@ -68,6 +68,10 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
 
+def test_tuned_running(Process, Service, Socket, Command):
+    assert Service("tuned").is_enabled
+    assert Service("tuned").is_running
+
 def test_postfix_running(Process, Service, Socket, Command):
     assert Service("postfix").is_enabled
     assert Service("postfix").is_running

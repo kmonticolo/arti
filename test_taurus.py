@@ -84,6 +84,10 @@ def test_oracle_running(Process, Service, Socket, Command):
     #assert Service("ufw").is_enabled
     #assert Service("ufw").is_running
 
+def test_tuned_running(Process, Service, Socket, Command):
+    assert Service("tuned").is_enabled
+    assert Service("tuned").is_running
+
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
