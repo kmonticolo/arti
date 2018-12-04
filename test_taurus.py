@@ -10,9 +10,6 @@
 #
 #ufw
 # disable when firewalld is in use
-#def test_ufw(Command):
-#    command = Command('sudo ufw status | grep -qw active')
-#    assert command.rc == 0
 
 def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
@@ -94,9 +91,9 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
 #fail2ban.service                           enabled 
-#def test_fail2ban_running(Process, Service, Socket, Command):
-#    assert Service("fail2ban").is_enabled
-#    assert Service("fail2ban").is_running
+def test_fail2ban_running(Process, Service, Socket, Command):
+    assert Service("fail2ban").is_enabled
+    assert Service("fail2ban").is_running
 
 # systemctl list-unit-files | grep enabled
 #
