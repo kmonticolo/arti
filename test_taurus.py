@@ -23,7 +23,7 @@ def test_firewalld_unchanged(Command):
     assert command.stdout.rstrip() == '6d715581ac0553dfa93e7a04ce1e82e4  /etc/firewalld/zones/public.xml'
     assert command.rc == 0                                                      
 
-def test_ufw_unchanged(Command):
+def test_iptables_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables-save')
     assert command.stdout.rstrip() == '9df0f21749cd1fae03e9bef0b8182867  /etc/iptables-save'
     assert command.rc == 0

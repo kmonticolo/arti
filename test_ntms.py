@@ -6,7 +6,7 @@ def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running
 
-def test_ufw_unchanged(Command):
+def test_iptables_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables/rules.v4')
     assert command.stdout.rstrip() == '0a2c751e76ad007e734840aeac3a8ac1  /etc/iptables/rules.v4'
     assert command.rc == 0

@@ -7,7 +7,7 @@ def test_firewalld_running(Process, Service, Socket, Command):
     assert Service("firewalld").is_enabled
     assert Service("firewalld").is_running
 
-def test_ufw_unchanged(Command):
+def test_iptables_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables-save')
     assert command.stdout.rstrip() == '87e0f58ae87e893b300499435ea7599a  /etc/iptables-save'
     assert command.rc == 0
