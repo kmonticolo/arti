@@ -17,7 +17,7 @@ def test_iptables_unchanged(Command):
     assert command.stdout.rstrip() == 'ba34f926d08b14b2ba22aadc5d077a5b  /etc/ufw/before.rules'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '258d6be944b03ec3660acb8fc7744b48  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '3ba99a8081a6242e60c86d84dd5dd27e  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_apache2_running(Process, Service, Socket, Command):
