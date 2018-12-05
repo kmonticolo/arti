@@ -135,5 +135,17 @@ job("ansible aide update") {
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide.yml -i /home/kmonti/ansible/inventory")
      }
-              
+  
+  
+job("ansible aide check") {
+    logRotator {
+        numToKeep(30)
+    }
+  triggers {
+        cron('H 23 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible -a "aide -C -c /etc/aide.conf " -b all")
+     }
+  
  }
