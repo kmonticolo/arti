@@ -147,5 +147,17 @@ job("ansible aide check") {
      steps {
         shell("sudo -u kmonti ansible -a "aide -C -c /etc/aide.conf " -b all")
      }
-  
+
+job("ansible ntp") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H * * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/ntp.yml -i /home/kmonti/ansible/inventory")
+     }
+              
+ }  
  }
