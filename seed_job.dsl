@@ -1,3 +1,13 @@
+job("copy_junit_reports") {
+    logRotator {
+        numToKeep(100)
+    }
+     steps {
+        shell("for i in \$(ls /tmp/junit*xml |sed -e 's/^.*_//' -e 's/.xml\$//g'); do cp /tmp/junit_\${i}.xml //var/lib/jenkins/workspace/testinfra \${i}/target/test-reports/junit_\${i}.xml || exit 0 ;done")
+     }
+              
+ }
+
 def repo = 'https://github.com/kmonticolo/arti.git'
 def sshconfig='./ssh_config'
 def user='kmonti'
@@ -33,6 +43,9 @@ for (host in [
     }
      publishers {
         archiveJunit('target/test-reports/*xml')
+    }
+     publishers {
+        downstream('copy_junit_reports', 'FAILURE')
     }
     }
 }
@@ -79,6 +92,9 @@ for (host in [
     }
       publishers {
         archiveJunit('target/test-reports/*xml')
+    }
+    publishers {
+        downstream('copy_junit_reports', 'FAILURE')
     }
     }
 }
