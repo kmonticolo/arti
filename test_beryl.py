@@ -120,6 +120,10 @@ def test_nginx_config_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
+def test_vibbek_website(Command):
+    command = Command('curl -sSfk http://beryl.artifact.pl/#/quick -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
 
 def test_mysql_running(Process, Service, Socket, Command):
     assert Service("mysql").is_enabled
