@@ -99,6 +99,15 @@ def test_apache2_conf(host):
     assert conf.contains("ProxyPass.*http://localhost:8081/nexus")
     assert conf.contains("ProxyPassReverse.*/nexus")
 
+def test_nexus_website(Command):
+    command = Command('curl -sSfk https://repo.artifact.pl/nexus -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
+
+def test_sonar_website(Command):
+    command = Command('curl -sSfk https://repo.artifact.pl/sonar -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
 
 # systemctl list-unit-files | grep enabled
 ##
