@@ -27,7 +27,7 @@ def test_iptables_unchanged(Command):
 
 def test_gssproxy_running(Process, Service, Socket, Command):
     assert Service("gssproxy").is_running
-    gssproxy= Process.get(comm="munin-node")
+    gssproxy= Process.get(comm="gssproxy")
     assert gssproxy.user == "root"
     assert gssproxy.group == "root"
 
