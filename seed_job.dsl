@@ -1,13 +1,3 @@
-job("copy_junit_reports") {
-    logRotator {
-        numToKeep(100)
-    }
-     steps {
-        shell("for i in \$(ls /tmp/junit*xml |sed -e 's/^.*_//' -e 's/.xml\$//g'); do cp /tmp/junit_\${i}.xml //var/lib/jenkins/workspace/testinfra \${i}/target/test-reports/junit_\${i}.xml || exit 0 ;done")
-     }
-              
- }
-
 def repo = 'https://github.com/kmonticolo/arti.git'
 def sshconfig='./ssh_config'
 def user='kmonti'
@@ -142,7 +132,6 @@ job("ansible centos_upgrade") {
  }
 
 
-
 job("ansible aide update") {
     logRotator {
         numToKeep(100)
@@ -156,6 +145,18 @@ job("ansible aide update") {
               
  }
 
+job("ansible aide check") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 0 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook aide_check.yml -i /home/kmonti/ansible/inventory")
+     }
+              
+ }
 
 job("ansible ntp") {
     logRotator {
@@ -166,6 +167,16 @@ job("ansible ntp") {
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/ntp.yml -i /home/kmonti/ansible/inventory")
+     }
+              
+ }
+
+job("copy_junit_reports") {
+    logRotator {
+        numToKeep(100)
+    }
+     steps {
+        shell("for i in \$(ls /tmp/junit*xml |sed -e 's/^.*_//' -e 's/.xml\$//g'); do cp /tmp/junit_\${i}.xml //var/lib/jenkins/workspace/testinfra \${i}/target/test-reports/junit_\${i}.xml || exit 0 ;done")
      }
               
  }
