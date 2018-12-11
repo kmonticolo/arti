@@ -14,7 +14,7 @@ def test_serv_active(host):
 "cgmanager",
 "console-setup",
 "cron",
-"cups-browsed",
+#"cups-browsed",
 "cups",
 "dbus",
 "fail2ban",
