@@ -18,10 +18,6 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-    cron = Process.get(comm="cron")
-    assert cron.user == "root"
-    assert cron.group == "root"
-
 def test_samba_ad_dc_running(Process, Service, Socket, Command):
     assert Service("samba-ad-dc").is_enabled
     assert Service("samba-ad-dc").is_running

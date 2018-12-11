@@ -16,10 +16,6 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-    cron = Process.get(comm="cron")
-    assert cron.user == "root"
-    assert cron.group == "root"
-
 def test_ntms_rel_website(Command):
     command = Command('curl -sSfk https://alpha.novelpay.pl/ntms-rel/descriptor.xml -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
