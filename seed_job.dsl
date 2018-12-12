@@ -57,6 +57,7 @@ for (host in [
   'orion', 
   'pavo', 
   'taurus', 
+  'miki',
   'gemini' ]) {
   job("testinfra ${host}") {
     logRotator {
