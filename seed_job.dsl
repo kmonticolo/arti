@@ -49,7 +49,6 @@ for (host in [
   'szmaragd', 
   'opal',
   'beryl', 
-  'spinel', 
   'draco', 
   'hydra', 
   'luna', 
