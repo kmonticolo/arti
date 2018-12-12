@@ -153,7 +153,7 @@ job("ansible aide check") {
         cron('H 0 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook aide_check.yml -i /home/kmonti/ansible/inventory")
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide_check.yml -i /home/kmonti/ansible/inventory")
      }
               
  }
