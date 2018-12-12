@@ -86,6 +86,7 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:80").is_listening
     assert Socket("tcp://0.0.0.0:443").is_listening
 
+def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
