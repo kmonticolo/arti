@@ -32,7 +32,7 @@ def test_ufw(Command):
 # ssh beryl.artifact.pl sudo md5sum /etc/ufw/user.rules
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == 'c683115952427de1433086d65c9bfdcd  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '38ef4cb460edaeebf8f3b0bb82dad7fb  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -282,7 +282,6 @@ def test_listening_socket(host):
 "tcp://164.132.30.190:53",
 "tcp://127.0.0.1:53",
 "tcp://0.0.0.0:22",
-"tcp://127.0.0.1:631",
 "tcp://127.0.0.1:5432",
 "tcp://127.0.0.1:953",
 "tcp://0.0.0.0:8090",
@@ -299,7 +298,6 @@ def test_listening_socket(host):
 "tcp://:::80",
 "tcp://:::53",
 "tcp://:::22",
-"tcp://::1:631",
 "tcp://::1:5432",
 "tcp://::1:953"
     ):  

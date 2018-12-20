@@ -14,8 +14,6 @@ def test_serv_active(host):
 "cgmanager",
 "console-setup",
 "cron",
-#"cups-browsed",
-"cups",
 "dbus",
 "fail2ban",
 "getty@tty1",
@@ -55,7 +53,6 @@ def test_serv_active(host):
 "systemd-random-seed",
 "systemd-remount-fs",
 "systemd-sysctl",
-
 "systemd-tmpfiles-setup-dev",
 "systemd-tmpfiles-setup",
 "systemd-udev-trigger",
