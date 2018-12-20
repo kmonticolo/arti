@@ -7,7 +7,7 @@ def test_etckeeper_clean(Command):
     assert command.rc == 0
 
 def test_ufw_default_reject_outgoing(Command):
-    command = Command('sudo ufw status verbose|grep "reject (outgoing)"')
+    command = Command('which ufw && sudo ufw status verbose|grep "reject (outgoing)"')
     assert command.rc == 0
 
 
