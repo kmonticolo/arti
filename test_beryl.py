@@ -11,6 +11,11 @@
 #kamilm:x:1001:1001:Kamil M,,,:/home/kamilm:/bin/bash
 #
 
+def test_is_onet_works(Command):
+    command = Command('timeout 5 wget onet.pl -o /dev/null')
+    assert command.rc == 8
+
+
 #bind
 def test_bind_running(Process, Service, Socket, Command):
     assert Service("bind9").is_enabled
@@ -299,7 +304,6 @@ def test_listening_socket(host):
 "tcp://:::53",
 "tcp://:::22",
 "tcp://::1:5432",
-"tcp://::1:953"
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
