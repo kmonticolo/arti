@@ -78,7 +78,6 @@ def test_postgres_running(Process, Service, Socket, Command):
     postgres = Process.filter(comm="postgres")
 
     assert Socket("tcp://127.0.0.1:5432").is_listening
-    assert Socket("tcp://::1:5432").is_listening
 
 def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
@@ -207,7 +206,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:80",
 "tcp://:::4949",
 "tcp://:::22",
-"tcp://::1:5432",
 "tcp://:::25",
 "tcp://:::443",
 "tcp://:::10080",
