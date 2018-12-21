@@ -81,7 +81,7 @@ def test_apache_validate(Command):
     assert command.rc == 0
 
 def test_napi_website(Command):
-    command = Command('curl -sSf "http://ppos.novelpay.pl/napi" -o /dev/null -w %{http_code}')
+    command = Command('unset http_proxy; curl -sSf "http://ppos.novelpay.pl/napi" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '302'
     assert command.rc == 0
 
