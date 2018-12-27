@@ -65,6 +65,14 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8443").is_listening
     #assert Socket("tcp://127.0.0.1:9990").is_listening
 
+def test_ntms_cm_running(Process, Service, Socket, Command):
+    assert Service("ntms_cm").is_enabled
+    assert Service("ntms_cm").is_running
+
+def test_ntms_cm_ssl_running(Process, Service, Socket, Command):
+    assert Service("ntms_cm_ssl").is_enabled
+    assert Service("ntms_cm_ssl").is_running
+
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
