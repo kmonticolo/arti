@@ -64,8 +64,7 @@ def test_serv_active(host):
 "user@1001",
 "user@1004",
 "whoopsie",
-"wildfly-ntms",
-"wildfly-vtms",
+"wildfly",
 "zabbix-agent",
     ):  
         service= host.service(spec)
