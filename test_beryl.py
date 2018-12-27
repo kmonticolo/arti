@@ -49,21 +49,13 @@ def test_wildfly_ntms_running(Process, Service, Socket, Command):
     assert Service("wildfly").is_running
     assert Socket("tcp://164.132.30.190:4747").is_listening
     assert Socket("tcp://164.132.30.190:4748").is_listening
-    #assert Socket("tcp://0.0.0.0:5010").is_listening
     assert Socket("tcp://127.0.0.1:32001").is_listening
     assert Socket("tcp://0.0.0.0:5011").is_listening
-    #assert Socket("tcp://127.0.0.1:32002").is_listening
     assert Socket("tcp://164.132.30.190:18181").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
-
-def test_wildfly_running(Process, Service, Socket, Command):
-    assert Service("wildfly").is_enabled
-    assert Service("wildfly").is_running
-    #assert Socket("tcp://0.0.0.0:41616").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
     assert Socket("tcp://0.0.0.0:5011").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
-    #assert Socket("tcp://127.0.0.1:9990").is_listening
 
 def test_ntms_cm_running(Process, Service, Socket, Command):
     assert Service("ntms_cm").is_enabled
