@@ -10,7 +10,7 @@ def test_ufw(Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '572f160090677388d0fb8e1af557c6f7  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'dec974bba448c3aae511fa3f8c3c7a5f  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_jira_website(Command):
