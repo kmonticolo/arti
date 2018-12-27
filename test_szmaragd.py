@@ -77,7 +77,7 @@ def test_haproxy_conf(host):
 def test_activemq_running(Process, Service, Socket, Command):
     assert Service("activemq").is_enabled
     assert Service("activemq").is_running
-    amq = Process.get(comm="java")
+    amq = Process.get(comm="java",ppid='1', user="root")
     assert amq.user == "root"
     assert amq.group == "root"
     assert Socket("tcp://0.0.0.0:8161").is_listening
@@ -86,6 +86,16 @@ def test_activemq_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:61616").is_listening
     assert Socket("tcp://0.0.0.0:61617").is_listening
 
+
+def test_wildfly_running(Process, Service, Socket, Command):
+    assert Service("wildfly").is_enabled
+    assert Service("wildfly").is_running
+    amq = Process.get(comm="java", user="art")
+    assert amq.user == "art"
+    assert amq.group == "art"
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://127.0.0.1:9990").is_listening
 
 # systemctl list-unit-files | grep enabled
 #
