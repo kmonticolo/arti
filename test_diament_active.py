@@ -23,7 +23,6 @@ def test_serv_active(host):
 "kmod-static-nodes",
 "lvm2-lvmetad",
 "lvm2-monitor",
-"munin-node",
 "networking",
 "nfs-config",
 "nfs-idmapd",
