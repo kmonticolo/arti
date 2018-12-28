@@ -10,7 +10,7 @@ def test_ufw(Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == 'dec974bba448c3aae511fa3f8c3c7a5f  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '40a4bbfca320da173098744f517cdba4  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_jira_website(Command):
@@ -66,16 +66,6 @@ def test_pst_https_website(Command):
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
-
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-    munin= Process.get(comm="munin-node")
-    assert munin.user == "root"
-    assert munin.group == "root"
-
-    assert Socket("tcp://:::4949").is_listening
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
@@ -263,7 +253,6 @@ def test_listening_socket(host):
 "tcp://:::9095",
 #"tcp://127.0.0.1:9005",
 "tcp://:::80",
-"tcp://:::4949",
 "tcp://:::22"
     ):
         socket = host.socket(spec)

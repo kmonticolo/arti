@@ -15,7 +15,6 @@ def test_serv(host):
 "getty@",
 "haproxy",
 "lvm2-monitor",
-"munin-node",
 "networking",
 "postgresql",
 "pppd-dns",
