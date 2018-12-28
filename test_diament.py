@@ -18,10 +18,6 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-def test_samba_ad_dc_running(Process, Service, Socket, Command):
-    assert Service("samba-ad-dc").is_enabled
-    assert Service("samba-ad-dc").is_running
-
 def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_enabled
     assert Service("munin-node").is_running
@@ -175,7 +171,6 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:5432",
 "tcp://127.0.0.1:5433",
 "tcp://0.0.0.0:443",
-"tcp://0.0.0.0:445",
 "tcp://0.0.0.0:2049",
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:139",
@@ -183,7 +178,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
-"tcp://:::445",
 "tcp://:::2049",
 "tcp://:::139",
 "tcp://:::111",
