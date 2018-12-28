@@ -13,7 +13,7 @@ def test_ufw_unchanged(Command):
 
 def test_fwstart_unchanged(Command):
     command = Command('sudo md5sum /root/fwstart.sh')
-    assert command.stdout.rstrip() == '20ce13c40b54bbda1641e2aa187bbf52  /root/fwstart.sh'
+    assert command.stdout.rstrip() == 'cd6f7d0e2419601180f40c1cd8b2efe1  /root/fwstart.sh'
     assert command.rc == 0
 
 def test_apache2_running(Process, Service, Socket, Command):
