@@ -33,16 +33,6 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-    munin= Process.get(comm="munin-node")
-    assert munin.user == "root"
-    assert munin.group == "root"
-
-    assert Socket("tcp://:::4949").is_listening
-
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
@@ -204,7 +194,6 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:27017",
 "tcp://0.0.0.0:3306",
 "tcp://0.0.0.0:80",
-"tcp://:::4949",
 "tcp://:::22",
 "tcp://:::25",
 "tcp://:::443",

@@ -16,7 +16,6 @@ def test_serv(host):
 "lxcfs",
 "lxd-containers",
 "mongodb",
-"munin-node",
 "networking",
 "nginx",
 "open-iscsi",
@@ -31,7 +30,6 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "ufw",
 "unattended-upgrades",
 "ureadahead",

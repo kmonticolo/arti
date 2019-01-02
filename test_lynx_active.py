@@ -28,7 +28,6 @@ def test_serv_active(host):
 "lxd-containers",
 "mdadm",
 "mongod",
-"munin-node",
 "mysql",
 "networking",
 "nginx",
@@ -66,7 +65,6 @@ def test_serv_active(host):
 "unattended-upgrades",
 "vgauth",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_running
