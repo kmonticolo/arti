@@ -17,7 +17,7 @@ def test_firewalld_running(Process, Service, Socket, Command):
 
 def test_firewalld_unchanged(Command):
     command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
-    assert command.stdout.rstrip() == '6d715581ac0553dfa93e7a04ce1e82e4  /etc/firewalld/zones/public.xml'
+    assert command.stdout.rstrip() == 'adbf9e35a1457739bef223badb0ae583  /etc/firewalld/zones/public.xml'
     assert command.rc == 0                                                      
 
 def test_iptables_unchanged(Command):
