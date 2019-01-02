@@ -19,10 +19,6 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == 'd0a132cf69474765ef1778ff14efd15b  /etc/ufw/user.rules'
     assert command.rc == 0
 
-def test_testlot_website(Command):
-    command = Command('curl -s https://testlot.novelpay.pl |grep "Lot POS"')
-    assert command.rc == 0
-
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
