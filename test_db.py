@@ -46,8 +46,8 @@ def test_postfix_running(Process, Service, Socket, Command):
 #
 
 def test_testlot_website(Command):
-    command = Command('curl -s https://testlot.novelpay.pl |grep "Lot POS"')
-    assert command.rc == 0
+    command = Command('unset http_proxy; curl -s https://testlot.novelpay.pl')
+    assert command.rc == 60
 
 
 def test_tuned_running(Process, Service, Socket, Command):
