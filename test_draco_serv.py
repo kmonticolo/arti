@@ -14,7 +14,6 @@ def test_serv(host):
 "lvm2-monitor",
 "lxcfs",
 "lxd-containers",
-"munin-node",
 "networking",
 "nginx",
 "open-iscsi",
@@ -30,13 +29,11 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "vgauth",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
