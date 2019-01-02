@@ -14,7 +14,6 @@ def test_serv(host):
 "lvm2-monitor",
 "lxcfs",
 "lxd-containers",
-"munin-node",
 "networking",
 "nginx",
 "open-iscsi",
@@ -30,7 +29,6 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "ufw",
 "unattended-upgrades",
 "ureadahead",
