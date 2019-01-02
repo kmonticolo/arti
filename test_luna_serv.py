@@ -2,7 +2,6 @@
 
 def test_serv(host):
     for spec in (
-
 "accounts-daemon",
 "atd",
 "autovt@",
@@ -17,9 +16,7 @@ def test_serv(host):
 "lxcfs",
 "lxd-containers",
 "mongodb",
-"munin-node",
 "networking",
-#"nginx",
 "open-iscsi",
 "open-vm-tools",
 "postgresql",
@@ -33,13 +30,11 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "vgauth",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
