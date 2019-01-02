@@ -13,7 +13,7 @@
 
 def test_is_onet_works(Command):
     command = Command('timeout 5 wget onet.pl -o /dev/null')
-    assert command.rc == 8
+    assert command.rc != 0
 
 
 #bind
