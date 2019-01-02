@@ -21,7 +21,6 @@ def test_serv_active(host):
 "irqbalance",
 "keyboard-setup",
 "kmod-static-nodes",
-"munin-node",
 "networking",
 "ondemand",
 "polkitd",
@@ -41,7 +40,6 @@ def test_serv_active(host):
 "systemd-random-seed",
 "systemd-remount-fs",
 "systemd-sysctl",
-
 "systemd-tmpfiles-setup-dev",
 "systemd-tmpfiles-setup",
 "systemd-udev-trigger",

@@ -12,7 +12,6 @@ def test_serv(host):
 "dns-clean",
 "fail2ban",
 "getty@",
-"munin-node",
 "netfilter-persistent",
 "networking",
 "postgresql",
@@ -22,7 +21,6 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "thermald",
 "ufw",
 "unattended-upgrades",

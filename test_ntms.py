@@ -55,14 +55,6 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8453").is_listening
     assert Socket("tcp://0.0.0.0:9797").is_listening # nie slucha - patrz wyzej
 
-
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-    munin= Process.get(comm="munin-node")
-    assert munin.user == "root"
-
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
@@ -101,7 +93,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:8453",
 "tcp://0.0.0.0:9797",
 "tcp://:::80",
-"tcp://:::4949",
 "tcp://:::22",
 "tcp://:::5432",
 "tcp://:::443",
