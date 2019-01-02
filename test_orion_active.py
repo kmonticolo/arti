@@ -25,7 +25,6 @@ def test_serv_active(host):
 "lxcfs",
 "lxd-containers",
 "mdadm",
-"munin-node",
 "networking",
 "nginx",
 "ondemand",
@@ -49,7 +48,6 @@ def test_serv_active(host):
 "systemd-random-seed",
 "systemd-remount-fs",
 "systemd-sysctl",
-
 "systemd-tmpfiles-setup-dev",
 "systemd-tmpfiles-setup",
 "systemd-udev-trigger",
@@ -61,7 +59,6 @@ def test_serv_active(host):
 "vgauth",
 "wildfly",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_running
