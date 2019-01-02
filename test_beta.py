@@ -6,7 +6,7 @@ def test_firewalld_running(Process, Service, Socket, Command):
 # disabled requiretty in sudoers
 def test_firewalld_unchanged(Command):
     command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
-    assert command.stdout.rstrip() == '27066023b1b5b60bd5345b421d73125f  /etc/firewalld/zones/public.xml'
+    assert command.stdout.rstrip() == 'e2aff1ffa8a7022036939690a78f6c82  /etc/firewalld/zones/public.xml'
     assert command.rc == 0
 
 def test_fail2ban_running(Process, Service, Socket, Command):
