@@ -22,15 +22,6 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-    munin= Process.get(comm="munin-node")
-    assert munin.user == "root"
-    assert munin.group == "root"
-    assert Socket("tcp://:::4949").is_listening
-
 def test_wildfly_running(Process, Service, Socket, Command):
     assert Service("wildfly").is_enabled
     assert Service("wildfly").is_running
@@ -122,7 +113,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:10050",
 "tcp://127.0.0.1:9990",
 "tcp://:::80",
-"tcp://:::4949",
 "tcp://:::22",
 "tcp://:::5432",
     ):  
