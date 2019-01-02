@@ -14,7 +14,6 @@ def test_serv(host):
 "cgmanager",
 "cgproxy",
 "cron",
-#"cups-browsed",
 "dbus-org.bluez",
 "dbus-org.freedesktop.Avahi",
 "dbus-org.freedesktop.ModemManager1",
@@ -29,7 +28,6 @@ def test_serv(host):
 "lightdm",
 "lvm2-monitor",
 "ModemManager",
-"munin-node",
 "network-manager",
 "networking",
 "NetworkManager-dispatcher",
@@ -48,7 +46,6 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "thermald",
 "ufw",
 "unattended-upgrades",
