@@ -24,7 +24,6 @@ def test_serv_active(host):
 "kmod-static-nodes",
 "lvm2-lvmetad",
 "lvm2-monitor",
-"munin-node",
 "networking",
 "ondemand",
 "polkitd",
@@ -44,7 +43,6 @@ def test_serv_active(host):
 "systemd-random-seed",
 "systemd-remount-fs",
 "systemd-sysctl",
-
 "systemd-tmpfiles-setup-dev",
 "systemd-tmpfiles-setup",
 "systemd-udev-trigger",
@@ -54,7 +52,6 @@ def test_serv_active(host):
 "ufw",
 "unattended-upgrades",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_running

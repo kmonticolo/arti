@@ -15,7 +15,6 @@ def test_serv(host):
 "getty@",
 "haproxy",
 "lvm2-monitor",
-"munin-node",
 "networking",
 "postgresql",
 "pppd-dns",
@@ -24,13 +23,11 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "thermald",
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
