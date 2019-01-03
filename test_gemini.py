@@ -81,54 +81,6 @@ def test_postfix_running(Process, Service, Socket, Command):
 
     assert Socket("tcp://127.0.0.1:25").is_listening
 
-#
-## systemctl list-unit-files | grep enabled
-#uditd.service                                enabled 
-#autovt@.service                               enabled 
-#chronyd.service                               enabled 
-#crond.service                                 enabled 
-#dbus-org.fedoraproject.FirewallD1.service     enabled 
-#dbus-org.freedesktop.NetworkManager.service   enabled 
-#dbus-org.freedesktop.nm-dispatcher.service    enabled 
-#firewalld.service                             enabled 
-#getty@.service                                enabled 
-#irqbalance.service                            enabled 
-#kdump.service                                 enabled 
-#lvm2-monitor.service                          enabled 
-#microcode.service                             enabled 
-#munin-node.service                            enabled 
-#NetworkManager-dispatcher.service             enabled 
-#NetworkManager.service                        enabled 
-#nginx.service                                 enabled 
-#postfix.service                               enabled 
-#rsyslog.service                               enabled 
-#smartd.service                                enabled 
-#sshd.service                                  enabled 
-#sysstat.service                               enabled 
-#systemd-readahead-collect.service             enabled 
-#systemd-readahead-drop.service                enabled 
-#systemd-readahead-replay.service              enabled 
-#tuned.service                                 enabled 
-#vgauthd.service                               enabled 
-#vmtoolsd.service                              enabled 
-#zabbix-agent.service                          enabled 
-#dm-event.socket                               enabled 
-#lvm2-lvmetad.socket                           enabled 
-#lvm2-lvmpolld.socket                          enabled 
-#rpcbind.socket                                enabled 
-#default.target                                enabled 
-#multi-user.target                             enabled 
-#nfs-client.target                             enabled 
-#remote-fs.target                              enabled 
-#runlevel2.target                              enabled 
-#runlevel3.target                              enabled 
-#runlevel4.target                              enabled 
-#
-#
-#root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
-#systemctl list-units --type=service --state=active
-
-
 # root@lynx:/home/kamilm# ls /var/spool/cron/crontabs/
 # adam  root
 
@@ -138,25 +90,17 @@ def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
 
-# orthphonto.net.conf
-
-# root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
-# netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
-
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-#"tcp://0.0.0.0:111",
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
 "tcp://127.0.0.1:25",
 "tcp://0.0.0.0:10050",
-#"tcp://:::111",
 "tcp://:::80",
 "tcp://:::1521",
 "tcp://:::22",
-#"tcp://:::32098"
     ):  
         socket = host.socket(spec)
         assert socket.is_listening

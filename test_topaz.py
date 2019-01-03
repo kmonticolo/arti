@@ -83,7 +83,6 @@ def test_pg_isready_output(Command):
 
 def test_mysql_running(Process, Service, Socket, Command):
     assert Service("mysql").is_enabled
-    #assert Service("mysql").is_running
     mysql = Process.get(comm="mysqld_safe")
     assert mysql.user == "root"
     assert mysql.group == "root"
@@ -98,27 +97,6 @@ def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
     assert command.rc == 0
 
-#def test_apache2_conf000default(host):
-#    conf = host.file("/etc/apache2/sites-enabled/000-default.conf")
-#    assert conf.user == "root"
-#    assert conf.group == "root"
-#    assert conf.contains("ProxyPass       http://localhost:8080/lustro")
-#
-##000-default.conf           002-demo-ssl.conf          004-vtms-cluster-ssl.conf  006-vtms-node2-ssl.conf    008-confluence-ssl.conf    default-ssl.conf           
-##001-jira-ssl.conf          003-topaz-ssl.conf         005-vtms-node1-ssl.conf    007-fisheye-ssl.conf       009-pst-ssl.conf           
-#
-#def test_apache2_conf002mirror_ssl(host):
-#    conf = host.file("/etc/apache2/sites-enabled/002-mirror-ssl.conf")
-#    assert conf.user == "root"
-#    assert conf.group == "root"
-#    assert conf.contains("SSLEngine on")
-#    assert conf.contains("VirtualHost mirror.artifact.pl:443")
-#    assert conf.contains("ServerName mirror.artifact.pl")
-#    assert conf.contains("ServerAlias.*mirror.artifact.pl")
-#    assert conf.contains("DocumentRoot /var/www/mirror")
-#    assert conf.contains("SSLCertificateFile.*/etc/apache2/ssl/artifact.pem")
-#    assert conf.contains("SSLCertificateKeyFile.*/etc/apache2/ssl/artifact.key")
-#
 def test_fisheye_running(Process, Service, Socket, Command):
     assert Service("fisheye").is_enabled
     assert Service("fisheye").is_running
@@ -136,11 +114,7 @@ def test_jira_running(Process, Service, Socket, Command):
 def test_confluence_running(Process, Service, Socket, Command):
     assert Service("confluence").is_enabled
     assert Service("confluence").is_running
-    #conflu = Process.get(user="confluence", comm="java")
-    #assert conflu.user == "confluence"
-    #assert conflu.group == "confluence"
     assert Socket("tcp://:::8090").is_listening
-    #assert Socket("tcp://127.0.0.1:8000").is_listening
 
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
@@ -156,7 +130,6 @@ def test_haproxy_running(Process, Service, Socket, Command):
     assert Service("haproxy").is_running
     assert Socket("tcp://0.0.0.0:9084").is_listening
     assert Socket("tcp://0.0.0.0:9085").is_listening
-    #assert Socket("udp://0.0.0.0:37743").is_listening
 
 def test_haproxy_config_test(Command):
     command = Command('sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg')
@@ -171,16 +144,10 @@ def test_haproxy_conf(host):
     assert conf.contains("bind \*:9084")
 
 
-#fail2ban.service                           enabled 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
-## root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
-## netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
-
-#
-##
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (

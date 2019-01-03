@@ -46,7 +46,6 @@ def test_munin_running(Process, Service, Socket, Command):
     munin= Process.get(comm="munin-node")
     assert munin.user == "root"
     assert munin.group == "root"
-    #assert Socket("tcp://:::4949").is_listening
 
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
@@ -67,7 +66,6 @@ def test_nginx_validate(Command):
 
 def test_ora11g_running(Process, Service, Socket, Command):
     proc= Process.filter(comm="oracle")
-    #assert Socket("tcp://:::26053").is_listening
     assert Socket("tcp://0.0.0.0:1521").is_listening
 
 def test_oracle_running(Process, Service, Socket, Command):
@@ -78,10 +76,6 @@ def test_oracle_running(Process, Service, Socket, Command):
 
     assert Socket("tcp://0.0.0.0:1521").is_listening
 
-#def test_ufw_running(Process, Service, Socket, Command):
-    #assert Service("ufw").is_enabled
-    #assert Service("ufw").is_running
-
 def test_tuned_running(Process, Service, Socket, Command):
     assert Service("tuned").is_enabled
     assert Service("tuned").is_running
@@ -91,26 +85,10 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
-#fail2ban.service                           enabled 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
-# systemctl list-unit-files | grep enabled
-#
-#root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
-
-
-
-#root@spinel:/home/kamilm#  ls /var/spool/cron/crontabs/
-
-
-# na kazdym firewall ufw ufw status
-
-# root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
-# netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
-
-##
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
@@ -125,7 +103,3 @@ def test_listening_socket(host):
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
-
-
-##procesy
-#root@beryl:/home/kamilm# netstat -alnp|grep LIST|head -20

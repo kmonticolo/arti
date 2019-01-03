@@ -32,7 +32,6 @@ def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
     assert command.rc == 0
 
-#000-default.conf  002-mirror-ssl.conf
 def test_apache2_conf000default(host):
     conf = host.file("/etc/apache2/sites-enabled/000-default.conf")
     assert conf.user == "root"
@@ -65,8 +64,6 @@ def test_munin_running(Process, Service, Socket, Command):
     munin= Process.get(comm="munin-node")
     assert munin.user == "root"
     assert munin.group == "root"
-
-    #assert Socket("tcp://:::4949").is_listening
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
@@ -118,17 +115,15 @@ def test_mysql_running(Process, Service, Socket, Command):
 
     assert Socket("tcp://127.0.0.1:3306").is_listening
 
-#fail2ban.service                           enabled 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
-# sms_gsmsservice
-    #wrapper = Process.get(comm="/opt/sms/bin/./wrapper")
 def test_gsm_wrapper(Process, Service, Socket, Command):
     wrapper = Process.get(user="jboss", ppid='1', comm="wrapper")
     assert wrapper.user == "jboss"
     assert wrapper.group == "jboss"
+
 def test_gsm_wrapper_pid(host,Socket):
     conf = host.file("/opt/sms/bin/./sms_gsmsservice.pid")
     assert conf.user == "jboss"
@@ -142,7 +137,6 @@ def test_activemq_running(Process, Service, Socket, Command):
     amq = Process.get(user="root", ppid='1', comm="java")
     assert amq.user == "root"
     assert amq.group == "root"
-    #assert Socket("tcp://0.0.0.0:40998").is_listening
     assert Socket("tcp://0.0.0.0:5672").is_listening
     assert Socket("tcp://164.132.30.191:61613").is_listening
     assert Socket("tcp://0.0.0.0:61614").is_listening
@@ -170,21 +164,6 @@ def test_spinel_website(Command):
     assert command.stdout.rstrip() == '301'
     assert command.rc == 0
 
-
-# systemctl list-unit-files | grep enabled
-#
-#root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
-##
-##
-##systemctl list-units --type=service --state=active
-
-#root@spinel:/home/kamilm#  ls /var/spool/cron/crontabs/
-#adam  jboss  root
-
-
-# na kazdym firewall ufw ufw status
-
-##
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
@@ -195,7 +174,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:61616",
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:81",
-#"tcp://0.0.0.0:8787",
 "tcp://0.0.0.0:5012", # java sms
 "tcp://164.132.30.191:4949",
 "tcp://0.0.0.0:22",
@@ -206,7 +184,6 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:32000", # java sms
 "tcp://0.0.0.0:8161",
 "tcp://0.0.0.0:10050",
-#"tcp://127.0.0.1:9990",
 "tcp://0.0.0.0:5672",
 "tcp://:::80",
 "tcp://:::22",
@@ -215,7 +192,3 @@ def test_listening_socket(host):
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
-
-
-##procesy
-#root@beryl:/home/kamilm# netstat -alnp|grep LIST|head -20

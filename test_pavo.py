@@ -58,9 +58,6 @@ def test_teservice_website(Command):
 def test_activemq_running(Process, Service, Socket, Command):
     assert Service("activemq").is_enabled
     assert Service("activemq").is_running
-    #amq = Process.get(comm="java")
-    #assert amq.user == "root"
-    #assert amq.group == "root"
     assert Socket("tcp://0.0.0.0:1100").is_listening
     assert Socket("tcp://0.0.0.0:61613").is_listening
     assert Socket("tcp://0.0.0.0:61614").is_listening
@@ -96,9 +93,6 @@ def test_java_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:5672").is_listening
     assert Socket("tcp://:::9090").is_listening
 
-    #assert Socket("tcp://0.0.0.0:8443").is_listening
-    #assert Socket("tcp://127.0.0.1:9990").is_listening
-
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running
@@ -108,26 +102,10 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
-#fail2ban.service                           enabled 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
-# systemctl list-unit-files | grep enabled
-#
-#root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
-
-
-
-#root@spinel:/home/kamilm#  ls /var/spool/cron/crontabs/
-
-
-# na kazdym firewall ufw ufw status
-
-# root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
-# netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
-
-##
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
@@ -156,6 +134,3 @@ def test_listening_socket(host):
         socket = host.socket(spec)
         assert socket.is_listening
 
-
-##procesy
-#root@beryl:/home/kamilm# netstat -alnp|grep LIST|head -20
