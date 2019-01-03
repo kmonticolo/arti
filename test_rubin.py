@@ -18,24 +18,13 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-#def test_munin_running(Process, Service, Socket, Command):
-#    assert Service("munin-node").is_enabled
-#    assert Service("munin-node").is_running
-#
-#    munin= Process.get(comm="munin-node")
-#    assert munin.user == "root"
-#    assert munin.group == "root"
-#
-#    assert Socket("tcp://:::4949").is_listening
-#
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
 
     postgres = Process.filter(comm="postgres")
 
-    assert Socket("tcp://127.0.0.1:5432").is_listening
-    assert Socket("tcp://::1:5432").is_listening
+    assert Socket("tcp://0.0.0.0:5432").is_listening
 
 def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
@@ -56,7 +45,6 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
-
 # nexus
 def test_nexus_running(Process, Service, Socket, Command):
     assert Service("nexus").is_enabled
@@ -70,13 +58,18 @@ def test_sonar_running(Process, Service, Socket, Command):
     assert Service("sonar").is_enabled
     assert Service("sonar").is_running
     assert Socket("tcp://127.0.0.1:32001").is_listening
-    assert Socket("tcp://:::9000").is_listening
+    assert Socket("tcp://0.0.0.0:9000").is_listening
+
+def test_wildfly_running(Process, Service, Socket, Command):
+    assert Service("wildfly").is_enabled
+    assert Service("wildfly").is_running
+    assert Socket("tcp://0.0.0.0:8443").is_listening
 
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
-    assert Socket("tcp://:::80").is_listening
-    assert Socket("tcp://:::443").is_listening
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
 
 def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
@@ -178,11 +171,6 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:32001",
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:8081",
-"tcp://:::22",
-"tcp://:::5432",
-"tcp://:::443",
-"tcp://:::9000",
-"tcp://:::80",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
