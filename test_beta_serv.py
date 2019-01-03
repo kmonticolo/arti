@@ -18,7 +18,6 @@ def test_serv(host):
 "NetworkManager-dispatcher",
 "NetworkManager",
 "ntpd",
-"postfix",
 "rsyslog",
 "sshd",
 "sysstat",
@@ -27,7 +26,6 @@ def test_serv(host):
 "systemd-readahead-replay",
 "tuned",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled

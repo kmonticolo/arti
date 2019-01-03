@@ -24,7 +24,6 @@ def test_serv_active(host):
 "ntpd",
 "oracle-xe",
 "polkit",
-"postfix",
 "rhel-dmesg",
 "rhel-import-state",
 "rhel-readonly",
@@ -49,9 +48,6 @@ def test_serv_active(host):
 "tuned",
 "vcs",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_running
-
-

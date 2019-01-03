@@ -89,13 +89,6 @@ def test_munin_running(Process, Service, Socket, Command):
     assert Service("munin-node").is_running
 
 
-def test_postfix_running(Process, Service, Socket, Command):
-    assert Service("postfix").is_enabled
-    assert Service("postfix").is_running
-
-    postfix = Process.get(comm="master")
-    assert Socket("tcp://127.0.0.1:25").is_listening
-
 def test_tuned_running(Process, Service, Socket, Command):
     assert Service("tuned").is_enabled
     assert Service("tuned").is_running
@@ -122,7 +115,6 @@ def test_listening_socket(host):
 ##"tcp://0.0.0.0:37166",
 "tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
-"tcp://127.0.0.1:25",
 "tcp://:::10080",
 "tcp://:::8199",
 #"tcp://127.0.0.1:8200",
@@ -132,7 +124,6 @@ def test_listening_socket(host):
 "tcp://:::61234",
 "tcp://:::22",
 #"tcp://:::58616",
-"tcp://::1:25",
 "tcp://:::8186",
 "tcp://:::8187",
 "tcp://:::8188",
