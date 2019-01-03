@@ -33,9 +33,9 @@ def test_serv_active(host):
 "ntp",
 "ondemand",
 "polkitd",
-"postgresql",
-"postgresql@9.3-main",
-"postgresql@9.5-main",
+#"postgresql",
+#"postgresql@9.3-main",
+#"postgresql@9.5-main",
 "rc-local",
 "resolvconf",
 "rpcbind",
@@ -61,9 +61,6 @@ def test_serv_active(host):
 "unattended-upgrades",
 "winbind",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_running
-
-

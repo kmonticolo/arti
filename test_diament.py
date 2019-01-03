@@ -18,19 +18,19 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-def test_postgres_running(Process, Service, Socket, Command):
-    assert Service("postgresql").is_enabled
-    assert Service("postgresql").is_running
-
-    postgres = Process.filter(comm="postgres")
-
-    assert Socket("tcp://127.0.0.1:5432").is_listening
-
-def test_pg_isready_output(Command):
-    command = Command('/usr/bin/pg_isready')
-    assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
-    assert command.rc == 0
-
+#def test_postgres_running(Process, Service, Socket, Command):
+#    assert Service("postgresql").is_enabled
+#    assert Service("postgresql").is_running
+#
+#    postgres = Process.filter(comm="postgres")
+#
+#    assert Socket("tcp://127.0.0.1:5432").is_listening
+#
+#def test_pg_isready_output(Command):
+#    command = Command('/usr/bin/pg_isready')
+#    assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
+#    assert command.rc == 0
+#
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
@@ -158,8 +158,8 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://127.0.0.1:5432",
-"tcp://127.0.0.1:5433",
+#"tcp://127.0.0.1:5432",
+#"tcp://127.0.0.1:5433",
 "tcp://0.0.0.0:443",
 "tcp://0.0.0.0:2049",
 "tcp://0.0.0.0:10050",

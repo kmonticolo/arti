@@ -20,7 +20,7 @@ def test_serv(host):
 "nfs-kernel-server",
 "nfs-server",
 "nginx",
-"postgresql",
+#"postgresql",
 "pppd-dns",
 "resolvconf",
 "rsyslog",
@@ -29,13 +29,11 @@ def test_serv(host):
 "sssd",
 "strongswan",
 "syslog",
-
 "thermald",
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
