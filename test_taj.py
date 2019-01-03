@@ -33,8 +33,14 @@ def test_mongod_running(Process, Service, Socket, Command):
     assert mongod.group == "mongodb"
     assert Socket("tcp://127.0.0.1:27017").is_listening
 
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.filter(comm="java")
+def test_graylog_service(Process, Service, Socket, Command):
+    assert Service("graylog-server").is_enabled
+    assert Service("graylog-server").is_running
+    java = Process.get(user="graylog",comm="java")
+
+def test_elasticsearch_running(Process, Service, Socket, Command):
+    assert Service("elasticsearch").is_enabled
+    assert Service("elasticsearch").is_running
 
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
