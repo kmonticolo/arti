@@ -98,69 +98,10 @@ def test_sonar_website(Command):
     assert command.stdout.rstrip() == '302'
     assert command.rc == 0
 
-# systemctl list-unit-files | grep enabled
-##
-##
-#acpid.path                                 enabled 
-#accounts-daemon.service                    enabled 
-#atd.service                                enabled 
-#autovt@.service                            enabled 
-#cgmanager.service                          enabled 
-#cgproxy.service                            enabled 
-#cron.service                               enabled 
-#dbus-org.freedesktop.thermald.service      enabled 
-#dns-clean.service                          enabled 
-#fail2ban.service                           enabled 
-#friendly-recovery.service                  enabled 
-#getty@.service                             enabled 
-#lvm2-monitor.service                       enabled 
-#munin-node.service                         enabled 
-#networking.service                         enabled 
-#postgresql.service                         enabled 
-#pppd-dns.service                           enabled 
-#resolvconf.service                         enabled 
-#rsyslog.service                            enabled 
-#ssh.service                                enabled 
-#sshd.service                               enabled 
-#syslog.service                             enabled 
-#systemd-timesyncd.service                  enabled 
-#thermald.service                           enabled 
-#ufw.service                                enabled 
-#unattended-upgrades.service                enabled 
-#ureadahead.service                         enabled 
-#zabbix-agent.service                       enabled 
-#acpid.socket                               enabled 
-#apport-forward.socket                      enabled 
-#dm-event.socket                            enabled 
-#lvm2-lvmetad.socket                        enabled 
-#lvm2-lvmpolld.socket                       enabled 
-#rpcbind.socket                             enabled 
-#uuidd.socket                               enabled 
-#nfs-client.target                          enabled 
-#remote-fs.target                           enabled 
-#apt-daily-upgrade.timer                    enabled 
-#apt-daily.timer                            enabled 
-#
-#systemctl list-units --type=service --state=active
-
-
-# root@lynx:/home/kamilm# ls /var/spool/cron/crontabs/
-# brak
-
 # na kazdym firewall ufw ufw status
 
 # root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
 ##
-#tcp        0      0 0.0.0.0:4949            0.0.0.0:*               LISTEN      969/perl        
-#tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      887/sshd        
-#tcp        0      0 127.0.0.1:5432          0.0.0.0:*               LISTEN      979/postgres    
-#tcp        0      0 0.0.0.0:10050           0.0.0.0:*               LISTEN      970/zabbix_agentd
-#tcp        0      0 0.0.0.0:10051           0.0.0.0:*               LISTEN      27578/zabbix_server
-#tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      4360/mysqld     
-#tcp6       0      0 :::22                   :::*                    LISTEN      887/sshd        
-#tcp6       0      0 ::1:5432                :::*                    LISTEN      979/postgres    
-#tcp6       0      0 :::10051                :::*                    LISTEN      27578/zabbix_server
-#tcp6       0      0 :::80                   :::*                    LISTEN      1289/apache2    
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
