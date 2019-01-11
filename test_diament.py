@@ -18,6 +18,14 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
+def test_squid_running(Process, Service, Socket, Command):
+    assert Service("squid").is_enabled
+    assert Service("squid").is_running
+
+    squidmaster = Process.get(user="root", ppid='1', comm="squid")
+    assert squidmaster.user == "root"
+    assert squidmaster.group == "proxy"
+
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
