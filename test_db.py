@@ -43,12 +43,10 @@ def test_postfix_running(Process, Service, Socket, Command):
     postfix = Process.get(comm="master")
 
     assert Socket("tcp://127.0.0.1:25").is_listening
-#
 
 def test_testlot_website(Command):
-    command = Command('unset http_proxy; curl -s https://testlot.novelpay.pl')
-    assert command.rc == 60
-
+    command = Command('unset http_proxy; curl -k -s https://testlot.novelpay.pl')
+    assert command.rc == 0
 
 def test_tuned_running(Process, Service, Socket, Command):
     assert Service("tuned").is_enabled
