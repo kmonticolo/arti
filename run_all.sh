@@ -1,5 +1,5 @@
-echo agat
-sh run_agat.sh -q -n4
+#echo agat
+#sh run_agat.sh -q -n4
 echo alpha
 sh run_alpha.sh -q -n4
 echo beryl
