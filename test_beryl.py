@@ -57,9 +57,9 @@ def test_wildfly_ntms_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:5011").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
 
-def test_ntms_cm_running(Process, Service, Socket, Command):
-    assert Service("ntms_cm").is_enabled
-    assert Service("ntms_cm").is_running
+#def test_ntms_cm_running(Process, Service, Socket, Command):
+#    assert Service("ntms_cm").is_enabled
+#    assert Service("ntms_cm").is_running
 
 def test_ntms_cm_ssl_running(Process, Service, Socket, Command):
     assert Service("ntms_cm_ssl").is_enabled
