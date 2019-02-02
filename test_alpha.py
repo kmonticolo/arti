@@ -9,7 +9,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == 'e9dbd289d58ee04006863319e7a287ec  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '614cd1ae1b48c47bc150b5456e21a5c9  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -99,3 +99,10 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
+def test_backups_exists(Command):
+    command = Command('find /home/jboss/BACKUPS/NTMS/ -type f -name "*gz" -daystart -mtime 1 -print |grep -q "."')
+    assert command.rc == 0
+    command = Command('find /home/jboss/BACKUPS/PPOS/ -type f -name "*gz" -daystart -mtime 1 -print |grep -q "."')
+    assert command.rc == 0
+    command = Command('find /home/jboss/BACKUPS/SOTER/ -type f -name "*gz" -daystart -mtime 1 -print |grep -q "."')
+    assert command.rc == 0
