@@ -29,7 +29,7 @@ def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(user="vcs", ppid='1', comm="java")
 
 # su - vcs
-# home/vcs/apache-openejb-4.5.0-sim
+# cd /home/vcs/apache-openejb-4.5.0-sim
 # nohup ./bin/openejb start &
 def test_openejb_running(Process, Service, Socket, Command):
     openejb = Process.get(user="vcs", ppid='1', comm="openejb")
@@ -48,9 +48,9 @@ def test_vcs_running(Process, Service, Socket, Command):
 
 # /app/CommunicationModule/bin/ep2_server status
 #def test_ep2_server_running(Command):
-#    command = Command('/app/CommunicationModule/bin/ep2_server status|grep -c STARTED.*STARTED$')
-#    assert command.stdout.rstrip() == '1'
-#    assert command.rc == 0
+    #command = Command('/app/CommunicationModule/bin/ep2_server status|grep -c STARTED.*STARTED$')
+    #assert command.stdout.rstrip() == '1'
+    #assert command.rc == 0
 
 def test_si_config_server_running(Command):
     command = Command('/app/CommunicationModule/bin/si-config-server status')
@@ -59,6 +59,8 @@ def test_si_config_server_running(Command):
 
 
 #dopisac standalone
+# sudo su - jboss
+# cd /app/jboss
 # ./bin/start_tms.sh ; tail -F standalone/log/server.log
 #po tym service vcs start
 
