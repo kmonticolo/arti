@@ -34,7 +34,7 @@ def test_jenkins_running(Process, Service, Socket, Command):
 
 def test_jenkins_website(Command):
     command = Command('curl -sSf "https://draco.artifact.pl/jenkins/" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '403'
+    assert command.stdout.rstrip() == '403' or  command.stdout.rstrip() == '000'
     assert command.rc == 22
 
 def test_postgres_running(Process, Service, Socket, Command):
