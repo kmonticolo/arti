@@ -8,7 +8,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == 'f3613cae10441af046d12872acb82c55  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '8f0937c1bd9c4e881d4283ae42088527  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_fwstart_unchanged(Command):
@@ -26,9 +26,13 @@ def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
     assert command.rc == 0
 
+def test_certbot_dry_run(Command):
+    command = Command('sudo certbot --dry-run renew')
+    assert command.rc == 0
+
 def test_soter_website(Command):
     command = Command('curl -sSf "https://soter.novelpay.pl" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '301'
+    assert command.stdout.rstrip() == '301' or command.stdout.rstrip() == '302'
     assert command.rc == 0
 
 def test_confluence_website(Command):
@@ -103,8 +107,8 @@ def test_armlmd_running(Process, Service, Socket, Command):
     assert armlmd.group == "flexlm"
     assert Socket("tcp://0.0.0.0:27010").is_listening
 
-def test_pinpadlogserver_running(Process, Service, Socket, Command):
-    assert Socket("tcp://:::61234").is_listening
+#def test_pinpadlogserver_running(Process, Service, Socket, Command):
+    #assert Socket("tcp://:::61234").is_listening
 
 def test_slapd_running(Process, Service, Socket, Command):
     slapd= Process.get(comm="slapd")
@@ -186,7 +190,7 @@ def test_listening_socket(host):
 "tcp://:::80",
 "tcp://:::8081",
 "tcp://:::4369",
-"tcp://:::61234",
+#"tcp://:::61234",
 "tcp://:::22",
 "tcp://:::8060",
 "tcp://:::8061",
