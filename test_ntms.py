@@ -54,7 +54,7 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert wildfly.comm == "java"
     assert Socket("tcp://127.0.0.1:10000").is_listening
     assert Socket("tcp://0.0.0.0:8090").is_listening # backend do apache
-    #assert Socket("tcp://127.0.0.1:62626").is_listening
+    assert Socket("tcp://127.0.0.1:61616").is_listening
     assert Socket("tcp://0.0.0.0:8453").is_listening
     #assert Socket("tcp://0.0.0.0:9797").is_listening # nie slucha - patrz wyzej
 
@@ -87,19 +87,22 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
+"tcp://0.0.0.0:10050",
+"tcp://0.0.0.0:8453",
+"tcp://0.0.0.0:80",
+"tcp://127.0.0.1:61616",
 "tcp://127.0.0.1:10000",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
+"tcp://0.0.0.0:25",
+"tcp://127.0.0.1:5433",
 "tcp://0.0.0.0:8090",
-"tcp://0.0.0.0:10050",
-#"tcp://127.0.0.1:62626",
-"tcp://0.0.0.0:8453",
-#"tcp://0.0.0.0:9797",
+"tcp://0.0.0.0:443",
 "tcp://:::80",
 "tcp://:::22",
 "tcp://:::5432",
-"tcp://:::443",
-    ):  
+"tcp://:::25",
+):
         socket = host.socket(spec)
         assert socket.is_listening
 
