@@ -31,7 +31,6 @@ def test_serv_active(host):
 "nginx",
 "ntmscm",
 "ntmscmssl",
-"ntmshb",
 "ntp",
 "ondemand",
 "polkitd",

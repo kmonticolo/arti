@@ -8,7 +8,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '8f0937c1bd9c4e881d4283ae42088527  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '55cda22974086b75108a78d0e2e04958  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_fwstart_unchanged(Command):
