@@ -17,17 +17,20 @@ def test_iptables_unchanged(Command):
     assert command.stdout.rstrip() == '8bbf6ebc0629a35310acc1e5e5bd63cc  /etc/ufw/before.rules'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '4d185829f2b594731a2dfbfe1b664fcd  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '5274adde3e45612d12e9818ffc35d7b0  /etc/ufw/user.rules'
     assert command.rc == 0
 
-def test_apache2_running(Process, Service, Socket, Command):
-    assert Service("apache2").is_enabled
-    assert Service("apache2").is_running
+def test_nginx_running(Process, Service, Socket, Command):
+    assert Service("nginx").is_enabled
+    assert Service("nginx").is_running
+
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
     assert Socket("tcp://:::80").is_listening
     assert Socket("tcp://:::443").is_listening
 
-def test_apache_validate(Command):
-    command = Command('sudo apache2ctl -t')
+def test_nginx_validate(Command):
+    command = Command('sudo nginx -t')
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -51,7 +54,7 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert wildfly.comm == "java"
     assert Socket("tcp://127.0.0.1:10000").is_listening
     assert Socket("tcp://0.0.0.0:8090").is_listening # backend do apache
-    assert Socket("tcp://127.0.0.1:62626").is_listening
+    #assert Socket("tcp://127.0.0.1:62626").is_listening
     assert Socket("tcp://0.0.0.0:8453").is_listening
     assert Socket("tcp://0.0.0.0:9797").is_listening # nie slucha - patrz wyzej
 
@@ -68,7 +71,7 @@ def test_pg_isready_output(Command):
 
 def test_redirect_website(Command):
     command = Command('curl -sSf "http://ntms.novelpay.pl" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '302'
+    assert command.stdout.rstrip() == '301' or command.stdout.rstrip() == '302'
     assert command.rc == 0
 
 def test_https_website(Command):
@@ -89,7 +92,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:8090",
 "tcp://0.0.0.0:10050",
-"tcp://127.0.0.1:62626",
+#"tcp://127.0.0.1:62626",
 "tcp://0.0.0.0:8453",
 "tcp://0.0.0.0:9797",
 "tcp://:::80",
