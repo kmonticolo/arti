@@ -6,7 +6,6 @@ def test_serv_active(host):
     for spec in (
 "accounts-daemon",
 "acpid",
-"apache2",
 "apparmor",
 "apport",
 "atd",
