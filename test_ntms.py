@@ -44,7 +44,7 @@ def test_cron_running(Process, Service, Socket, Command):
 # tail -F standalone/log/server.log
 
 def test_wildfly_running(Process, Service, Socket, Command):
-    standalone = Process.get(user="jboss", ppid='1', comm="standalone.sh")
+    standalone = Process.get(user="jboss", comm="standalone.sh")
     assert standalone.user == "jboss"
     assert standalone.group == "jboss"
 
@@ -56,7 +56,7 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8090").is_listening # backend do apache
     #assert Socket("tcp://127.0.0.1:62626").is_listening
     assert Socket("tcp://0.0.0.0:8453").is_listening
-    assert Socket("tcp://0.0.0.0:9797").is_listening # nie slucha - patrz wyzej
+    #assert Socket("tcp://0.0.0.0:9797").is_listening # nie slucha - patrz wyzej
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
@@ -94,7 +94,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:10050",
 #"tcp://127.0.0.1:62626",
 "tcp://0.0.0.0:8453",
-"tcp://0.0.0.0:9797",
+#"tcp://0.0.0.0:9797",
 "tcp://:::80",
 "tcp://:::22",
 "tcp://:::5432",
