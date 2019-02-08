@@ -7,6 +7,7 @@ def test_serv_active(host):
 "accounts-daemon",
 "acpid",
 "apparmor",
+"nginx",
 "apport",
 "atd",
 "cgmanager",
