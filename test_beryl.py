@@ -51,7 +51,7 @@ def test_wildfly_ntms_running(Process, Service, Socket, Command):
     assert Socket("tcp://164.132.30.190:4748").is_listening
     assert Socket("tcp://127.0.0.1:32001").is_listening
     #assert Socket("tcp://0.0.0.0:5011").is_listening
-    assert Socket("tcp://164.132.30.190:18181").is_listening
+    #assert Socket("tcp://164.132.30.190:18181").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
     #assert Socket("tcp://0.0.0.0:5011").is_listening
@@ -165,7 +165,7 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:32000",
 "tcp://127.0.0.1:32001",
 "tcp://0.0.0.0:10050",
-"tcp://164.132.30.190:18181",
+#"tcp://164.132.30.190:18181",
 "tcp://:::80",
 "tcp://:::53",
 "tcp://:::22",
