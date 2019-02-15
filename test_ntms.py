@@ -8,7 +8,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 
 def test_iptables_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables/rules.v4')
-    assert command.stdout.rstrip() == '0a2c751e76ad007e734840aeac3a8ac1  /etc/iptables/rules.v4'
+    assert command.stdout.rstrip() == '13cdcb7c04daa2bdf93a61630117c022  /etc/iptables/rules.v4'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/before.init')
     assert command.stdout.rstrip() == 'cd7783526a1a2b25581cecd3c2daa1a4  /etc/ufw/before.init'
@@ -18,6 +18,10 @@ def test_iptables_unchanged(Command):
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/user.rules')
     assert command.stdout.rstrip() == '5274adde3e45612d12e9818ffc35d7b0  /etc/ufw/user.rules'
+    assert command.rc == 0
+
+def test_redirect_8453_port(Command):
+    command = Command('sudo iptables -L -t nat -nv |grep 8453 |wc -l|grep 5')
     assert command.rc == 0
 
 def test_nginx_running(Process, Service, Socket, Command):
