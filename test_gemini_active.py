@@ -8,7 +8,6 @@ def test_serv_active(host):
 
 "crond",
 "dbus",
-"firewalld",
 "getty@tty1",
 "gssproxy",
 "irqbalance",
