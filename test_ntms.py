@@ -17,7 +17,7 @@ def test_iptables_unchanged(Command):
     assert command.stdout.rstrip() == 'a347a83bb4b4daff38d024471c9356f5  /etc/ufw/before.rules'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '5274adde3e45612d12e9818ffc35d7b0  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'bd1de38f3c8b806b83b3f3480a856b42  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_redirect_8453_port(Command):
