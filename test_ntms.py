@@ -14,7 +14,7 @@ def test_iptables_unchanged(Command):
     assert command.stdout.rstrip() == 'cd7783526a1a2b25581cecd3c2daa1a4  /etc/ufw/before.init'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/before.rules')
-    assert command.stdout.rstrip() == '8bbf6ebc0629a35310acc1e5e5bd63cc  /etc/ufw/before.rules'
+    assert command.stdout.rstrip() == 'a347a83bb4b4daff38d024471c9356f5  /etc/ufw/before.rules'
     assert command.rc == 0
     command = Command('sudo md5sum /etc/ufw/user.rules')
     assert command.stdout.rstrip() == '5274adde3e45612d12e9818ffc35d7b0  /etc/ufw/user.rules'
