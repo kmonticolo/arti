@@ -12,7 +12,6 @@ def test_serv(host):
 "dns-clean",
 "fail2ban",
 "getty@",
-"netfilter-persistent",
 "networking",
 "postgresql",
 "pppd-dns",

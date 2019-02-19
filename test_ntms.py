@@ -20,10 +20,6 @@ def test_iptables_unchanged(Command):
     assert command.stdout.rstrip() == 'bd1de38f3c8b806b83b3f3480a856b42  /etc/ufw/user.rules'
     assert command.rc == 0
 
-def test_redirect_8453_port(Command):
-    command = Command('sudo iptables -L -t nat -nv |grep 8453 |wc -l|grep 5')
-    assert command.rc == 0
-
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
