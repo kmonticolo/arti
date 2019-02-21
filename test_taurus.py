@@ -39,14 +39,6 @@ def test_tuned_running(Process, Service, Socket, Command):
     assert Service("tuned").is_enabled
     assert Service("tuned").is_running
 
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-    munin= Process.get(comm="munin-node")
-    assert munin.user == "root"
-    assert munin.group == "root"
-
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running
@@ -94,7 +86,6 @@ def test_listening_socket(host):
     for spec in (
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:80",
-"tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:25",
 "tcp://:::80",
