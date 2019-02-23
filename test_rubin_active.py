@@ -41,7 +41,6 @@ def test_serv_active(host):
 "sonar",
 "ssh",
 "sysstat",
-"systemd-journal-flush",
 "systemd-journald",
 "systemd-logind",
 "systemd-modules-load",
