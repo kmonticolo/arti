@@ -41,7 +41,6 @@ def test_serv(host):
 "snapd.autoimport",
 "snapd.core-fixup",
 "snapd.seeded",
-"snapd",
 "snapd.system-shutdown",
 "ssh",
 "sshd",
