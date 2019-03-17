@@ -43,7 +43,6 @@ def test_serv_active(host):
 "rsyslog",
 "setvtrgb",
 "snapd.seeded",
-"snapd",
 "ssh",
 "systemd-journal-flush",
 "systemd-journald",

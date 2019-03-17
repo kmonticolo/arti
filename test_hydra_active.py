@@ -39,7 +39,6 @@ def test_serv_active(host):
 "setkey",
 "setvtrgb",
 "snapd.seeded",
-"snapd",
 "ssh",
 "sysstat",
 "systemd-journal-flush",
