@@ -149,11 +149,6 @@ def test_apache2_running(Process, Service, Socket, Command):
     assert Socket("tcp://:::8070").is_listening
     assert Socket("tcp://:::9000").is_listening
 
-def test_jenkins_running(Process, Service, Socket, Command):
-    assert Service("jenkins").is_enabled
-    assert Service("jenkins").is_running
-    assert Socket("tcp://0.0.0.0:8081").is_listening
-
 def test_ejabberd_running(Process, Service, Socket, Command):
     #assert Service("jabberd").is_enabled
     #assert Service("jabberd").is_running
@@ -188,7 +183,6 @@ def test_listening_socket(host):
 "tcp://:::5322",
 "tcp://:::8080",
 "tcp://:::80",
-"tcp://:::8081",
 "tcp://:::4369",
 #"tcp://:::61234",
 "tcp://:::22",
