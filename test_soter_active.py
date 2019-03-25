@@ -23,7 +23,6 @@ def test_serv_active(host):
 "grub-common",
 "ifup@eth0",
 "irqbalance",
-"jenkins",
 "jira",
 "keyboard-setup",
 "kmod-static-nodes",
@@ -49,7 +48,6 @@ def test_serv_active(host):
 "systemd-random-seed",
 "systemd-remount-fs",
 "systemd-sysctl",
-
 "systemd-tmpfiles-setup-dev",
 "systemd-tmpfiles-setup",
 "systemd-udev-trigger",
@@ -60,7 +58,6 @@ def test_serv_active(host):
 "ufw",
 "unattended-upgrades",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_running
