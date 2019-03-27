@@ -6,10 +6,8 @@ def test_serv(host):
 "autovt@",
 
 "crond",
-"dbus-org.fedoraproject.FirewallD1",
 "dbus-org.freedesktop.NetworkManager",
 "dbus-org.freedesktop.nm-dispatcher",
-"firewalld",
 "getty@",
 "irqbalance",
 "kdump",

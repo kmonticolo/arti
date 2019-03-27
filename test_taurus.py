@@ -11,14 +11,16 @@
 #ufw
 # disable when firewalld is in use
 
-def test_firewalld_running(Process, Service, Socket, Command):
-    assert Service("firewalld").is_enabled
-    assert Service("firewalld").is_running
 
-def test_firewalld_unchanged(Command):
-    command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
-    assert command.stdout.rstrip() == 'adbf9e35a1457739bef223badb0ae583  /etc/firewalld/zones/public.xml'
-    assert command.rc == 0                                                      
+
+def test_ufw(Command):
+    command = Command('sudo ufw status | grep -qw active')
+    assert command.rc == 0
+
+#def test_ufw_unchanged(Command):
+    #command = Command('sudo md5sum /etc/ufw/user.rules')
+    #assert command.stdout.rstrip() == '383db7356044db123fc069d0b40a5b23  /etc/ufw/user.rules'
+    #assert command.rc == 0
 
 def test_iptables_unchanged(Command):
     command = Command('sudo md5sum /etc/iptables-save')
