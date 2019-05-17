@@ -26,19 +26,9 @@ def test_ntms_app_website(Command):
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
-def test_PPOS_website(Command):
-    command = Command('curl -sSfk https://alpha.novelpay.pl/PPOS -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '302'
-    assert command.rc == 0
-
 def test_ntms_website(Command):
     command = Command('curl -sSfk https://alpha.novelpay.pl/ntms -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '301'
-    assert command.rc == 0
-
-def test_ntmss_website(Command):
-    command = Command('curl -sSfk https://alpha.novelpay.pl/ntmss -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '302'
     assert command.rc == 0
 
 def test_fail2ban_running(Process, Service, Socket, Command):
