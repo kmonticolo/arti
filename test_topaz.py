@@ -88,10 +88,6 @@ def test_mysql_running(Process, Service, Socket, Command):
     assert mysql.group == "root"
     assert Socket("tcp://127.0.0.1:3306").is_listening
 
-def test_apache2_running(Process, Service, Socket, Command):
-    assert Service("apache2").is_enabled
-    assert Service("apache2").is_running
-    assert Socket("tcp://:::80").is_listening
 
 def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')

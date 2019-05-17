@@ -23,7 +23,6 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
 "thermald",
 "ufw",
 "unattended-upgrades",
