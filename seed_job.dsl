@@ -176,7 +176,7 @@ job("copy_junit_reports") {
         numToKeep(100)
     }
      steps {
-        shell("for i in \$(ls /tmp/junit*xml |sed -e 's/^.*_//' -e 's/.xml\$//g'); do cp /tmp/junit_\${i}.xml //var/lib/jenkins/workspace/testinfra \${i}/target/test-reports/junit_\${i}.xml || exit 0 ;done")
+        shell("for i in \$(ls /tmp/junit*xml |sed -e 's/^.*_//' -e 's/.xml\$//g'); do cp /tmp/junit_\${i}.xml //var/lib/jenkins/workspace/testinfra\ \${i}/target/test-reports/junit_\${i}.xml || exit 0 ;done")
      }
               
  }
