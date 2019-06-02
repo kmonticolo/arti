@@ -4,7 +4,6 @@ def test_serv(host):
     for spec in (
 "autovt@",
 "crond",
-"dbus-org.fedoraproject.FirewallD1",
 "dbus-org.freedesktop.NetworkManager",
 "dbus-org.freedesktop.nm-dispatcher",
 "getty@",
@@ -12,7 +11,6 @@ def test_serv(host):
 "kdump",
 "lvm2-monitor",
 "microcode",
-"munin-node",
 "NetworkManager-dispatcher",
 "NetworkManager-wait-online",
 "NetworkManager",
