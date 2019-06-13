@@ -58,6 +58,13 @@ def test_nginx_validate(Command):
     assert command.rc == 0
 
 
+
+# startowanie
+# [oracle@taurus ~]$ sqlplus '/ as sysdba'
+# SQL> startup
+# lsnrctl start
+# lsnrctl status
+
 def test_ora11g_running(Process, Service, Socket, Command):
     proc= Process.filter(comm="oracle")
     assert Socket("tcp://0.0.0.0:1521").is_listening
