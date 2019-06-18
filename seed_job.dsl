@@ -99,7 +99,21 @@ for (host in [
         cron('H 22 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory")
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
+     }
+              
+ }
+
+	
+ job("ansible NPNTMS is reboot needed") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 12 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory -l npntms")
      }
               
  }
@@ -113,7 +127,21 @@ for (host in [
         cron('H 21 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory")
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
+     }
+              
+ }
+
+	
+ job("ansible NPNTMS debian_upgrade") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 21 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l npntms")
      }
               
  }
