@@ -78,11 +78,6 @@ def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
 
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-
 def test_tuned_running(Process, Service, Socket, Command):
     assert Service("tuned").is_enabled
     assert Service("tuned").is_running
@@ -106,7 +101,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:1099",
 "tcp://127.0.0.1:4204",
 "tcp://0.0.0.0:61613",
-"tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
 "tcp://:::10080",
 "tcp://:::8199",
