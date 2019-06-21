@@ -107,6 +107,28 @@ for (host in [
               
  }
 
+ job("ansible Centos is reboot needed") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 12 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible -m shell -a \"needs-restarting -r|grep 'not necessary'\" centos")
+     }
+              
+ }
+
+ job("ansible reboot Centos") {
+    logRotator {
+        numToKeep(100)
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/centos_reboot.yml")
+     }
+}
+ 
 	
  job("ansible debian_upgrade") {
     logRotator {
@@ -117,8 +139,7 @@ for (host in [
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
-     }
-              
+     }              
  }
 
 	
@@ -131,8 +152,7 @@ for (host in [
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l npntms")
-     }
-              
+     }             
  }
 
 job("ansible centos_upgrade") {
@@ -149,31 +169,29 @@ job("ansible centos_upgrade") {
  }
 
 
-job("ansible aide update") {
-    logRotator {
-        numToKeep(100)
-    }
-  triggers {
-        cron('H 4 * * *')
-    }
-     steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide.yml -i /home/kmonti/ansible/inventory")
-     }
-              
- }
+//job("ansible aide update") {
+//    logRotator {
+//        numToKeep(100)
+//    }
+//  triggers {
+//        cron('H 4 * * *')
+//    }
+//     steps {
+//        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide.yml -i /home/kmonti/ansible/inventory")
+//     }              
+// }
 
-job("ansible aide check") {
-    logRotator {
-        numToKeep(100)
-    }
-  triggers {
-        cron('H 0 * * *')
-    }
-     steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide_check.yml -i /home/kmonti/ansible/inventory")
-     }
-              
- }
+//job("ansible aide check") {
+//    logRotator {
+//        numToKeep(100)
+//    }
+//  triggers {
+//        cron('H 0 * * *')
+//    }
+//     steps {
+//        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide_check.yml -i /home/kmonti/ansible/inventory")
+//     }              
+// }
 
 job("ansible ntp") {
     logRotator {
