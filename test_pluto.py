@@ -40,12 +40,6 @@ def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(comm="java")
     assert Socket("tcp://0.0.0.0:8080").is_listening
 
-def test_wildfly_running(Process, Service, Socket, Command):
-    assert Service("wildfly").is_enabled
-    assert Service("wildfly").is_running
-
-
-
 def test_httpd_running(Process, Service, Socket, Command):
     assert Service("httpd").is_enabled
     assert Service("httpd").is_running
