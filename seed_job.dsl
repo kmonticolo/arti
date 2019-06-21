@@ -29,13 +29,7 @@ for (host in [
       // spawn testinfra via sudo and store reports in junit.xml
       shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")    
       // copy junit files from /tmp as jenkins
-      shell("cp /tmp/junit_${host}.xml target/test-reports/")
-    }
-     publishers {
-        archiveJunit('target/test-reports/*xml')
-    }
-     publishers {
-        downstream('copy_junit_reports', 'FAILURE')
+      //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
     }
 }
@@ -79,13 +73,7 @@ for (host in [
       // spawn testinfra via sudo and store reports in junit.xml
       shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")    
       // copy junit files from /tmp as jenkins
-      shell("cp /tmp/junit_${host}.xml target/test-reports/")
-    }
-      publishers {
-        archiveJunit('target/test-reports/*xml')
-    }
-    publishers {
-        downstream('copy_junit_reports', 'FAILURE')
+      //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
     }
 }
