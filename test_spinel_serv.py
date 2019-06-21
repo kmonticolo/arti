@@ -14,7 +14,6 @@ def test_serv(host):
 "friendly-recovery",
 "getty@",
 "lvm2-monitor",
-"munin-node",
 "networking",
 "nginx",
 "postgresql",

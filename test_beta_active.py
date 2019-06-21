@@ -18,7 +18,6 @@ def test_serv_active(host):
 "lvm2-lvmetad",
 "lvm2-monitor",
 "lvm2-pvscan@8:2",
-"munin-node",
 "network",
 "NetworkManager",
 "ntpd",

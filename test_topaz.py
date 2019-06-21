@@ -1,7 +1,7 @@
 # ubuntu 16.04 lts
 
 # userzy grep sh$ /etc/passwd
-# root postgres adam jboss munin fecru kamilm
+# root postgres adam jboss fecru kamilm
 
 #ufw
 def test_ufw(Command):

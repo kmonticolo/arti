@@ -15,7 +15,6 @@ def test_serv(host):
 "getty@",
 "haveged",
 "lvm2-monitor",
-"munin-node",
 "networking",
 "nfs-kernel-server",
 "nfs-server",

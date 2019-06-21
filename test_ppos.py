@@ -44,10 +44,6 @@ def test_ppos_key_file(host):
     assert file.group == "jboss"
     assert file.mode == 0o664
 
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
 def test_httpd_running(Process, Service, Socket, Command):
     assert Service("httpd").is_enabled
     assert Service("httpd").is_running
@@ -124,7 +120,6 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://0.0.0.0:4949",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:443",

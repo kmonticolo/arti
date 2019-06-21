@@ -10,7 +10,6 @@ def test_serv_active(host):
 "getty@tty2",
 "httpd",
 "jboss",
-"munin-node",
 "network",
 "postgresql-9.4",
 "quotaon",

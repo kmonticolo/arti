@@ -18,7 +18,6 @@ def test_serv(host):
 "lvm2-monitor",
 "mdmonitor",
 "microcode",
-"munin-node",
 "NetworkManager-dispatcher",
 "NetworkManager",
 "postfix",

@@ -57,14 +57,6 @@ def test_cron_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     cron = Process.filter(comm="java")
 
-def test_munin_running(Process, Service, Socket, Command):
-    assert Service("munin-node").is_enabled
-    assert Service("munin-node").is_running
-
-    munin= Process.get(comm="munin-node")
-    assert munin.user == "root"
-    assert munin.group == "root"
-
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
@@ -175,7 +167,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:81",
 "tcp://0.0.0.0:5012", # java sms
-"tcp://164.132.30.191:4949",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://127.0.0.1:5433",

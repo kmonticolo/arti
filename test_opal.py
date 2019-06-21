@@ -58,4 +58,3 @@ def test_board_website(Command):
     assert command.rc == 0
 
 
-# munin?
