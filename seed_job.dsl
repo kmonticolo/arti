@@ -194,6 +194,31 @@ job("ansible centos_upgrade") {
 //     }              
 // }
 
+job("ansible NPNTMS aide update") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 13 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide.yml -i /home/kmonti/ansible/inventory -l npntms")
+     }              
+ }
+
+job("ansible NPNTMS aide check") {
+    logRotator {
+        numToKeep(100)
+    }
+  triggers {
+        cron('H 12 * * *')
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide_check.yml -i /home/kmonti/ansible/inventory -l npntms")
+     }              
+ }
+
+
 job("ansible ntp") {
     logRotator {
         numToKeep(100)
