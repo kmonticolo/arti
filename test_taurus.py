@@ -60,6 +60,7 @@ def test_nginx_validate(Command):
 
 
 # startowanie
+# sudo su - oracle
 # [oracle@taurus ~]$ sqlplus '/ as sysdba'
 # SQL> startup
 # lsnrctl start
