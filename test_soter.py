@@ -19,8 +19,8 @@ def test_fwstart_unchanged(Command):
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
-    assert Socket("tcp://:::80").is_listening
-    assert Socket("tcp://:::443").is_listening
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
 
 def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
@@ -118,7 +118,7 @@ def test_jira_running(Process, Service, Socket, Command):
     jira = Process.get(user="jira1", comm="java")
     assert jira.user == "jira1"
     assert jira.group == "jira1"
-    assert Socket("tcp://:::8080").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
 
 def test_confluence_running(Process, Service, Socket, Command):
     assert Service("confluence").is_enabled
@@ -137,12 +137,12 @@ def test_exim_running(Process, Service, Socket, Command):
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
-    assert Socket("tcp://:::80").is_listening
-    assert Socket("tcp://:::443").is_listening
-    assert Socket("tcp://:::8061").is_listening
-    assert Socket("tcp://:::8005").is_listening
-    assert Socket("tcp://:::8070").is_listening
-    assert Socket("tcp://:::9000").is_listening
+    assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
+    assert Socket("tcp://0.0.0.0:8061").is_listening
+    assert Socket("tcp://0.0.0.0:8005").is_listening
+    assert Socket("tcp://0.0.0.0:8070").is_listening
+    assert Socket("tcp://0.0.0.0:9000").is_listening
 
 def test_ejabberd_running(Process, Service, Socket, Command):
     #assert Service("jabberd").is_enabled
@@ -175,23 +175,21 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:5223",
 "tcp://0.0.0.0:5224",
 "tcp://0.0.0.0:5000",
-"tcp://:::5322",
-"tcp://:::8080",
-"tcp://:::80",
-"tcp://:::4369",
+"tcp://0.0.0.0:5322",
+"tcp://0.0.0.0:8080",
+"tcp://0.0.0.0:80",
+"tcp://0.0.0.0:4369",
 #"tcp://:::61234",
-"tcp://:::22",
-"tcp://:::8060",
-"tcp://:::8061",
-"tcp://:::10050",
-"tcp://:::389",
-"tcp://:::8005",
-"tcp://:::8070",
-"tcp://:::8007",
-"tcp://:::5223",
-"tcp://:::5224",
-"tcp://:::9000",
-"tcp://:::5000",
+"tcp://0.0.0.0:8060",
+"tcp://0.0.0.0:8061",
+"tcp://0.0.0.0:389",
+"tcp://0.0.0.0:8005",
+"tcp://0.0.0.0:8070",
+"tcp://0.0.0.0:8007",
+"tcp://0.0.0.0:5223",
+"tcp://0.0.0.0:5224",
+"tcp://0.0.0.0:9000",
+"tcp://0.0.0.0:5000",
 
     ):  
         socket = host.socket(spec)
