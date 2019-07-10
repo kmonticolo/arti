@@ -22,7 +22,7 @@ def test_tnslsnr_running(Process, Service, Socket, Command):
     proc= Process.get(comm="tnslsnr")
     assert proc.user == "oracle"
     assert proc.group == "dba"
-    assert Socket("tcp://:::1521").is_listening
+    assert Socket("tcp://0.0.0.0:1521").is_listening
     assert Socket("tcp://46.105.232.1:1521").is_listening
 
 def test_java_running(Process, Service, Socket, Command):
@@ -102,19 +102,18 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:4204",
 "tcp://0.0.0.0:61613",
 "tcp://0.0.0.0:22",
-"tcp://:::10080",
-"tcp://:::8199",
-"tcp://:::8201",
-"tcp://:::8202",
-"tcp://:::1521",
-"tcp://:::61234",
-"tcp://:::22",
-"tcp://:::8186",
-"tcp://:::8187",
-"tcp://:::8188",
-"tcp://:::8189",
-"tcp://:::8190",
-"tcp://:::8191",
+"tcp://0.0.0.0:10080",
+"tcp://0.0.0.0:8199",
+"tcp://0.0.0.0:8201",
+"tcp://0.0.0.0:8202",
+"tcp://0.0.0.0:1521",
+"tcp://0.0.0.0:61234",
+"tcp://0.0.0.0:8186",
+"tcp://0.0.0.0:8187",
+"tcp://0.0.0.0:8188",
+"tcp://0.0.0.0:8189",
+"tcp://0.0.0.0:8190",
+"tcp://0.0.0.0:8191",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening

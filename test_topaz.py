@@ -103,14 +103,13 @@ def test_jira_running(Process, Service, Socket, Command):
     jira = Process.get(user="jira", comm="java")
     assert jira.user == "jira"
     assert jira.group == "jira"
-    assert Socket("tcp://:::9090").is_listening
-    assert Socket("tcp://:::9095").is_listening
-    assert Socket("tcp://127.0.0.1:9095").is_listening
+    assert Socket("tcp://0.0.0.0:9090").is_listening
+    assert Socket("tcp://0.0.0.0:9095").is_listening
 
 def test_confluence_running(Process, Service, Socket, Command):
     assert Service("confluence").is_enabled
     assert Service("confluence").is_running
-    assert Socket("tcp://:::8090").is_listening
+    assert Socket("tcp://0.0.0.0:8090").is_listening
 
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
@@ -154,13 +153,12 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:10050",
 "tcp://127.0.0.1:3306",
 "tcp://0.0.0.0:22",
-"tcp://:::5432",
-"tcp://:::8090",
-"tcp://:::443",
-"tcp://:::9090",
-"tcp://:::9095",
-"tcp://:::80",
-"tcp://:::22"
+"tcp://0.0.0.0:5432",
+"tcp://0.0.0.0:8090",
+"tcp://0.0.0.0:443",
+"tcp://0.0.0.0:9090",
+"tcp://0.0.0.0:9095",
+"tcp://0.0.0.0:80",
     ):
         socket = host.socket(spec)
         assert socket.is_listening
