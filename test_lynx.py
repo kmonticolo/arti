@@ -118,7 +118,7 @@ def test_listening_socket(host):
 "tcp://:::22",
 "tcp://:::25",
 "tcp://:::443",
-"tcp://:::10080",
+"tcp://0.0.0.0:10080",
 "tcp://:::80"
     ):  
         socket = host.socket(spec)
