@@ -24,7 +24,7 @@ def test_oracle_running(Process, Service, Socket, Command):
     assert proc.user == "oracle"
     assert proc.group == "oinstall"
 
-    assert Socket("tcp://:::1521").is_listening
+    assert Socket("tcp://0.0.0.0:1521").is_listening
 
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
@@ -36,7 +36,6 @@ def test_nginx_running(Process, Service, Socket, Command):
 
     nginxworker = Process.filter(ppid=nginxmaster.pid)
     assert Socket("tcp://0.0.0.0:80").is_listening
-    assert Socket("tcp://:::80").is_listening
 
 def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
@@ -78,9 +77,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:22",
 "tcp://127.0.0.1:25",
 "tcp://0.0.0.0:10050",
-"tcp://:::80",
-"tcp://:::1521",
-"tcp://:::22",
+"tcp://0.0.0.0:1521",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
