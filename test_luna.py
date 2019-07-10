@@ -34,8 +34,8 @@ def test_mongod_running(Process, Service, Socket, Command):
 
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(comm="java")
-    assert Socket("tcp://:::8080").is_listening
-    assert Socket("tcp://:::8180").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+    assert Socket("tcp://0.0.0.0:8180").is_listening
 
 def test_haproxy_running(Process, Service, Socket, Command):
     assert Service("haproxy").is_enabled
@@ -58,7 +58,7 @@ def test_haproxy_conf(host):
 def test_tomcat7_running(Process, Service, Socket, Command):
     assert Service("tomcat7").is_enabled
     assert Service("tomcat7").is_running
-    assert Socket("tcp://:::8180").is_listening
+    assert Socket("tcp://0.0.0.0:8180").is_listening
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
@@ -111,10 +111,9 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:10050",
-"tcp://:::8080",
-"tcp://:::8180",
-"tcp://:::22",
-"tcp://:::5432",
+"tcp://0.0.0.0:8080",
+"tcp://0.0.0.0:8180",
+"tcp://0.0.0.0:5432",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
