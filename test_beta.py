@@ -6,7 +6,7 @@ def test_firewalld_running(Process, Service, Socket, Command):
 # disabled requiretty in sudoers
 def test_firewalld_unchanged(Command):
     command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
-    assert command.stdout.rstrip() == 'e2aff1ffa8a7022036939690a78f6c82  /etc/firewalld/zones/public.xml'
+    assert command.stdout.rstrip() == '1542409df1003196d5d68df81e164d72  /etc/firewalld/zones/public.xml'
     assert command.rc == 0
 
 def test_fail2ban_running(Process, Service, Socket, Command):
@@ -16,14 +16,13 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 def test_oracle_running(Process, Service, Socket, Command):
     assert Service("oracle-xe").is_enabled
     assert Service("oracle-xe").is_running
-    assert Socket("tcp://46.105.232.1:1521").is_listening
+    assert Socket("tcp://0.0.0.0:1521").is_listening
 
 def test_tnslsnr_running(Process, Service, Socket, Command):
     proc= Process.get(comm="tnslsnr")
     assert proc.user == "oracle"
     assert proc.group == "dba"
     assert Socket("tcp://0.0.0.0:1521").is_listening
-    assert Socket("tcp://46.105.232.1:1521").is_listening
 
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(user="vcs", ppid='1', comm="java")
