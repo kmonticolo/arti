@@ -69,8 +69,6 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert nginxworker.comm == "nginx"
     assert Socket("tcp://0.0.0.0:80").is_listening
     assert Socket("tcp://0.0.0.0:443").is_listening
-    assert Socket("tcp://:::80").is_listening
-    assert Socket("tcp://:::443").is_listening
 
 def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
@@ -119,9 +117,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:443",
 "tcp://0.0.0.0:10050",
 "tcp://127.0.0.1:9990",
-"tcp://:::80",
-"tcp://:::22",
-"tcp://:::5432",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
