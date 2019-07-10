@@ -132,10 +132,10 @@ def test_activemq_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:5672").is_listening
     assert Socket("tcp://164.132.30.191:61613").is_listening
     assert Socket("tcp://0.0.0.0:61614").is_listening
-    assert Socket("tcp://0.0.0.0:61616").is_listening
+    #assert Socket("tcp://0.0.0.0:61616").is_listening
     assert Socket("tcp://0.0.0.0:1883").is_listening
     assert Socket("tcp://0.0.0.0:8161").is_listening
-    assert Socket("tcp://127.0.0.1:61616").is_listening
+    #assert Socket("tcp://127.0.0.1:61616").is_listening
 
 def test_wildfly_running(Process, Service, Socket, Command):
     standalone = Process.get(user="jboss", ppid='1', comm="standalone.sh")
@@ -162,15 +162,15 @@ def test_listening_socket(host):
 "tcp://127.0.0.1:3306",
 "tcp://164.132.30.191:61613",
 "tcp://0.0.0.0:61614",
-"tcp://127.0.0.1:8080",
-"tcp://0.0.0.0:61616",
+"tcp://0.0.0.0:8080",
+#"tcp://0.0.0.0:61616",
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:81",
 "tcp://0.0.0.0:5012", # java sms
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://127.0.0.1:5433",
-"tcp://127.0.0.1:8443",
+"tcp://0.0.0.0:8443",
 "tcp://0.0.0.0:1883",
 "tcp://127.0.0.1:32000", # java sms
 "tcp://0.0.0.0:8161",
