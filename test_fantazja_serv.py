@@ -6,6 +6,7 @@ def test_serv(host):
 "accounts-daemon",
 "apparmor",
 "atd",
+"autovt@",
 "blk-availability",
 "cloud-config",
 "cloud-final",
@@ -17,6 +18,7 @@ def test_serv(host):
 "dbus-org.freedesktop.thermald",
 "ebtables",
 "fail2ban",
+"getty@",
 "irqbalance",
 "iscsi",
 "keyboard-setup",
@@ -56,6 +58,7 @@ def test_serv(host):
 "wildfly",
 "zabbix-agent",
 "zookeeper",
+
     ):  
         service= host.service(spec)
         assert service.is_enabled

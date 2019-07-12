@@ -7,7 +7,6 @@ def test_serv(host):
 "autovt@",
 "cron",
 "fail2ban",
-"friendly-recovery",
 "getty@",
 "haproxy",
 "iscsi",
@@ -30,11 +29,14 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
+"systemd-timesyncd",
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "vgauth",
 "zabbix-agent",
+"zookeeper",
+
     ):  
         service= host.service(spec)
         assert service.is_enabled

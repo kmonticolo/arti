@@ -16,6 +16,7 @@ def test_serv(host):
 "dbus-org.freedesktop.resolve1",
 "dbus-org.freedesktop.thermald",
 "ebtables",
+"fail2ban",
 "getty@",
 "irqbalance",
 "iscsi",
@@ -25,10 +26,12 @@ def test_serv(host):
 "lxd-containers",
 "networkd-dispatcher",
 "nginx",
+"ntp",
 "ondemand",
 "open-iscsi",
 "open-vm-tools",
 "pollinate",
+"postfix",
 "postgresql",
 "rsync",
 "rsyslog",
@@ -45,13 +48,15 @@ def test_serv(host):
 "systemd-networkd-wait-online",
 "systemd-networkd",
 "systemd-resolved",
-
+"systemd-timesyncd",
 "thermald",
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "vgauth",
+"wildfly",
 "zabbix-agent",
+
     ):  
         service= host.service(spec)
         assert service.is_enabled

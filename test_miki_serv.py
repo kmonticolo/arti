@@ -2,7 +2,6 @@
 
 def test_serv(host):
     for spec in (
-
 "accounts-daemon",
 "apache2",
 "apparmor",
@@ -17,6 +16,7 @@ def test_serv(host):
 "cron",
 "dbus-org.freedesktop.resolve1",
 "dbus-org.freedesktop.thermald",
+"docker-registry",
 "ebtables",
 "fail2ban",
 "getty@",
@@ -59,7 +59,6 @@ def test_serv(host):
 "vgauth",
 "zabbix-agent",
 "zabbix-server",
-
 
     ):  
         service= host.service(spec)
