@@ -12,26 +12,24 @@ def test_serv(host):
 "dbus-org.freedesktop.thermald",
 "dns-clean",
 "fail2ban",
-"friendly-recovery",
 "getty@",
 "lvm2-monitor",
 "mysql",
 "networking",
+"open-vm-tools",
 "pppd-dns",
 "resolvconf",
 "rsyslog",
 "ssh",
 "sshd",
 "syslog",
-
+"systemd-timesyncd",
 "thermald",
 "ufw",
 "unattended-upgrades",
 "ureadahead",
+"vgauth",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
-
-
