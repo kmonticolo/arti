@@ -3,12 +3,15 @@
 def test_serv(host):
     for spec in (
 "auditd",
+"autovt@",
 "crond",
 "dbus-org.fedoraproject.FirewallD1",
 "dbus-org.freedesktop.NetworkManager",
 "dbus-org.freedesktop.nm-dispatcher",
 "fail2ban",
 "firewalld",
+"getty@",
+"httpd",
 "irqbalance",
 "kafka",
 "kdump",
@@ -33,11 +36,14 @@ def test_serv(host):
 "systemd-readahead-drop",
 "systemd-readahead-replay",
 "tuned",
+"vgauthd",
+"vmtoolsd",
 "vtms_cm",
 "wildfly",
 "yum-cron",
 "zabbix-agent",
 "zookeeper",
+
     ):  
         service= host.service(spec)
         assert service.is_enabled

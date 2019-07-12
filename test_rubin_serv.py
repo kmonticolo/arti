@@ -37,6 +37,7 @@ def test_serv(host):
 "sshd",
 "syslog",
 "sysstat",
+"systemd-fsck-root-runtime",
 "systemd-resolved",
 "systemd-timesyncd",
 "thermald",

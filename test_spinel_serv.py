@@ -11,9 +11,9 @@ def test_serv(host):
 "dbus-org.freedesktop.thermald",
 "dns-clean",
 "fail2ban",
-"friendly-recovery",
 "getty@",
 "lvm2-monitor",
+"munin-node",
 "networking",
 "nginx",
 "postgresql",
@@ -23,12 +23,13 @@ def test_serv(host):
 "ssh",
 "sshd",
 "syslog",
-
+"systemd-timesyncd",
 "thermald",
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "zabbix-agent",
+"zookeeper",
 
     ):  
         service= host.service(spec)
