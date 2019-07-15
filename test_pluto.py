@@ -30,7 +30,7 @@ def test_firewalld_unchanged(Command):
 
 def test_kafka_config_unchanged(Command):
     command = Command('sudo md5sum  /opt/kafka/config/server.properties')
-    assert command.stdout.rstrip() == '1e0468624d1e8e22e6ac0d35b16e57c5  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '1f495d1a8ee27bd69263ec85e0ee6b75  /opt/kafka/config/server.properties'
 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
