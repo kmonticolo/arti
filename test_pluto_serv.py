@@ -13,7 +13,7 @@ def test_serv(host):
 "getty@",
 "httpd",
 "irqbalance",
-"kafka",
+#"kafka",
 "kdump",
 "lvm2-monitor",
 "microcode",
