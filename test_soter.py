@@ -128,32 +128,32 @@ def test_catalina_policy_unchanged(Command):
     assert command.stdout.rstrip() == '0cfebc3134731e42cc02b75047c366a0  /opt/atlassian/jira/conf/catalina.policy'
     assert command.rc == 0
 
-def test_catalina_properties_unchanged(Command):
+def test_jira_catalina_properties_unchanged(Command):
     command = Command('sudo md5sum /opt/atlassian/jira/conf/catalina.properties')
     assert command.stdout.rstrip() == '938494616bf21094f21ec663d242045f  /opt/atlassian/jira/conf/catalina.properties'
     assert command.rc == 0
 
-def test_context_xml_unchanged(Command):
+def test_jira_context_xml_unchanged(Command):
     command = Command('sudo md5sum /opt/atlassian/jira/conf/context.xml')
     assert command.stdout.rstrip() == '61b5ffcad3f105f035aca33ca811b516  /opt/atlassian/jira/conf/context.xml'
     assert command.rc == 0
 
-def test_jaspic_providers_unchanged(Command):
+def test_jira_jaspic_providers_unchanged(Command):
     command = Command('sudo md5sum /opt/atlassian/jira/conf/jaspic-providers.xml')
     assert command.stdout.rstrip() == '4f5cc55cca2c4e5dc19cf9ea7ba8e76d  /opt/atlassian/jira/conf/jaspic-providers.xml'
     assert command.rc == 0
 
-def test_server_xml_unchanged(Command):
+def test_jira_server_xml_unchanged(Command):
     command = Command('sudo md5sum /opt/atlassian/jira/conf/server.xml')
     assert command.stdout.rstrip() == '52a7cdcaad8217dfbffeaa11d1366ff9  /opt/atlassian/jira/conf/server.xml'
     assert command.rc == 0
 
-def test_tomcat_users_xml_unchanged(Command):
+def test_jira_tomcat_users_xml_unchanged(Command):
     command = Command('sudo md5sum /opt/atlassian/jira/conf/tomcat-users.xml')
     assert command.stdout.rstrip() == 'd995b7238e99826cbfa1476ed9e18265  /opt/atlassian/jira/conf/tomcat-users.xml'
     assert command.rc == 0
 
-def test_web_xml_unchanged(Command):
+def test_jira_web_xml_unchanged(Command):
     command = Command('sudo md5sum /opt/atlassian/jira/conf/web.xml')
     assert command.stdout.rstrip() == '24ba95d91330d1f547c8c602bf91873d  /opt/atlassian/jira/conf/web.xml'
     assert command.rc == 0
