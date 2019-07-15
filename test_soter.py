@@ -167,6 +167,41 @@ def test_confluence_running(Process, Service, Socket, Command):
     #assert Socket("tcp://:::8087").is_listening
     #assert Socket("tcp://127.0.0.1:8000").is_listening
 
+def test_confluence_catalina_policy_unchanged(Command):
+    command = Command('sudo md5sum /opt/atlassian/confluence/conf/catalina.policy')
+    assert command.stdout.rstrip() == '69a7b2d2e6f314abbdb818739a884c2b  /opt/atlassian/confluence/conf/catalina.policy'
+    assert command.rc == 0
+
+def test_confluence_catalina_properties_unchanged(Command):
+    command = Command('sudo md5sum /opt/atlassian/confluence/conf/catalina.properties')
+    assert command.stdout.rstrip() == 'c7d22def65f5a1e00c4c2a7f01612ed1  /opt/atlassian/confluence/conf/catalina.properties'
+    assert command.rc == 0
+
+def test_confluence_context_xml_unchanged(Command):
+    command = Command('sudo md5sum /opt/atlassian/confluence/conf/context.xml')
+    assert command.stdout.rstrip() == '2e157268e8078fe27a98edd7284c25cb  /opt/atlassian/confluence/conf/context.xml'
+    assert command.rc == 0
+
+def test_confluence_jaspic_providers_unchanged(Command):
+    command = Command('sudo md5sum /opt/atlassian/confluence/conf/jaspic-providers.xml')
+    assert command.stdout.rstrip() == '4f5cc55cca2c4e5dc19cf9ea7ba8e76d  /opt/atlassian/confluence/conf/jaspic-providers.xml'
+    assert command.rc == 0
+
+def test_confluence_server_xml_unchanged(Command):
+    command = Command('sudo md5sum /opt/atlassian/confluence/conf/server.xml')
+    assert command.stdout.rstrip() == '9267cf700d80461db7d2a3f97416e6bd  /opt/atlassian/confluence/conf/server.xml'
+    assert command.rc == 0
+
+def test_confluence_tomcat_users_xml_unchanged(Command):
+    command = Command('sudo md5sum /opt/atlassian/confluence/conf/tomcat-users.xml')
+    assert command.stdout.rstrip() == 'd995b7238e99826cbfa1476ed9e18265  /opt/atlassian/confluence/conf/tomcat-users.xml'
+    assert command.rc == 0
+
+def test_confluence_web_xml_unchanged(Command):
+    command = Command('sudo md5sum /opt/atlassian/confluence/conf/web.xml')
+    assert command.stdout.rstrip() == '115290b5e0d0d65ab44f9bc821190bb5  /opt/atlassian/confluence/conf/web.xml'
+    assert command.rc == 0
+
 def test_exim_running(Process, Service, Socket, Command):
     assert Service("exim4").is_enabled
     assert Service("exim4").is_running
