@@ -123,7 +123,7 @@ def test_jira_running(Process, Service, Socket, Command):
     assert jira.group == "jira1"
     assert Socket("tcp://0.0.0.0:8080").is_listening
 
-def test_catalina_policy_unchanged(Command):
+def test_jira_catalina_policy_unchanged(Command):
     command = Command('sudo md5sum /opt/atlassian/jira/conf/catalina.policy')
     assert command.stdout.rstrip() == '0cfebc3134731e42cc02b75047c366a0  /opt/atlassian/jira/conf/catalina.policy'
     assert command.rc == 0
