@@ -73,9 +73,9 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
 def test_backups_exists(Command):
-    command = Command('find /home/jboss/BACKUPS/NTMS/ -type f -name "*gz" -daystart -mtime 1 -print |grep -q "."')
+    command = Command('find /home/jboss/BACKUPS/NTMS/ -type f -name "*gz" -daystart -mtime -1 -print |grep -q "."')
     assert command.rc == 0
-    command = Command('find /home/jboss/BACKUPS/PPOS/ -type f -name "*gz" -daystart -mtime 1 -print |grep -q "."')
+    command = Command('find /home/jboss/BACKUPS/PPOS/ -type f -name "*gz" -daystart -mtime -1 -print |grep -q "."')
     assert command.rc == 0
-    command = Command('find /home/jboss/BACKUPS/SOTER/ -type f -name "*gz" -daystart -mtime 1 -print |grep -q "."')
+    command = Command('find /home/jboss/BACKUPS/SOTER/ -type f -name "*gz" -daystart -mtime -1 -print |grep -q "."')
     assert command.rc == 0
