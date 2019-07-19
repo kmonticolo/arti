@@ -33,6 +33,27 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
+def test_wildfly_running(Process, Service, Socket, Command):
+    standalone = Process.get(user="art", comm="standalone.sh")
+    assert standalone.user == "art"
+    assert standalone.group == "art"
+
+    wildfly = Process.get(ppid=standalone.pid)
+    assert wildfly.user == "art"
+    assert wildfly.group == "art"
+    assert wildfly.comm == "java"
+    #assert Socket("tcp://127.0.0.1:61616").is_listening
+    #assert Socket("tcp://0.0.0.0:8453").is_listening
+
+def test_zookeeper_running(Process, Service, Socket, Command):
+    assert Service("zookeeper").is_enabled
+    assert Service("zookeeper").is_running
+
+def test_zookeeper_conf_unchanged(Command):
+    command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
+    assert command.stdout.rstrip() == '9881e316b8148213a089953c408b91e2  /opt/zookeeper/conf/zoo.cfg'
+    assert command.rc == 0
+
 def test_nginx_running(Process, Service, Socket, Command):
     assert Service("nginx").is_enabled
     assert Service("nginx").is_running

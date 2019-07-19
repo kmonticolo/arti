@@ -151,6 +151,15 @@ def test_wildfly_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:8787").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
 
+def test_zookeeper_running(Process, Service, Socket, Command):
+    assert Service("zookeeper").is_enabled
+    assert Service("zookeeper").is_running
+
+def test_zookeeper_conf_unchanged(Command):
+    command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
+    assert command.stdout.rstrip() == '6b5ee3cf3e8a13723cc5af4fbf2000c8  /opt/zookeeper/conf/zoo.cfg'
+    assert command.rc == 0
+
 def test_spinel_website(Command):
     command = Command('curl -sSf "http://spinel.artifact.pl/lustro" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '301'

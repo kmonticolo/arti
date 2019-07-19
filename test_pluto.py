@@ -32,6 +32,15 @@ def test_kafka_config_unchanged(Command):
     command = Command('sudo md5sum  /opt/kafka/config/server.properties')
     assert command.stdout.rstrip() == '1f495d1a8ee27bd69263ec85e0ee6b75  /opt/kafka/config/server.properties'
 
+def test_zookeeper_running(Process, Service, Socket, Command):
+    assert Service("zookeeper").is_enabled
+    assert Service("zookeeper").is_running
+
+def test_zookeeper_conf_unchanged(Command):
+    command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
+    assert command.stdout.rstrip() == '77a59afd411bcdfa9bed31ce805c29c2  /opt/zookeeper/conf/zoo.cfg'
+    assert command.rc == 0
+
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running

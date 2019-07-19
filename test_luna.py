@@ -74,6 +74,15 @@ def test_pg_isready_output(Command):
     assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
     assert command.rc == 0
 
+def test_zookeeper_running(Process, Service, Socket, Command):
+    assert Service("zookeeper").is_enabled
+    assert Service("zookeeper").is_running
+
+def test_zookeeper_conf_unchanged(Command):
+    command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
+    assert command.stdout.rstrip() == 'edbd95bdc0b5e4189dcd3190477f947d  /opt/zookeeper/conf/zoo.cfg'
+    assert command.rc == 0
+
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running

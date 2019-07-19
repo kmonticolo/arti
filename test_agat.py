@@ -37,12 +37,19 @@ def test_zabbix_server_running(Process, Service, Socket, Command):
     assert Service("zabbix-server").is_running
     assert Socket("tcp://0.0.0.0:10051").is_listening
 
-
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
+def test_zookeeper_running(Process, Service, Socket, Command):
+    assert Service("zookeeper").is_enabled
+    assert Service("zookeeper").is_running
+
+def test_zookeeper_conf_unchanged(Command):
+    command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
+    assert command.stdout.rstrip() == '9881e316b8148213a089953c408b91e2  /opt/zookeeper/conf/zoo.cfg'
+    assert command.rc == 0
 
 def test_mysql_running(Process, Service, Socket, Command):
     assert Service("mysql").is_enabled
