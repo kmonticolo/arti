@@ -6,7 +6,6 @@ for (host in [
   'alpha',
   'beta',
   'soter',
-  'ntms',
   'ppos',
   'db' ]) {
   job("testinfra ${host}") {
