@@ -52,6 +52,8 @@ for (host in [
   'taurus',
   'spinel',
   'fantazja',
+  'jerom',
+  'piskra',
   'miki',
   'gemini' ]) {
   job("testinfra ${host}") {
