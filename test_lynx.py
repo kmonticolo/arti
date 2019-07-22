@@ -51,6 +51,27 @@ def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
+def test_apache2_running(Process, Service, Socket, Command):
+    assert Service("apache2").is_enabled
+    assert Service("apache2").is_running
+    assert Socket("tcp://:::80").is_listening
+
+def test_apache_validate(Command):
+    command = Command('sudo apache2ctl -t')
+    assert command.rc == 0
+
+def test_apache2_conf000default(host):
+    conf = host.file("/etc/apache2/sites-enabled/000-default.conf")
+    assert conf.user == "root"
+    assert conf.group == "root"
+    assert conf.contains("DocumentRoot /opt/orthphoto.net/www/html")
+    assert conf.contains("Options Indexes FollowSymLinks MultiViews")
+    assert conf.contains("AllowOverride All")
+    assert conf.contains("Require all granted")
+    assert conf.contains("ErrorDocument 403 /opt/orthphoto.net/www/error/403.html")
+    assert conf.contains("ErrorLog ${APACHE_LOG_DIR}/error.log")
+    assert conf.contains("CustomLog ${APACHE_LOG_DIR}/access.log combined")
+    assert conf.contains("ErrorDocument 403 /")
 
 def test_orthphoto_website(Command):
     command = Command('curl -sSf "https://www.orthphoto.net" -o /dev/null -w %{http_code}')
