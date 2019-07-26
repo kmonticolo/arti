@@ -188,7 +188,6 @@ def test_listening_socket(host):
 "tcp://:::80",
 "tcp://:::22",
 "tcp://:::5432",
-"tcp://::1:5433",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
