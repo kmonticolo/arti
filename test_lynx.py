@@ -73,6 +73,12 @@ def test_apache2_conf000default(host):
     assert conf.contains("CustomLog ${APACHE_LOG_DIR}/access.log combined")
     assert conf.contains("ErrorDocument 403 /")
 
+def test_java_running(Process, Service, Socket, Command):
+    java = Process.get(comm="java")
+    assert java.user == "op"
+    assert java.group == "op"
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+
 def test_orthphoto_website(Command):
     command = Command('curl -sSf "https://www.orthphoto.net" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
