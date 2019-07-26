@@ -242,3 +242,28 @@ job("copy_junit_reports") {
      }
               
  }
+
+  job("testinfra ntms db1") {
+     logRotator {
+        numToKeep(100)
+    }
+  scm {
+      git {
+          remote { url(repo) }
+          branches('master')
+          extensions { }
+        }
+      
+    triggers {
+        cron('H * * * *')
+    }
+    steps {
+      // needed for junit tests, run as jenkins
+      shell("mkdir -p target/test-reports/")
+      // spawn testinfra via sudo and store reports in junit.xml
+      shell("sudo -u ${user} /bin/py.test test_db1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_${host}.xml")    
+      // copy junit files from /tmp as jenkins
+      //shell("cp /tmp/junit_${host}.xml target/test-reports/")
+    }
+    }
+}
