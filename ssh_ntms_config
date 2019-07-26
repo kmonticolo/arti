@@ -1,0 +1,15 @@
+# ovh ca
+Host 51.77.198.*
+User kamil
+StrictHostKeyChecking no
+IdentityFIle /home/kmonti/.ssh/id_rsa
+
+# ovh fr
+Host 192.99.119.*
+User kamil
+StrictHostKeyChecking no
+IdentityFIle /home/kmonti/.ssh/id_rsa
+
+User kamilm
+StrictHostKeyChecking no
+IdentityFIle /home/kmonti/.ssh/id_rsa
