@@ -118,7 +118,7 @@ for (host in [
         cron('H 12 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible -m shell -a \"needs-restarting -r|grep 'not necessary'\" centos")
+        shell("sudo -u kmonti ansible -m shell -a \"needs-restarting -r|grep 'not necessary'\" centos:!ppos.novelpay.pl")
      }
               
  }
