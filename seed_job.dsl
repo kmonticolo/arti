@@ -52,6 +52,7 @@ for (host in [
   'spinel',
   'fantazja',
   'jerom',
+  'taj',
   'piskra',
   'miki',
   'gemini' ]) {
