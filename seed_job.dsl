@@ -135,7 +135,7 @@ for (host in [
 	
  job("ansible debian_upgrade") {
     logRotator {
-        numToKeep(100)
+        numToKeep(300)
     }
   triggers {
         cron('H 21 * * *')
