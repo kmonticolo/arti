@@ -44,7 +44,7 @@ for (host in [
   'beryl', 
   'draco', 
   'hydra', 
-  'luna', 
+  //'luna', 
   'lynx', 
   'orion', 
   'pavo', 
@@ -125,7 +125,7 @@ for (host in [
 
  job("ansible reboot Centos") {
     logRotator {
-        numToKeep(100)
+        numToKeep(300)
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/centos_reboot.yml")
