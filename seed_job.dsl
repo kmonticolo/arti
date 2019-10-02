@@ -26,8 +26,7 @@ for (host in [
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")    
-      // copy junit files from /tmp as jenkins
+      shell("sudo -u ${user} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")          // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
     }
@@ -74,7 +73,7 @@ for (host in [
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} /bin/py.test test_${host}*.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")    
+      shell("sudo -u ${user} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")    
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
@@ -262,7 +261,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} /bin/py.test test_1db*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_db1.xml")    
+      shell("sudo -u ${user} /bin/py.test test_db1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_db1.xml")    
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_db1.xml target/test-reports/")
     }
