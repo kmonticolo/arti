@@ -1,36 +1,13 @@
 
-# cron /var/spool/cron/jboss istnieje
-
-def test_firewalld_running(Process, Service, Socket, Command):
-    assert Service("firewalld").is_enabled
-    assert Service("firewalld").is_running
 
 def test_firewalld_unchanged(Command):
     command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
     assert command.stdout.rstrip() == '6f5656ccae84996f92e81ec49bdc3477  /etc/firewalld/zones/public.xml'
     assert command.rc == 0
 
-def test_fail2ban_running(Process, Service, Socket, Command):
-    assert Service("fail2ban").is_enabled
-    assert Service("fail2ban").is_running
-
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("crond").is_enabled
     assert Service("crond").is_running
-
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.get(comm="java")
-    assert java.user == "jboss"
-    assert java.group == "jboss"
-    assert Socket("tcp://0.0.0.0:8443").is_listening
-    assert Socket("tcp://0.0.0.0:4447").is_listening
-    assert Socket("tcp://127.0.0.1:9990").is_listening
-    assert Socket("tcp://127.0.0.1:9999").is_listening
-    assert Socket("tcp://0.0.0.0:8080").is_listening
-
-def test_jboss_running(Process, Service, Socket, Command):
-    #assert Service("jboss").is_enabled
-    assert Service("jboss").is_running
 
 def test_ppos_cert_file(host):
     file = host.file("/etc/httpd/ssl/ppos.crt")

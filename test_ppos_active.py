@@ -9,7 +9,6 @@ def test_serv_active(host):
 "dbus",
 "getty@tty2",
 "httpd",
-"jboss",
 "network",
 "postgresql-9.4",
 "quotaon",
