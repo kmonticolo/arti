@@ -74,7 +74,7 @@ for (host in [
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} /bin/py.test test_${HOST}.py test_${HOST}_active.py test_${HOST}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")    
+      shell("sudo -u ${user} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")    
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
