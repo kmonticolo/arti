@@ -57,9 +57,7 @@ def test_serv_active(host):
 "systemd-user-sessions",
 "ufw",
 "unattended-upgrades",
-"wildfly",
 "zabbix-agent",
-"zookeeper",
     ):  
         service= host.service(spec)
         assert service.is_running

@@ -63,15 +63,6 @@ def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
-def test_wildfly_running(Process, Service, Socket, Command):
-    assert Service("wildfly").is_enabled
-    assert Service("wildfly").is_running
-    assert Socket("tcp://0.0.0.0:8080").is_listening
-
-def test_zookeeper_running(Process, Service, Socket, Command):
-    assert Service("zookeeper").is_enabled
-    assert Service("zookeeper").is_running
-
 def test_zookeeper_conf_unchanged(Command):
     command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
     assert command.stdout.rstrip() == 'c49f3eeaa005c004d643aa9fe016bde5  /opt/zookeeper/conf/zoo.cfg'
