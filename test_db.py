@@ -8,7 +8,7 @@ def test_firewalld_running(Process, Service, Socket, Command):
 
 def test_firewalld_unchanged(Command):
     command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
-    assert command.stdout.rstrip() == '09b63ce986ee117269bd64ae88f665f8  /etc/firewalld/zones/public.xml'
+    assert command.stdout.rstrip() == 'f078a76065b8ab3025530ff55b05a4cd  /etc/firewalld/zones/public.xml'
     assert command.rc == 0
 
 def test_fail2ban_running(Process, Service, Socket, Command):
