@@ -24,7 +24,6 @@ def test_serv_active(host):
 "lvm2-lvmetad",
 "lvm2-monitor",
 "ModemManager",
-"mysql",
 "networking",
 "NetworkManager-wait-online",
 "NetworkManager",

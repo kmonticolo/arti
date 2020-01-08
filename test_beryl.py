@@ -48,8 +48,6 @@ def test_wildfly_ntms_running(Process, Service, Socket, Command):
     assert Service("wildfly").is_enabled
     assert Service("wildfly").is_running
     assert Socket("tcp://164.132.30.190:4747").is_listening
-    assert Socket("tcp://164.132.30.190:4748").is_listening
-    assert Socket("tcp://127.0.0.1:32001").is_listening
     #assert Socket("tcp://0.0.0.0:5011").is_listening
     #assert Socket("tcp://164.132.30.190:18181").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
@@ -57,13 +55,8 @@ def test_wildfly_ntms_running(Process, Service, Socket, Command):
     #assert Socket("tcp://0.0.0.0:5011").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
 
-#def test_ntms_cm_running(Process, Service, Socket, Command):
-#    assert Service("ntms_cm").is_enabled
-#    assert Service("ntms_cm").is_running
-
 def test_ntms_cm_ssl_running(Process, Service, Socket, Command):
     assert Service("ntms_cm_ssl").is_enabled
-    assert Service("ntms_cm_ssl").is_running
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
@@ -116,7 +109,6 @@ def test_vibbek_website(Command):
 
 def test_mysql_running(Process, Service, Socket, Command):
     assert Service("mysql").is_enabled
-    assert Service("mysql").is_running
 
     mysql = Process.get(comm="mysqld_safe")
     assert mysql.user == "root"
@@ -163,7 +155,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:8443",
 "tcp://0.0.0.0:443",
 "tcp://127.0.0.1:32000",
-"tcp://127.0.0.1:32001",
 "tcp://0.0.0.0:10050",
 #"tcp://164.132.30.190:18181",
 "tcp://:::80",
