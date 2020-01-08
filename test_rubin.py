@@ -49,7 +49,7 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 def test_nexus_running(Process, Service, Socket, Command):
     assert Service("nexus").is_enabled
     assert Service("nexus").is_running
-    assert Socket("tcp://127.0.0.1:32000").is_listening
+    #assert Socket("tcp://127.0.0.1:32000").is_listening
     assert Socket("tcp://0.0.0.0:8081").is_listening
 
 # sonar
@@ -58,12 +58,7 @@ def test_sonar_running(Process, Service, Socket, Command):
     assert Service("sonar").is_enabled
     assert Service("sonar").is_running
     assert Socket("tcp://127.0.0.1:32001").is_listening
-    assert Socket("tcp://0.0.0.0:9000").is_listening
-
-def test_wildfly_running(Process, Service, Socket, Command):
-    assert Service("wildfly").is_enabled
-    assert Service("wildfly").is_running
-    assert Socket("tcp://0.0.0.0:8443").is_listening
+    #assert Socket("tcp://0.0.0.0:9000").is_listening
 
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
@@ -108,7 +103,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://127.0.0.1:5433",
-"tcp://127.0.0.1:32000",
 "tcp://127.0.0.1:32001",
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:8081",

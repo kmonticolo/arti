@@ -43,7 +43,6 @@ def test_serv(host):
 "ufw",
 "unattended-upgrades",
 "ureadahead",
-"wildfly",
 "wpa_supplicant",
 "zabbix-agent",
 

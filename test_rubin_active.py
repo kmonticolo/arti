@@ -4,7 +4,6 @@
 
 def test_serv_active(host):
     for spec in (
-"accounts-daemon",
 "apache-htcacheclean",
 "apache2",
 "apparmor",
@@ -56,7 +55,6 @@ def test_serv_active(host):
 "systemd-user-sessions",
 "ufw",
 "unattended-upgrades",
-"wildfly",
 "wpa_supplicant",
 "zabbix-agent",
     ):  
