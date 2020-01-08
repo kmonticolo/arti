@@ -93,18 +93,18 @@ def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
     assert command.rc == 0
 
-def test_fisheye_running(Process, Service, Socket, Command):
-    assert Service("fisheye").is_enabled
-    assert Service("fisheye").is_running
+#def test_fisheye_running(Process, Service, Socket, Command):
+    #assert Service("fisheye").is_enabled
+    #assert Service("fisheye").is_running
 
-def test_jira_running(Process, Service, Socket, Command):
-    assert Service("jira").is_enabled
-    assert Service("jira").is_running
-    jira = Process.get(user="jira", comm="java")
-    assert jira.user == "jira"
-    assert jira.group == "jira"
-    assert Socket("tcp://0.0.0.0:9090").is_listening
-    assert Socket("tcp://0.0.0.0:9095").is_listening
+#def test_jira_running(Process, Service, Socket, Command):
+    #assert Service("jira").is_enabled
+    #assert Service("jira").is_running
+    #jira = Process.get(user="jira", comm="java")
+    #assert jira.user == "jira"
+    #assert jira.group == "jira"
+    #assert Socket("tcp://0.0.0.0:9090").is_listening
+    #assert Socket("tcp://0.0.0.0:9095").is_listening
 
 def test_confluence_running(Process, Service, Socket, Command):
     assert Service("confluence").is_enabled
