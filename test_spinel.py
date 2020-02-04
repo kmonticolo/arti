@@ -20,7 +20,7 @@ def test_ufw(Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == 'bdd631d20a97ea1598833e06c4c822f3  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'f4a07f01d82af2a97d8eb803c4746807  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_apache2_running(Process, Service, Socket, Command):
