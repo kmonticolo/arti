@@ -28,7 +28,6 @@ def test_serv_active(host):
 "NetworkManager-wait-online",
 "NetworkManager",
 "nginx",
-"ntmscm",
 "ntmscmssl",
 "ntp",
 "ondemand",
