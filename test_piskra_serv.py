@@ -52,7 +52,6 @@ def test_serv(host):
 "unattended-upgrades",
 "ureadahead",
 "vgauth",
-"wildfly",
 "zabbix-agent",
 "zookeeper",
 

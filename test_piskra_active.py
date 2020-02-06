@@ -56,7 +56,6 @@ def test_serv_active(host):
 "ufw",
 "unattended-upgrades",
 "user@1001",
-"wildfly",
 "zabbix-agent",
 "zookeeper",
 
