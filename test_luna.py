@@ -23,15 +23,6 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
-def test_mongod_running(Process, Service, Socket, Command):
-    assert Service("mongodb").is_enabled
-    assert Service("mongodb").is_running
-
-    mongod = Process.get(comm="mongod")
-    assert mongod.user == "mongodb"
-    assert mongod.group == "nogroup"
-    assert Socket("tcp://127.0.0.1:27017").is_listening
-
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(comm="java")
     assert Socket("tcp://0.0.0.0:8080").is_listening

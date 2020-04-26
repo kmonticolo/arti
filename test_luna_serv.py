@@ -14,7 +14,6 @@ def test_serv(host):
 "lvm2-monitor",
 "lxcfs",
 "lxd-containers",
-"mongodb",
 "networking",
 "open-iscsi",
 "open-vm-tools",
