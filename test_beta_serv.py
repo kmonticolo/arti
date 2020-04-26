@@ -15,7 +15,6 @@ def test_serv(host):
 "kdump",
 "lvm2-monitor",
 "microcode",
-"munin-node",
 "NetworkManager-dispatcher",
 "NetworkManager-wait-online",
 "NetworkManager",

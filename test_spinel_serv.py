@@ -13,7 +13,6 @@ def test_serv(host):
 "fail2ban",
 "getty@",
 "lvm2-monitor",
-"munin-node",
 "networking",
 "nginx",
 "postgresql",

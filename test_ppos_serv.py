@@ -9,7 +9,6 @@ def test_serv(host):
 "firewalld",
 "getty@",
 "httpd",
-"munin-node",
 "ntpd",
 "postgresql-9.4",
 "quotaon",
