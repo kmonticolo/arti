@@ -20,7 +20,6 @@ def test_serv_active(host):
 "lvm2-pvscan@8:2",
 "network",
 "NetworkManager",
-"ntpd",
 "oracle-xe",
 "polkit",
 "rhel-dmesg",

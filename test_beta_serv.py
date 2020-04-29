@@ -18,7 +18,6 @@ def test_serv(host):
 "NetworkManager-dispatcher",
 "NetworkManager-wait-online",
 "NetworkManager",
-"ntpd",
 "rhel-autorelabel-mark",
 "rhel-autorelabel",
 "rhel-configure",
@@ -36,9 +35,6 @@ def test_serv(host):
 "tuned",
 "yum-cron",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
-
-
