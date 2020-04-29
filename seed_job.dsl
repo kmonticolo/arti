@@ -130,7 +130,15 @@ for (host in [
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/centos_reboot.yml")
      }
 }
- 
+
+ job("ansible reboot Ubuntu") {
+    logRotator {
+        numToKeep(300)
+    }
+     steps {
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot.yml -l artifactubuntu,novelpayubuntu")
+     }
+} 
 	
  job("ansible debian_upgrade") {
     logRotator {
