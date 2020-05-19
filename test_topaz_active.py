@@ -15,13 +15,11 @@ def test_serv_active(host):
 "cron",
 "dbus",
 "fail2ban",
-"fisheye",
 "getty@tty1",
 "grub-common",
 "haproxy",
 "ifup@eth0",
 "irqbalance",
-"jira",
 "keyboard-setup",
 "kmod-static-nodes",
 "lvm2-lvmetad",
@@ -56,9 +54,6 @@ def test_serv_active(host):
 "ufw",
 "unattended-upgrades",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_running
-
-

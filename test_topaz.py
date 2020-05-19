@@ -13,11 +13,6 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '1889cccb18bda7bc045ced5c4ba4815a  /etc/ufw/user.rules'
     assert command.rc == 0
 
-def test_jira_website(Command):
-    command = Command('curl -sSf https://jira.artifact.pl -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '200'
-    assert command.rc == 0
-
 def test_confluence_website(Command):
     command = Command('curl -sSf "https://confluence.artifact.pl/login.action?os_destination=%2Findex.action&permissionViolation=true" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
@@ -88,23 +83,9 @@ def test_mysql_running(Process, Service, Socket, Command):
     assert mysql.group == "root"
     assert Socket("tcp://127.0.0.1:3306").is_listening
 
-
 def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
     assert command.rc == 0
-
-#def test_fisheye_running(Process, Service, Socket, Command):
-    #assert Service("fisheye").is_enabled
-    #assert Service("fisheye").is_running
-
-#def test_jira_running(Process, Service, Socket, Command):
-    #assert Service("jira").is_enabled
-    #assert Service("jira").is_running
-    #jira = Process.get(user="jira", comm="java")
-    #assert jira.user == "jira"
-    #assert jira.group == "jira"
-    #assert Socket("tcp://0.0.0.0:9090").is_listening
-    #assert Socket("tcp://0.0.0.0:9095").is_listening
 
 def test_confluence_running(Process, Service, Socket, Command):
     assert Service("confluence").is_enabled
@@ -138,7 +119,6 @@ def test_haproxy_conf(host):
     assert conf.contains("bind \*:9085")
     assert conf.contains("bind \*:9084")
 
-
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
@@ -156,8 +136,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:8090",
 "tcp://0.0.0.0:443",
-"tcp://0.0.0.0:9090",
-"tcp://0.0.0.0:9095",
 "tcp://0.0.0.0:80",
     ):
         socket = host.socket(spec)

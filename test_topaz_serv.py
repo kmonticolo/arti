@@ -28,9 +28,6 @@ def test_serv(host):
 "unattended-upgrades",
 "ureadahead",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
-
-
