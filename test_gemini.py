@@ -17,6 +17,11 @@ def test_lsnrctl_status(Process, Service, Socket, Command):
     command = Command('sudo su - oracle -c "lsnrctl status"')
     assert command.rc == 0
 
+def test_firewalld_unchanged(Command):
+    command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
+    assert command.stdout.rstrip() == '079967c1db51253a6a39768ad8ace8a8  /etc/firewalld/zones/public.xml'
+    assert command.rc == 0
+
 def test_oracle_running(Process, Service, Socket, Command):
 
     proc= Process.get(comm="tnslsnr")
