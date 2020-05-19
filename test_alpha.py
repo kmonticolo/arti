@@ -9,7 +9,7 @@ def test_ufw_running(Process, Service, Socket, Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '2fec656a329aaf2f83791906e816730b  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '05e3ae9d287c68be43a989eae9201987  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
