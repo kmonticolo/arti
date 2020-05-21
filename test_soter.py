@@ -16,11 +16,16 @@ def test_fwstart_unchanged(Command):
     assert command.stdout.rstrip() == 'cd6f7d0e2419601180f40c1cd8b2efe1  /root/fwstart.sh'
     assert command.rc == 0
 
+    # netstat -alnp|grep LIST.*apa
 def test_apache2_running(Process, Service, Socket, Command):
     assert Service("apache2").is_enabled
     assert Service("apache2").is_running
     assert Socket("tcp://0.0.0.0:80").is_listening
     assert Socket("tcp://0.0.0.0:443").is_listening
+    assert Socket("tcp://0.0.0.0:8061").is_listening
+    assert Socket("tcp://0.0.0.0:8005").is_listening
+    assert Socket("tcp://0.0.0.0:8070").is_listening
+    assert Socket("tcp://0.0.0.0:9000").is_listening
 
 def test_apache_validate(Command):
     command = Command('sudo apache2ctl -t')
