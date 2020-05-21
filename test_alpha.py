@@ -77,5 +77,7 @@ def test_backups_exists(Command):
     assert command.rc == 0
     command = Command('find /home/jboss/BACKUPS/PPOS/ -type f -name "*gz" -daystart -mtime -1 -print |grep -q "."')
     assert command.rc == 0
+    command = Command('find /home/jboss/BACKUPS/PPOS2/ -type f -name "*gz" -daystart -mtime -1 -print |grep -q "."')
+    assert command.rc == 0
     command = Command('find /home/jboss/BACKUPS/SOTER/ -type f -name "*gz" -daystart -mtime -1 -print |grep -q "."')
     assert command.rc == 0
