@@ -95,7 +95,7 @@ def test_prosody_running(Process, Service, Socket, Command):
     assert lua.group == "prosody"
     assert Socket("tcp://0.0.0.0:5322").is_listening
     assert Socket("tcp://0.0.0.0:5223").is_listening
-    assert Socket("tcp://0.0.0.0:5224").is_listening 
+    assert Socket("tcp://0.0.0.0:5224").is_listening
     assert Socket("tcp://0.0.0.0:5000").is_listening
 
 def test_lmgrd_running(Process, Service, Socket, Command):
@@ -114,10 +114,11 @@ def test_armlmd_running(Process, Service, Socket, Command):
     #assert Socket("tcp://:::61234").is_listening
 
 def test_slapd_running(Process, Service, Socket, Command):
-    slapd= Process.get(comm="slapd")
+    slapd = Process.get(comm="slapd")
     assert slapd.user == "openldap"
     assert slapd.group == "openldap"
     assert Socket("tcp://0.0.0.0:389").is_listening
+    assert Socket("tcp://0.0.0.0:636").is_listening
 
 
 def test_jira_running(Process, Service, Socket, Command):
@@ -269,6 +270,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:9000",
 "tcp://0.0.0.0:5000",
 
-    ):  
+    ):
         socket = host.socket(spec)
         assert socket.is_listening
