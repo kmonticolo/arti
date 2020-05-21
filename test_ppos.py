@@ -1,4 +1,15 @@
+username = "jboss"
 
+def test_user_exists(host):
+    user = host.user("%s" % username)
+    assert user.name == "%s" % username
+    assert user.group == "%s" % username
+    assert user.home == "/home/%s" % username
+
+def test_user_home_exists(host):
+    user_home = host.file("/home/%s" % username)
+    assert user_home.exists
+    assert user_home.is_directory
 
 def test_firewalld_unchanged(Command):
     command = Command('sudo md5sum /etc/firewalld/zones/public.xml')
@@ -11,20 +22,20 @@ def test_crond_running(Process, Service, Socket, Command):
 
 def test_ppos_cert_file(host):
     file = host.file("/etc/httpd/ssl/ppos.crt")
-    assert file.user == "jboss"
-    assert file.group == "jboss"
+    assert file.user == "%s" % username
+    assert file.group == "%s" % username
     assert file.mode == 0o664
 
 def test_ppos_key_file(host):
     file = host.file("/etc/httpd/ssl/ppos.key")
-    assert file.user == "jboss"
-    assert file.group == "jboss"
+    assert file.user == "%s" % username
+    assert file.group == "%s" % username
     assert file.mode == 0o664
 
 def test_java_running(Process, Service, Socket, Command):
-    java = Process.get(user="jboss", comm="java")
-    assert java.user == "jboss"
-    assert java.group == "jboss"
+    java = Process.get(user="%s" %username, comm="java")
+    assert java.user == "%s" % username
+    assert java.group == "%s" % username
     assert Socket("tcp://0.0.0.0:8443").is_listening
     assert Socket("tcp://0.0.0.0:4447").is_listening
     assert Socket("tcp://127.0.0.1:9990").is_listening
