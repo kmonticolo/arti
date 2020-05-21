@@ -75,7 +75,7 @@ def test_mysql_running(Process, Service, Socket, Command):
     mysql = Process.get(comm="mysqld")
     assert mysql.user == "mysql"
     assert mysql.group == "mysql"
-
+    assert mysql.label == "/usr/sbin/mysqld"
     assert Socket("tcp://127.0.0.1:3306").is_listening
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -103,6 +103,12 @@ def test_lmgrd_running(Process, Service, Socket, Command):
     assert lmgrd.user == "flexlm"
     assert lmgrd.group == "flexlm"
     assert Socket("tcp://0.0.0.0:8224").is_listening
+
+def test_flexlm_licence_file(host):
+    file = host.file("/home/flexlm/license.dat")
+    assert file.user == "flexlm"
+    assert file.group == "flexlm"
+    assert file.mode == 0o664
 
 def test_epmd_running(Process, Service, Socket, Command):
     epmd= Process.get(comm="epmd")
