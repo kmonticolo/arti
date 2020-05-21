@@ -1,3 +1,4 @@
+import pytest
 username = "jboss"
 
 def test_user_exists(host):
@@ -41,6 +42,18 @@ def test_java_running(Process, Service, Socket, Command):
     assert Socket("tcp://127.0.0.1:9990").is_listening
     assert Socket("tcp://127.0.0.1:9999").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
+
+@pytest.mark.parametrize("package", [
+    ("vaadin-1.0.1-SNAPSHOT.war")
+])
+
+def test_is_package_deployed(host, package):
+    pkg = host.run("sudo -u %s /home/%s/jboss-as-7.1.1.Final/bin/jboss-cli.sh -c --controller=127.0.0.1 \"deployment-info --name=%s\"" % (username, username, package))
+    assert pkg.rc == 0
+
+def test_count_java_process(host):
+    javas = host.process.filter(user="%s" % username, comm="java", fname="java")
+    assert len(javas) == 1
 
 def test_httpd_running(Process, Service, Socket, Command):
     assert Service("httpd").is_enabled
