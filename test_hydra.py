@@ -10,6 +10,8 @@
 #
 
 #ufw
+import pytest
+username="jboss"
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
     assert command.rc == 0
@@ -25,12 +27,24 @@ def test_cron_running(Process, Service, Socket, Command):
 
 def test_java_running(Process, Service, Socket, Command):
     java = Process.get(comm="java")
-    assert java.user == "jboss"
-    assert java.group == "jboss"
+    assert java.user == "%s" % username
+    assert java.group == "%s" % username
     assert Socket("tcp://0.0.0.0:41616").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
     assert Socket("tcp://127.0.0.1:9990").is_listening
+
+@pytest.mark.parametrize("package", [
+    ("ppos-application-0.9.1-SNAPSHOT.war")
+])
+
+def test_is_package_deployed(host, package):
+    pkg = host.run("sudo -u %s /opt/ppos/wildfly-10.1.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1  \"deployment-info --name=%s\"" % (username, package))
+    assert pkg.rc == 0
+
+def test_count_java_process(host):
+    javas = host.process.filter(user="%s" % username, comm="java", fname="java")
+    assert len(javas) == 1
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
