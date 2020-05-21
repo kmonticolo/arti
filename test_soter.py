@@ -104,6 +104,12 @@ def test_lmgrd_running(Process, Service, Socket, Command):
     assert lmgrd.group == "flexlm"
     assert Socket("tcp://0.0.0.0:8224").is_listening
 
+def test_epmd_running(Process, Service, Socket, Command):
+    epmd= Process.get(comm="epmd")
+    assert epmd.user == "ejabberd"
+    assert epmd.group == "ejabberd"
+    assert Socket("tcp://0.0.0.0:4369").is_listening
+
 def test_armlmd_running(Process, Service, Socket, Command):
     armlmd = Process.get(comm="armlmd")
     assert armlmd.user == "flexlm"
