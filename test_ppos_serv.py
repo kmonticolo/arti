@@ -3,6 +3,7 @@
 def test_serv(host):
     for spec in (
 "autovt@",
+"chronyd",
 "crond",
 "dbus-org.fedoraproject.FirewallD1",
 "fail2ban",
@@ -26,6 +27,7 @@ def test_serv(host):
 "systemd-readahead-collect",
 "systemd-readahead-drop",
 "systemd-readahead-replay",
+"urbackupclientbackend",
 "vzfifo",
 "yum-cron",
 "zabbix-agent",
