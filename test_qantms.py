@@ -1,5 +1,15 @@
 import pytest
-# z agat
+username="jboss"
+
+def test_ufw(Command):
+    command = Command('sudo ufw status | grep -qw active')
+    assert command.rc == 0
+
+def test_ufw_unchanged(Command):
+    command = Command('sudo md5sum /etc/ufw/user.rules')
+    assert command.stdout.rstrip() == 'f763adc5dd1d3ebc3e08ab54c010fe3c  /etc/ufw/user.rules'
+    assert command.rc == 0
+
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
@@ -14,16 +24,10 @@ def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running
 
-def test_zabbix_server_running(Process, Service, Socket, Command):
-    assert Service("zabbix-server").is_enabled
-    assert Service("zabbix-server").is_running
-    assert Socket("tcp://0.0.0.0:10051").is_listening
-
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
-# z test_agat
 
 def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
@@ -48,7 +52,7 @@ def test_nginx_running(Process, Service, Socket, Command):
 def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
-# z test_amq1
+
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(user="vcs", ppid='1', comm="java")
 
@@ -63,7 +67,7 @@ def test_packages(host, name, version):
 def test_rsyslogd_running(Process, Service, Socket, Command):
     assert Service("rsyslog").is_enabled
     assert Service("rsyslog").is_running
-# z test_db
+
 def test_postfix_running(Process, Service, Socket, Command):
     assert Service("postfix").is_enabled
     assert Service("postfix").is_running
