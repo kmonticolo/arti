@@ -7,11 +7,8 @@ def test_cron_running(Process, Service, Socket, Command):
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
-
     postgres = Process.filter(comm="postgres")
-
-    assert Socket("tcp://127.0.0.1:5432").is_listening
-    assert Socket("tcp://::1:5432").is_listening
+    assert Socket("tcp://0.0.0.0:5432").is_listening
 
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
@@ -71,4 +68,4 @@ def test_postfix_running(Process, Service, Socket, Command):
     assert Service("postfix").is_enabled
     assert Service("postfix").is_running
     postfix = Process.get(comm="master")
-    assert Socket("tcp://127.0.0.1:25").is_listening
+    assert Socket("tcp://0.0.0.0:25").is_listening
