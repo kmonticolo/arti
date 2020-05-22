@@ -14,9 +14,11 @@ create new tests:
 run all tests against new server
 
 ```
-sh run_fantazja.sh -v >fantazja.out 
+sh run_fantazja.sh -v >fantazja.out
 
 grep PASS fantazja.out |sed -e 's/^.*:://g' -e 's/\[.*$//g'|sort -u |grep -v website > fantazja.in
+
+reuse tests:
+grep PASS qantms.out |sed -e 's/^.*:://g' -e 's/\[.*$//g'|sort -u |grep -v website > qantms.in
+for i in `cat qantms.in `;do grep -n $i *py|head -1;done
 ```
-
-
