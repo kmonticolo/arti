@@ -1,10 +1,3 @@
-#test_agat.py::test_cron_running[paramiko://192.99.119.25] PASSED         [  0%]
-#test_beta.py::test_java_running[paramiko://192.99.119.25] PASSED         [ 11%]
-#test.py::test_packages[paramiko://192.99.119.25-python-2.7] PASSED       [ 67%]
-#test_beta.py::test_rsyslogd_running[paramiko://192.99.119.25] PASSED     [ 12%]
-#test_agat.py::test_ufw[paramiko://192.99.119.25] PASSED                  [  0%]
-#test_agat.py::test_ufw_running[paramiko://192.99.119.25] PASSED          [  1%]
-#test_agat.py::test_zabbix_agent_running[paramiko://192.99.119.25] PASSED [  1%]
 
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -qw active')
@@ -44,4 +37,3 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
-
