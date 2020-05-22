@@ -42,12 +42,9 @@ def test_nginx_running(Process, Service, Socket, Command):
     assert nginxmaster.user == "root"
     assert nginxmaster.group == "root"
 
-    nginxworker = Process.get(ppid=nginxmaster.pid)
-    assert nginxworker.user == "www-data"
-    assert nginxworker.group == "www-data"
-    assert nginxworker.comm == "nginx"
+    nginxworker = Process.filter(ppid=nginxmaster.pid)
     assert Socket("tcp://0.0.0.0:80").is_listening
-    assert Socket("tcp://0.0.0.0:443").is_listening
+    assert Socket("tcp://0.0.0.0:444").is_listening
 
 def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
