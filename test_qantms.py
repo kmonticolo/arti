@@ -7,7 +7,7 @@ def test_ufw(Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '63c9b381fee5716e4c0081edd809c829  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'ef61846d27fac046be14b8c97353b91b  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -48,6 +48,11 @@ def test_nginx_running(Process, Service, Socket, Command):
 
 def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
+    assert command.rc == 0
+
+def test_ntmsqa_website(Command):
+    command = Command('curl -sSfk https://qantms.novelpay.pl:444 -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
 def test_java_running(Process, Service, Socket, Command):
