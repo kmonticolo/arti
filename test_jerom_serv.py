@@ -31,7 +31,6 @@ def test_serv(host):
 "open-iscsi",
 "open-vm-tools",
 "pollinate",
-"postfix",
 "rsync",
 "rsyslog",
 "setvtrgb",

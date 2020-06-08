@@ -29,8 +29,6 @@ def test_serv_active(host):
 "nginx",
 "ntp",
 "polkit",
-"postfix",
-"postfix@-",
 "rsyslog",
 "setvtrgb",
 "snapd.seeded",
