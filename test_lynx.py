@@ -84,6 +84,9 @@ def test_orthphoto_website(Command):
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
+def test_killall_certbot(Command):
+    command = Command('sudo killall certbot 2>/dev/null')
+
 def test_certbot_dry_run(Command):
     command = Command('sudo certbot --dry-run renew')
     assert command.rc == 0
