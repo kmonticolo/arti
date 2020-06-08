@@ -33,8 +33,11 @@ def test_ppos_key_file(host):
     assert file.group == "%s" % username
     assert file.mode == 0o664
 
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.get(user="%s" %username, comm="java")
+def test_jboss_standalone_running(Process, Service, Socket, Command):
+    standalone = Process.get(user="%s" %username, comm="standalone.sh")
+    assert standalone.user == "%s" % username
+    assert standalone.group == "%s" % username
+    java = Process.get(user="%s" %username, comm="java", ppid=standalone.pid)
     assert java.user == "%s" % username
     assert java.group == "%s" % username
     assert Socket("tcp://0.0.0.0:8443").is_listening
