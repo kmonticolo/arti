@@ -16,7 +16,6 @@ def test_serv(host):
 "cron",
 "dbus-org.freedesktop.resolve1",
 "dbus-org.freedesktop.thermald",
-"docker-compose-app",
 "docker",
 "ebtables",
 "getty@",

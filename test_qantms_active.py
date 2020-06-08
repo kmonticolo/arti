@@ -17,7 +17,6 @@ def test_serv_active(host):
 "containerd",
 "cron",
 "dbus",
-"docker-compose-app",
 "docker",
 "ebtables",
 "getty@tty1",

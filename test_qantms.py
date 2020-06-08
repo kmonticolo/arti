@@ -1,9 +1,9 @@
 import pytest
 username="jboss"
 
-def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
-    assert command.rc == 0
+#def test_ufw(Command):
+#    command = Command('sudo ufw status | grep -qw active')
+#    assert command.rc == 0
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
