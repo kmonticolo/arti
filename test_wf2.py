@@ -6,6 +6,19 @@
 #test_agat.py::test_ufw_running[paramiko://192.99.119.26] PASSED          [  1%]
 #test_agat.py::test_zabbix_agent_running[paramiko://192.99.119.26] PASSED [  1%]
 
+username = "wildfly"
+
+def test_user_exists(host):
+    user = host.user("%s" % username)
+    assert user.name == "%s" % username
+    assert user.group == "%s" % username
+    assert user.home == "/home/%s" % username
+
+def test_user_home_exists(host):
+    user_home = host.file("/home/%s" % username)
+    assert user_home.exists
+    assert user_home.is_directory
+
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
@@ -39,6 +52,18 @@ def test_packages(host, name, version):
 def test_rsyslogd_running(Process, Service, Socket, Command):
     assert Service("rsyslog").is_enabled
     assert Service("rsyslog").is_running
+
+@pytest.mark.parametrize("package", [
+    ("ntms-application-2.1.3.war")
+])
+
+def test_is_package_deployed(host, package):
+    pkg = host.run("sudo -u %s /opt/wildfly-15.0.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1 \"deployment-info --name=%s\"" % (username, username, package))
+    assert pkg.rc == 0
+
+def test_count_java_process(host):
+    javas = host.process.filter(user="%s" % username, comm="java", fname="java")
+    assert len(javas) == 1
 
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
