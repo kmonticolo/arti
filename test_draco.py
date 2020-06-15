@@ -11,7 +11,7 @@
 
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 # ssh draco.artifact.pl sudo md5sum /etc/ufw/user.rules
@@ -84,7 +84,7 @@ def test_nginx_conf(host):
     assert conf.contains("ssl_certificate.*/etc/nginx/ssl/artifact.pem")
     assert conf.contains("proxy_pass http://localhost:9090/jenkins")
 
-#fail2ban.service                           enabled 
+#fail2ban.service                           enabled
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
@@ -118,7 +118,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:443",
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:9090",
-    ):  
+    ):
         socket = host.socket(spec)
         assert socket.is_listening
 

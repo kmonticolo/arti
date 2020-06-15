@@ -5,7 +5,7 @@
 
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):
@@ -107,7 +107,7 @@ def test_haproxy_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:9084").is_listening
     assert Socket("tcp://0.0.0.0:9085").is_listening
 
-def test_haproxy_config_test(Command):
+def test_validate_haproxy_config(Command):
     command = Command('sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg')
     assert command.rc == 0
 

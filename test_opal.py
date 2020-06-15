@@ -1,5 +1,5 @@
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):
@@ -49,5 +49,3 @@ def test_board_website(Command):
     command = Command('curl -sSf "https://board.artifact.pl" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
-
-

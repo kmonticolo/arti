@@ -51,7 +51,7 @@ def test_rsyslogd_running(Process, Service, Socket, Command):
     assert Service("rsyslog").is_running
 
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):

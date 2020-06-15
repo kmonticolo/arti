@@ -15,7 +15,7 @@
 
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):
@@ -188,6 +188,6 @@ def test_listening_socket(host):
 "tcp://:::80",
 "tcp://:::22",
 "tcp://:::5432",
-    ):  
+    ):
         socket = host.socket(spec)
         assert socket.is_listening

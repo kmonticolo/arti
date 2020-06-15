@@ -31,7 +31,7 @@ def test_bind_running(Process, Service, Socket, Command):
 
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 # ssh beryl.artifact.pl sudo md5sum /etc/ufw/user.rules
@@ -116,7 +116,7 @@ def test_mysql_running(Process, Service, Socket, Command):
 
     assert Socket("tcp://127.0.0.1:3306").is_listening
 
-#fail2ban.service                           enabled 
+#fail2ban.service                           enabled
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
@@ -161,6 +161,6 @@ def test_listening_socket(host):
 "tcp://:::53",
 "tcp://:::22",
 "tcp://::1:5432",
-    ):  
+    ):
         socket = host.socket(spec)
         assert socket.is_listening

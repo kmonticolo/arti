@@ -1,5 +1,5 @@
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_running(Process, Service, Socket, Command):

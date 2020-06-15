@@ -1,5 +1,5 @@
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_running(Process, Service, Socket, Command):
@@ -40,7 +40,7 @@ def test_cron_running(Process, Service, Socket, Command):
 # restart ntms, zeby zaczal sluchac na porcie 10000 i 9797
 # su - jboss
 # cd /opt/ntms/wildfly
-# ./bin/start_server 
+# ./bin/start_server
 # tail -F standalone/log/server.log
 
 def test_wildfly_running(Process, Service, Socket, Command):
@@ -105,5 +105,3 @@ def test_listening_socket(host):
 ):
         socket = host.socket(spec)
         assert socket.is_listening
-
-

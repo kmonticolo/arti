@@ -7,7 +7,7 @@
 #test_agat.py::test_zabbix_agent_running[paramiko://192.99.119.26] PASSED [  1%]
 
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_running(Process, Service, Socket, Command):
@@ -44,4 +44,3 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
-

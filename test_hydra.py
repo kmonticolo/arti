@@ -13,7 +13,7 @@
 import pytest
 username="jboss"
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):
@@ -88,7 +88,7 @@ def test_nginx_validate(Command):
     #assert conf.group == "root"
     #assert conf.contains("server_name draco.artifact.pl")
 
-#fail2ban.service                           enabled 
+#fail2ban.service                           enabled
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
@@ -124,7 +124,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:443",
 "tcp://0.0.0.0:10050",
 "tcp://127.0.0.1:9990",
-    ):  
+    ):
         socket = host.socket(spec)
         assert socket.is_listening
 

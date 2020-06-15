@@ -11,7 +11,7 @@
 
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 # ssh draco.artifact.pl sudo md5sum /etc/ufw/user.rules
@@ -61,4 +61,3 @@ def test_nginx_validate(Command):
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
-

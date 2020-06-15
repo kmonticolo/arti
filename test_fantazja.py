@@ -6,7 +6,7 @@
 
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):
@@ -67,5 +67,3 @@ def test_zookeeper_conf_unchanged(Command):
     command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
     assert command.stdout.rstrip() == 'c49f3eeaa005c004d643aa9fe016bde5  /opt/zookeeper/conf/zoo.cfg'
     assert command.rc == 0
-
-

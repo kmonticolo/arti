@@ -10,7 +10,7 @@
 #
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):
@@ -57,7 +57,7 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
-#fail2ban.service                           enabled 
+#fail2ban.service                           enabled
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
@@ -106,7 +106,7 @@ def test_listening_socket(host):
 "tcp://:::80",
 "tcp://:::22",
 "tcp://:::5432",
-    ):  
+    ):
         socket = host.socket(spec)
         assert socket.is_listening
 

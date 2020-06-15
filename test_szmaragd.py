@@ -1,7 +1,7 @@
 # ubuntu 16.04 lts
 
-# amq	
-#  vim /etc/activemq/instances-^Cabled/main/activemq.xml 
+# amq
+#  vim /etc/activemq/instances-^Cabled/main/activemq.xml
 
 # userzy grep sh$ /etc/passwd
 # adam root postgres amq activemq kamilm
@@ -9,7 +9,7 @@
 
 #ufw
 def test_ufw(Command):
-    command = Command('sudo ufw status | grep -qw active')
+    command = Command('sudo ufw status | grep -w "Status: active"')
     assert command.rc == 0
 
 def test_ufw_unchanged(Command):
@@ -43,7 +43,7 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
-#fail2ban.service                           enabled 
+#fail2ban.service                           enabled
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
@@ -52,7 +52,7 @@ def test_haproxy_running(Process, Service, Socket, Command):
     assert Service("haproxy").is_enabled
     assert Service("haproxy").is_running
 
-def test_haproxy_config_test(Command):
+def test_validate_haproxy_config(Command):
     command = Command('sudo haproxy -c -V -f /etc/haproxy/haproxy.cfg')
     assert command.rc == 0
 
@@ -116,7 +116,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:61616",
 "tcp://0.0.0.0:61617",
 "tcp://:::22",
-    ):  
+    ):
         socket = host.socket(spec)
         assert socket.is_listening
-
