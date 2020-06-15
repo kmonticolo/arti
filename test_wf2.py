@@ -58,7 +58,7 @@ def test_rsyslogd_running(Process, Service, Socket, Command):
 ])
 
 def test_is_package_deployed(host, package):
-    pkg = host.run("sudo -u %s /opt/wildfly-15.0.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1 \"deployment-info --name=%s\"" % (username, username, package))
+    pkg = host.run("sudo -u %s /opt/wildfly-15.0.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1 \"deployment-info --name=%s\"" % (username, package))
     assert pkg.rc == 0
 
 def test_count_java_process(host):
