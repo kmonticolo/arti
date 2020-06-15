@@ -138,7 +138,7 @@ for (host in [
         numToKeep(300)
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot.yml -l artifactubuntu,novelpayubuntu")
+        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot.yml -i /home/kmonti/inventory -l artifactubuntu,novelpayubuntu")
      }
 } 
 	
