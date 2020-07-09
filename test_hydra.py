@@ -39,7 +39,8 @@ def test_java_running(Process, Service, Socket, Command):
 ])
 
 def test_is_package_deployed(host, package):
-    pkg = host.run("sudo -u %s /opt/ppos/wildfly-10.1.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1  \"deployment-info --name=%s\"" % (username, package))
+    pkg = host.run("sudo -u %s /opt/ppos/wildfly-10.1.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1  \"deployment-info --name=%s\" | grep %s | awk '{print $NF}'" % (username, package, package))
+    assert pkg.stdout.rstrip() == 'OK'
     assert pkg.rc == 0
 
 def test_count_java_process(host):
