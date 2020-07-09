@@ -65,7 +65,8 @@ def test_is_package_deployed(host, package):
 
 def test_count_java_process(host):
     javas = host.process.filter(user="%s" % username, comm="java", fname="java")
-    assert len(javas) == 1
+    assert len(javas) <= 2
+    assert len(javas) >= 1
 
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
