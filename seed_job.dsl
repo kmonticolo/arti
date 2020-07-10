@@ -9,6 +9,7 @@ for (host in [
   'qantms',
   'vdisk',
   'ppos',
+  'ppos2',
   'db' ]) {
   job("testinfra ${host}") {
      logRotator {
