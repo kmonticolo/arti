@@ -3,6 +3,9 @@
 # userzy grep sh$ /etc/passwd
 # adam root postgres kamilm jboss
 
+def test_is_onet_reachable(Command):
+    command = Command('timeout 5 wget onet.pl -o /dev/null')
+    assert command.rc != 0
 
 #ufw
 def test_ufw(Command):

@@ -8,6 +8,9 @@
 #postgres:x:114:122:PostgreSQL administrator,,,:/var/lib/postgresql:/bin/bash
 #kamilm:x:1001:1001:Kamil M,,,:/home/kamilm:/bin/bash
 #
+def test_is_onet_reachable(Command):
+    command = Command('timeout 5 wget onet.pl -o /dev/null')
+    assert command.rc != 0
 
 #ufw
 def test_ufw(Command):

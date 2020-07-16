@@ -8,6 +8,10 @@
 # jboss
 #kamilm:x:1003:1003:Kamil M,,,:/home/kamilm:/bin/bash
 #
+def test_is_onet_reachable(Command):
+    command = Command('timeout 5 wget onet.pl -o /dev/null')
+    assert command.rc != 0
+
 #ufw
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -w "Status: active"')

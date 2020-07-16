@@ -9,6 +9,10 @@
 #kamilm:x:1001:1001:Kamil M,,,:/home/kamilm:/bin/bash
 #
 
+def test_is_onet_reachable(Command):
+    command = Command('timeout 5 wget onet.pl -o /dev/null')
+    assert command.rc != 0
+
 #ufw
 import pytest
 username="jboss"

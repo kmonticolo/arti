@@ -15,7 +15,6 @@ def test_is_onet_works(Command):
     command = Command('timeout 5 wget onet.pl -o /dev/null')
     assert command.rc != 0
 
-
 #bind
 def test_bind_running(Process, Service, Socket, Command):
     assert Service("bind9").is_enabled
