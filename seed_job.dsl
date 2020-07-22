@@ -1,7 +1,6 @@
 def repo = 'https://github.com/kmonticolo/arti.git'
 def sshconfig='./ssh_config'
 def user='kmonti'
-def timeout='300'
 
 for (host in [
   'alpha',
@@ -29,7 +28,7 @@ for (host in [
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py test_ntp.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")          // copy junit files from /tmp as jenkins
+      shell("sudo -u  ${user} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py test_ntp.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")          // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
     }
@@ -75,7 +74,7 @@ for (host in [
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")
+      shell("sudo -u  ${user} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
@@ -270,7 +269,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_db1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_db1.xml")
+      shell("sudo -u  ${user} /bin/py.test test_db1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_db1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_db1.xml target/test-reports/")
     }
@@ -295,7 +294,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_db2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.199 --junit-xml /tmp/junit_db2.xml")
+      shell("sudo -u  ${user} /bin/py.test test_db2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.199 --junit-xml /tmp/junit_db2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_db2.xml target/test-reports/")
     }
@@ -320,7 +319,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_amq1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.25 --junit-xml /tmp/junit_amq1.xml")
+      shell("sudo -u  ${user} /bin/py.test test_amq1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.25 --junit-xml /tmp/junit_amq1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_amq1.xml target/test-reports/")
     }
@@ -345,7 +344,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_amq2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.197 --junit-xml /tmp/junit_amq2.xml")
+      shell("sudo -u  ${user} /bin/py.test test_amq2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.197 --junit-xml /tmp/junit_amq2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_amq1.xml target/test-reports/")
     }
@@ -370,7 +369,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_wf1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.26 --junit-xml /tmp/junit_wf1.xml")
+      shell("sudo -u  ${user} /bin/py.test test_wf1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.26 --junit-xml /tmp/junit_wf1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_wf1.xml target/test-reports/")
     }
@@ -395,7 +394,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_wf2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.198 --junit-xml /tmp/junit_wf2.xml")
+      shell("sudo -u  ${user} /bin/py.test test_wf2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.198 --junit-xml /tmp/junit_wf2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_wf2.xml target/test-reports/")
     }
@@ -420,7 +419,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_front1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.24 --junit-xml /tmp/junit_front1.xml")
+      shell("sudo -u  ${user} /bin/py.test test_front1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.24 --junit-xml /tmp/junit_front1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_front1.xml target/test-reports/")
     }
@@ -445,7 +444,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_front2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.196 --junit-xml /tmp/junit_front2.xml")
+      shell("sudo -u  ${user} /bin/py.test test_front2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.196 --junit-xml /tmp/junit_front2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_front2.xml target/test-reports/")
     }
@@ -470,7 +469,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_ppos_active.py  test_ppos.py  test_ppos_serv.py test_common.py --ssh-config=${sshconfig} --hosts ppos.novelpay.pl --junit-xml /tmp/junit_ppos.xml")
+      shell("sudo -u  ${user} /bin/py.test test_ppos_active.py  test_ppos.py  test_ppos_serv.py test_common.py --ssh-config=${sshconfig} --hosts ppos.novelpay.pl --junit-xml /tmp/junit_ppos.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_front2.xml target/test-reports/")
     }
