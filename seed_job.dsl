@@ -1,8 +1,9 @@
 def repo = 'https://github.com/kmonticolo/arti.git'
 def sshconfig='./ssh_config'
 def user='kmonti'
+def timeout='300'
 
-for (host in [ 
+for (host in [
   'alpha',
   'beta',
   'soter',
@@ -20,7 +21,7 @@ for (host in [
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -28,27 +29,26 @@ for (host in [
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py test_ntp.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")          // copy junit files from /tmp as jenkins
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py test_ntp.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")          // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
     }
 }
 }
 
-
-for (host in [ 
-  'diament', 
-  'topaz', 
-  'rubin', 
-  'szmaragd', 
+for (host in [
+  'diament',
+  'topaz',
+  'rubin',
+  'szmaragd',
   'opal',
-  'beryl', 
-  'draco', 
-  'hydra', 
-  //'luna', 
-  'lynx', 
-  'orion', 
-  'pavo', 
+  'beryl',
+  'draco',
+  'hydra',
+  //'luna',
+  'lynx',
+  'orion',
+  'pavo',
   'taurus',
   'spinel',
   'fantazja',
@@ -67,7 +67,7 @@ for (host in [
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -75,7 +75,7 @@ for (host in [
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")    
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_${host}.xml target/test-reports/")
     }
@@ -83,7 +83,6 @@ for (host in [
 }
 }
 
-	
  job("ansible is reboot needed") {
     logRotator {
         numToKeep(100)
@@ -94,10 +93,10 @@ for (host in [
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
      }
-              
+
  }
 
-	
+
  job("ansible NPNTMS is reboot needed") {
     logRotator {
         numToKeep(100)
@@ -108,7 +107,7 @@ for (host in [
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory -l npntms")
      }
-              
+
  }
 
  job("ansible Centos is reboot needed") {
@@ -121,7 +120,7 @@ for (host in [
      steps {
         shell("sudo -u kmonti ansible -m shell -a \"needs-restarting -r|grep 'not necessary'\" centos:!ppos.novelpay.pl")
      }
-              
+
  }
 
  job("ansible reboot Centos") {
@@ -140,8 +139,8 @@ for (host in [
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot.yml -i /home/kmonti/inventory -l artifactubuntu,novelpayubuntu")
      }
-} 
-	
+}
+
  job("ansible debian_upgrade") {
     logRotator {
         numToKeep(300)
@@ -151,10 +150,10 @@ for (host in [
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
-     }              
+     }
  }
 
-	
+
  job("ansible NPNTMS debian_upgrade") {
     logRotator {
         numToKeep(100)
@@ -164,7 +163,7 @@ for (host in [
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l npntms")
-     }             
+     }
  }
 
 job("ansible centos_upgrade") {
@@ -177,7 +176,7 @@ job("ansible centos_upgrade") {
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/centos_upgrade.yml -i /home/kmonti/ansible/inventory")
      }
-              
+
  }
 
 
@@ -190,7 +189,7 @@ job("ansible centos_upgrade") {
 //    }
 //     steps {
 //        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide.yml -i /home/kmonti/ansible/inventory")
-//     }              
+//     }
 // }
 
 //job("ansible aide check") {
@@ -202,7 +201,7 @@ job("ansible centos_upgrade") {
 //    }
 //     steps {
 //        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide_check.yml -i /home/kmonti/ansible/inventory")
-//     }              
+//     }
 // }
 
 job("ansible NPNTMS aide update") {
@@ -214,7 +213,7 @@ job("ansible NPNTMS aide update") {
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide.yml -i /home/kmonti/ansible/inventory -l npntms")
-     }              
+     }
  }
 
 job("ansible NPNTMS aide check") {
@@ -226,7 +225,7 @@ job("ansible NPNTMS aide check") {
     }
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/aide_check.yml -i /home/kmonti/ansible/inventory -l npntms")
-     }              
+     }
  }
 
 
@@ -240,7 +239,7 @@ job("ansible ntp") {
      steps {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/ntp.yml -i /home/kmonti/ansible/inventory")
      }
-              
+
  }
 
 job("copy_junit_reports") {
@@ -250,7 +249,7 @@ job("copy_junit_reports") {
      steps {
         shell("for i in \$(ls /tmp/junit*xml |sed -e 's/^.*_//' -e 's/.xml\$//g'); do cp /tmp/junit_\${i}.xml //var/lib/jenkins/workspace/testinfra \${i}/target/test-reports/junit_\${i}.xml || exit 0 ;done")
      }
-              
+
  }
 
   job("testinfra ntms db1") {
@@ -263,7 +262,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -271,7 +270,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_db1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_db1.xml")    
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_db1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_db1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_db1.xml target/test-reports/")
     }
@@ -288,7 +287,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -296,13 +295,12 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_db2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.199 --junit-xml /tmp/junit_db2.xml")    
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_db2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.199 --junit-xml /tmp/junit_db2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_db2.xml target/test-reports/")
     }
     }
 }
-
 
   job("testinfra ntms amq1") {
      logRotator {
@@ -314,7 +312,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -322,7 +320,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_amq1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.25 --junit-xml /tmp/junit_amq1.xml")    
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_amq1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.25 --junit-xml /tmp/junit_amq1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_amq1.xml target/test-reports/")
     }
@@ -339,7 +337,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -347,7 +345,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_amq2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.197 --junit-xml /tmp/junit_amq2.xml")    
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_amq2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.197 --junit-xml /tmp/junit_amq2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_amq1.xml target/test-reports/")
     }
@@ -364,7 +362,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -372,7 +370,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_wf1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.26 --junit-xml /tmp/junit_wf1.xml")    
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_wf1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.26 --junit-xml /tmp/junit_wf1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_wf1.xml target/test-reports/")
     }
@@ -389,7 +387,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -397,7 +395,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_wf2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.198 --junit-xml /tmp/junit_wf2.xml")
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_wf2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.198 --junit-xml /tmp/junit_wf2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_wf2.xml target/test-reports/")
     }
@@ -414,7 +412,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -422,7 +420,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_front1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.24 --junit-xml /tmp/junit_front1.xml")
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_front1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.24 --junit-xml /tmp/junit_front1.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_front1.xml target/test-reports/")
     }
@@ -439,7 +437,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -447,7 +445,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_front2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.196 --junit-xml /tmp/junit_front2.xml")
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_front2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.196 --junit-xml /tmp/junit_front2.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_front2.xml target/test-reports/")
     }
@@ -464,7 +462,7 @@ job("copy_junit_reports") {
           branches('master')
           extensions { }
         }
-      
+
     triggers {
         cron('H * * * *')
     }
@@ -472,7 +470,7 @@ job("copy_junit_reports") {
       // needed for junit tests, run as jenkins
       shell("mkdir -p target/test-reports/")
       // spawn testinfra via sudo and store reports in junit.xml
-      shell("sudo -u ${user} timeout 300 /bin/py.test test_ppos_active.py  test_ppos.py  test_ppos_serv.py test_common.py --ssh-config=${sshconfig} --hosts ppos.novelpay.pl --junit-xml /tmp/junit_ppos.xml")          
+      shell("sudo -u ${user} timeout ${timeout} /bin/py.test test_ppos_active.py  test_ppos.py  test_ppos_serv.py test_common.py --ssh-config=${sshconfig} --hosts ppos.novelpay.pl --junit-xml /tmp/junit_ppos.xml")
       // copy junit files from /tmp as jenkins
       //shell("cp /tmp/junit_front2.xml target/test-reports/")
     }
