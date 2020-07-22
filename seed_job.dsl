@@ -68,7 +68,7 @@ for (host in [
      steps {
       shell("mkdir -p target/test-reports/")
       shell("sudo -u  ${user} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py --ssh-config=${sshconfig} --hosts ${host}.artifact.pl --junit-xml /tmp/junit_${host}.xml")
-w    }
+    }
     }
 }
 }
