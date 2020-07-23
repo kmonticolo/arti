@@ -35,7 +35,7 @@ for (host in [
   'diament',
   'topaz',
   'rubin',
-  //'szmaragd',
+  'szmaragd',
   'opal',
   'beryl',
   'draco',
