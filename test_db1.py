@@ -1,3 +1,4 @@
+import pytest
 
 # trzy testy ufw maja byc zawsze
 def test_ufw(Command):
@@ -26,9 +27,6 @@ def test_graylog_service(Process, Service, Socket, Command):
     assert Service("graylog-server").is_running
     java = Process.get(user="graylog",comm="java")
 
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.filter(user="vcs", ppid='1', comm="java")
-
 def test_mongod_running(Process, Service, Socket, Command):
     assert Service("mongod").is_enabled
     assert Service("mongod").is_running
@@ -37,8 +35,6 @@ def test_mongod_running(Process, Service, Socket, Command):
     assert mongod.user == "mongodb"
     assert mongod.group == "mongodb"
     assert Socket("tcp://127.0.0.1:27017").is_listening
-
-import pytest
 
 @pytest.mark.parametrize("name,version", [
     ("python", "2.7"),

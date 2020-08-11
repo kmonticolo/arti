@@ -16,9 +16,6 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.filter(user="vcs", ppid='1', comm="java")
-
 @pytest.mark.parametrize("name", [
     ("python"),
     ("apache2"),

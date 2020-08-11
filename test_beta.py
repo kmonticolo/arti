@@ -24,9 +24,6 @@ def test_tnslsnr_running(Process, Service, Socket, Command):
     assert proc.group == "dba"
     assert Socket("tcp://0.0.0.0:1521").is_listening
 
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.filter(user="vcs", ppid='1', comm="java")
-
 # su - vcs
 # cd /home/vcs/apache-openejb-4.5.0-sim
 # nohup ./bin/openejb start &

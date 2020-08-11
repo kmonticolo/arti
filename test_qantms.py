@@ -55,9 +55,6 @@ def test_ntmsqa_website(Command):
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.filter(user="vcs", ppid='1', comm="java")
-
 @pytest.mark.parametrize("name,version", [
     ("python", "2.7"),
 ])

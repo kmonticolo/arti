@@ -1,3 +1,4 @@
+import pytest
 
 # trzy testy ufw maja byc zawsze
 def test_ufw(Command):
@@ -16,11 +17,6 @@ def test_ufw_unchanged(Command):
 def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
-
-def test_java_running(Process, Service, Socket, Command):
-    java = Process.filter(user="vcs", ppid='1', comm="java")
-
-import pytest
 
 @pytest.mark.parametrize("name,version", [
     ("python", "2.7"),
