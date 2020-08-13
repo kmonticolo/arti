@@ -33,11 +33,11 @@ for (host in [
 
 for (host in [
   'diament',
-  'topaz',
+  #'topaz',
   'rubin',
-  'szmaragd',
-  'opal',
-  'beryl',
+  #'szmaragd',
+  #'opal',
+  #'beryl',
   'draco',
   'hydra',
   'luna',
