@@ -63,6 +63,7 @@ def test_timesheet_website(Command):
     assert command.stdout.rstrip() == '200' or command.stdout.rstrip() == '301'
     assert command.rc == 0
 
+#su - redmine -c 'cd /opt/redmine-3.3.0 && ./start.sh'
 def test_redmine_website(Command):
     command = Command('curl -sSf "https://redmine.novelpay.pl/login" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
@@ -110,6 +111,7 @@ def test_flexlm_licence_file(host):
     assert file.group == "flexlm"
     assert file.mode == 0o664
 
+# run from /etc/rc.local: su - ejabberd -s /bin/bash -c "cd /opt/ejabberd-18.12.1/bin && ./start"
 def test_epmd_running(Process, Service, Socket, Command):
     epmd= Process.get(comm="epmd")
     assert epmd.user == "ejabberd"
@@ -122,6 +124,7 @@ def test_armlmd_running(Process, Service, Socket, Command):
     assert armlmd.group == "flexlm"
     assert Socket("tcp://0.0.0.0:27010").is_listening
 
+#su - mk -c 'cd /home/mk/logserver && java -jar pinpadLogServer-1.0.r6329-onejar.jar ' &
 #def test_pinpadlogserver_running(Process, Service, Socket, Command):
     #assert Socket("tcp://:::61234").is_listening
 
