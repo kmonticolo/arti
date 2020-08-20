@@ -111,6 +111,7 @@ def test_flexlm_licence_file(host):
     assert file.group == "flexlm"
     assert file.mode == 0o664
 
+# pidgin from krzesos
 # run from /etc/rc.local: su - ejabberd -s /bin/bash -c "cd /opt/ejabberd-18.12.1/bin && ./start"
 def test_epmd_running(Process, Service, Socket, Command):
     epmd= Process.get(comm="epmd")
