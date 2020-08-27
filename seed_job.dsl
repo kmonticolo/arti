@@ -32,8 +32,8 @@ for (host in [
 }
 
 for (host in [
-  'diament',
-  'rubin',
+  //'diament',
+  //'rubin',
   //'topaz',
   //'szmaragd',
   //'opal',
@@ -45,7 +45,7 @@ for (host in [
   'orion',
   'pavo',
   'taurus',
-  'spinel',
+  //'spinel',
   'fantazja',
   'jerom',
   'taj',
