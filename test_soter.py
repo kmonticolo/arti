@@ -50,6 +50,11 @@ def test_jira_website(Command):
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
+def test_ldap_website(Command):
+    command = Command('curl -sSf "https://jira.novelpay.pl/npldap/" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
+
 #  su - fisheye -s /bin/bash
 # cd fecru/bin/
 # ./stop.sh; ./start.sh
