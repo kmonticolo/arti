@@ -51,7 +51,7 @@ def test_rsyslogd_running(Process, Service, Socket, Command):
     assert Service("rsyslog").is_running
 
 @pytest.mark.parametrize("package", [
-    ("ntms-application-2.1.7-SNAPSHOT.war")
+    ("ntms-application-2.1.7-20200910.083645-1.war")
 ])
 
 def test_is_package_deployed(host, package):
