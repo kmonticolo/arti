@@ -5,7 +5,10 @@ def test_serv(host):
 "accounts-daemon",
 "atd",
 "autovt@",
+"containerd",
 "cron",
+"docker-ntms",
+"docker",
 "fail2ban",
 "getty@",
 "iscsi",
@@ -20,8 +23,10 @@ def test_serv(host):
 "postgresql",
 "resolvconf",
 "rsyslog",
+"snapd.apparmor",
 "snapd.autoimport",
 "snapd.core-fixup",
+"snapd.recovery-chooser-trigger",
 "snapd.seeded",
 "snapd",
 "snapd.system-shutdown",
@@ -34,7 +39,6 @@ def test_serv(host):
 "ureadahead",
 "vgauth",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled

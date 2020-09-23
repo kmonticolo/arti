@@ -56,7 +56,6 @@ def test_serv_active(host):
 "ufw",
 "user@1002",
 "vgauth",
-"wildfly",
 "zabbix-agent",
     ):  
         service= host.service(spec)
