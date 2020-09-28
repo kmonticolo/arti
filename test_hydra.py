@@ -9,9 +9,9 @@
 #kamilm:x:1001:1001:Kamil M,,,:/home/kamilm:/bin/bash
 #
 
-def test_is_onet_reachable(Command):
-    command = Command('timeout 5 wget onet.pl -o /dev/null')
-    assert command.rc != 0
+#def test_is_onet_reachable(Command):
+    #command = Command('timeout 5 wget onet.pl -o /dev/null')
+    #assert command.rc != 0
 
 #ufw
 import pytest
@@ -30,9 +30,7 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_running
 
 def test_java_running(Process, Service, Socket, Command):
-    java = Process.get(comm="java")
-    assert java.user == "%s" % username
-    assert java.group == "%s" % username
+    java = Process.filter(comm="java")
     assert Socket("tcp://0.0.0.0:41616").is_listening
     assert Socket("tcp://0.0.0.0:8080").is_listening
     assert Socket("tcp://0.0.0.0:8443").is_listening
