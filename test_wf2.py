@@ -29,6 +29,11 @@ def test_cron_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
 
+def test_docker_names(Command):
+    command = Command('sudo docker ps --format \'{{.Names}}\'')
+    assert command.stdout.rstrip() == 'ntms-nginx\nntms-wildfly'
+    assert command.rc == 0
+
 import pytest
 
 @pytest.mark.parametrize("name,version", [
