@@ -1,23 +1,16 @@
-#test_agat.py::test_cron_running[paramiko://192.99.119.26] PASSED         [  0%]
-#test_beta.py::test_java_running[paramiko://192.99.119.26] PASSED         [ 11%]
-#test.py::test_packages[paramiko://192.99.119.26-python-2.7] PASSED       [ 67%]
-#test_beta.py::test_rsyslogd_running[paramiko://192.99.119.26] PASSED     [ 12%]
-#test_agat.py::test_ufw[paramiko://192.99.119.26] PASSED                  [  0%]
-#test_agat.py::test_ufw_running[paramiko://192.99.119.26] PASSED          [  1%]
-#test_agat.py::test_zabbix_agent_running[paramiko://192.99.119.26] PASSED [  1%]
-
-username = "wildfly"
 
 def test_user_exists(host):
-    user = host.user("%s" % username)
-    assert user.name == "%s" % username
-    assert user.group == "%s" % username
-    assert user.home == "/home/%s" % username
+    for username in ("wildfly","docker-data","adam","kamil","mratkiewicz"):
+        user = host.user("%s" % username)
+        assert user.name == "%s" % username
+        assert user.group == "%s" % username
+        assert user.home == "/home/%s" % username
 
 def test_user_home_exists(host):
-    user_home = host.file("/home/%s" % username)
-    assert user_home.exists
-    assert user_home.is_directory
+    for username in ("wildfly","docker-data","adam","kamil","mratkiewicz"):
+        user_home = host.file("/home/%s" % username)
+        assert user_home.exists
+        assert user_home.is_directory
 
 def test_ufw(Command):
     command = Command('sudo ufw status | grep -w "Status: active"')
