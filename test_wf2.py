@@ -50,21 +50,6 @@ def test_rsyslogd_running(Process, Service, Socket, Command):
     assert Service("rsyslog").is_enabled
     assert Service("rsyslog").is_running
 
-@pytest.mark.parametrize("package", [
-    ("ntms-application-2.1.7-20200910.083645-1.war")
-])
-
-def test_is_package_deployed(host, package):
-    pkg = host.run("sudo -u %s /opt/wildfly-15.0.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1 \"deployment-info --name=%s\"|grep %s | awk '{print $NF}'" % (username, package, package))
-    assert pkg.stdout.rstrip() == 'OK'
-    assert pkg.rc == 0
-
-
-def test_count_java_process(host):
-    javas = host.process.filter(user="%s" % username, comm="java", fname="java")
-    assert len(javas) <= 2
-    assert len(javas) >= 1
-
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
@@ -77,7 +62,6 @@ def test_listening_socket(host):
     "tcp://0.0.0.0:8080",
     "tcp://127.0.0.53:53",
     "tcp://0.0.0.0:22",
-    "tcp://0.0.0.0:8443",
     "tcp://0.0.0.0:10050",
     "tcp://127.0.0.1:9990",
         ):
