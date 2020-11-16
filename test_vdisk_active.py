@@ -17,7 +17,6 @@ def test_serv_active(host):
 "lvm2-monitor",
 "mariadb",
 "mdmonitor",
-"networking",
 "ntp",
 "odoo",
 "postfix",
