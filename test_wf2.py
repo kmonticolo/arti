@@ -34,6 +34,11 @@ def test_docker_names(Command):
     assert command.stdout.rstrip() == 'ntms-nginx\nntms-wildfly'
     assert command.rc == 0
 
+def test_docker_images(Command):
+    command = Command('sudo docker ps --format \'{{.Image}}\' |awk -F: \'{print $2}\'')
+    assert command.stdout.rstrip() == '2.2.0-20201112-prod\n2.2.0-20201112-prod'
+    assert command.rc == 0
+
 import pytest
 
 @pytest.mark.parametrize("name,version", [
