@@ -166,3 +166,8 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
 
+# cd /var/www/owncloud/
+# sudo -u www-data php occ upgrade
+# fail2ban-client status owncloud
+# urbackupclientctl status
+# urbackupclientctl list-backupdirs
