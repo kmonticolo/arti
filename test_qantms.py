@@ -50,11 +50,6 @@ def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
-def test_ntmsqa_website(Command):
-    command = Command('curl -sSfk https://qantms.novelpay.pl:444 -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '200'
-    assert command.rc == 0
-
 @pytest.mark.parametrize("name,version", [
     ("python", "2.7"),
 ])
@@ -78,19 +73,10 @@ def test_listening_socket(host):
     for spec in (
 "tcp://0.0.0.0:25",
 "tcp://0.0.0.0:444",
-"tcp://0.0.0.0:8161",
-"tcp://0.0.0.0:9090",
 "tcp://0.0.0.0:10050",
 "tcp://0.0.0.0:35621",
-"tcp://0.0.0.0:9990",
 "tcp://0.0.0.0:35623",
-"tcp://0.0.0.0:9993",
-"tcp://0.0.0.0:4747",
-"tcp://0.0.0.0:61613",
-"tcp://0.0.0.0:61616",
 "tcp://0.0.0.0:80",
-"tcp://0.0.0.0:8081",
-"tcp://0.0.0.0:8787",
 "tcp://127.0.0.53:53",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
