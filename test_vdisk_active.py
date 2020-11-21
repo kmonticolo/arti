@@ -18,7 +18,6 @@ def test_serv_active(host):
 "mariadb",
 "mdmonitor",
 "ntp",
-"odoo",
 "postfix",
 "postfix@-",
 "postgresql",
