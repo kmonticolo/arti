@@ -157,7 +157,6 @@ def test_postgres_running(Process, Service, Socket, Command):
 
     postgres = Process.filter(comm="postgres")
 
-
 def test_rsyslogd_running(Process, Service, Socket, Command):
     assert Service("rsyslog").is_enabled
     assert Service("rsyslog").is_running
@@ -165,6 +164,18 @@ def test_rsyslogd_running(Process, Service, Socket, Command):
 def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
+
+def test_MD_array(Command):
+    command = Command('awk \'/^md/ {printf "%s: ", $1}; /blocks/ {print $NF}\'  /proc/mdstat | awk \'/\[U+\]/ {print $0 }; /\[.*_.*\]/ {print $0 }\'')
+    assert command.stdout.rstrip() == 'md2: [UU]\nmd3: [UU]'
+    assert command.rc == 0
+
+def test_owncloud_version(Command):
+    command = Command(' cd /var/www/owncloud/ && sudo -u www-data php occ -V')
+    assert command.stdout.rstrip() == 'ownCloud 10.3.2'
+    assert command.rc == 0
+
+  
 
 # cd /var/www/owncloud/
 # sudo -u www-data php occ upgrade
