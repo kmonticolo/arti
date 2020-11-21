@@ -35,42 +35,21 @@ def test_nginx_running(Process, Service, Socket, Command):
 
     nginxworker = Process.filter(ppid=nginxmaster.pid)
     assert Socket("tcp://0.0.0.0:80").is_listening
+    assert Socket("tcp://0.0.0.0:443").is_listening
+
+def test_nginxconf_unchanged(Command):
+    command = Command('sudo md5sum /etc/nginx/sites-enabled/ppos2')
+    assert command.stdout.rstrip() == '5f6e287767d57ec1b82d1c4072448235  /etc/nginx/sites-enabled/ppos2'
+    assert command.rc == 0
 
 def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
-def test_wildfly_standalone_running(Process, Service, Socket, Command):
-    standalone = Process.get(user="%s" %username, comm="standalone.sh")
-    assert standalone.user == "%s" % username
-    assert standalone.group == "%s" % username
-    java = Process.get(user="%s" %username, comm="java", ppid=standalone.pid)
-    assert java.user == "%s" % username
-    assert java.group == "%s" % username
-    assert Socket("tcp://0.0.0.0:8443").is_listening
-    assert Socket("tcp://0.0.0.0:41616").is_listening
-    assert Socket("tcp://127.0.0.1:9990").is_listening
-    assert Socket("tcp://0.0.0.0:8080").is_listening
-
-@pytest.mark.parametrize("package", [
-    ("ppos-application-0.9.1-SNAPSHOT.war")
-])
-
-def test_is_package_deployed(host, package):
-    pkg = host.run("sudo -u %s /opt/wildfly-15.0.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1 \"deployment-info --name=%s\" | grep %s | awk '{print $NF}'" % (username, package, package))
-    assert pkg.stdout.rstrip() == 'OK'
-    assert pkg.rc == 0
-
-def test_count_java_process(host):
-    javas = host.process.filter(user="%s" % username, comm="java", fname="java")
-    assert len(javas) == 1
-
-
 def test_ppos2_nginx_conf(host):
     conf = host.file("/etc/nginx/sites-enabled/ppos2")
     assert conf.user == "root"
     assert conf.group == "root"
-
     assert conf.contains("listen 443 ssl;")
     assert conf.contains("server_name ppos2.novelpay.pl;")
     assert conf.contains("server_name ppos2.novelpay.pl;")
@@ -121,6 +100,31 @@ def test_ppos2_nginx_conf(host):
     assert conf.contains("listen 80;")
     assert conf.contains("server_name testlot.novelpay.pl;")
     assert conf.contains("return 301 https://$host$request_uri;")
+
+def test_wildfly_standalone_running(Process, Service, Socket, Command):
+    standalone = Process.get(user="%s" %username, comm="standalone.sh")
+    assert standalone.user == "%s" % username
+    assert standalone.group == "%s" % username
+    java = Process.get(user="%s" %username, comm="java", ppid=standalone.pid)
+    assert java.user == "%s" % username
+    assert java.group == "%s" % username
+    assert Socket("tcp://0.0.0.0:8443").is_listening
+    assert Socket("tcp://0.0.0.0:41616").is_listening
+    assert Socket("tcp://127.0.0.1:9990").is_listening
+    assert Socket("tcp://0.0.0.0:8080").is_listening
+
+@pytest.mark.parametrize("package", [
+    ("ppos-application-0.9.1-SNAPSHOT.war")
+])
+
+def test_is_package_deployed(host, package):
+    pkg = host.run("sudo -u %s /opt/wildfly-15.0.0.Final/bin/jboss-cli.sh -c --controller=127.0.0.1 \"deployment-info --name=%s\" | grep %s | awk '{print $NF}'" % (username, package, package))
+    assert pkg.stdout.rstrip() == 'OK'
+    assert pkg.rc == 0
+
+def test_count_java_process(host):
+    javas = host.process.filter(user="%s" % username, comm="java", fname="java")
+    assert len(javas) == 1
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
