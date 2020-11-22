@@ -151,12 +151,6 @@ def test_packages(host, name, version):
     assert pkg.is_installed
     assert pkg.version.startswith(version)
 
-def test_postgres_running(Process, Service, Socket, Command):
-    assert Service("postgresql").is_enabled
-    assert Service("postgresql").is_running
-
-    postgres = Process.filter(comm="postgres")
-
 def test_rsyslogd_running(Process, Service, Socket, Command):
     assert Service("rsyslog").is_enabled
     assert Service("rsyslog").is_running

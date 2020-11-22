@@ -19,7 +19,6 @@ def test_serv(host):
 "mysqld",
 "networking",
 "postfix",
-"postgresql",
 "rsync",
 "rsyslog",
 "smartd",
