@@ -20,7 +20,7 @@ def test_ufw(Command):
 # ssh draco.artifact.pl sudo md5sum /etc/ufw/user.rules
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '10f8cfd19e4a146941c288a588d06d09  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '1e50788dbefa5fd537095c0465aee82a  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -46,7 +46,7 @@ def test_postgres_running(Process, Service, Socket, Command):
 
     postgres = Process.filter(comm="postgres")
 
-    assert Socket("tcp://127.0.0.1:5432").is_listening
+    assert Socket("tcp://0.0.0.0:5432").is_listening
 
 def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
@@ -85,16 +85,11 @@ def test_nginx_conf(host):
     assert conf.contains("server_name draco.artifact.pl")
     assert conf.contains("ssl_certificate_key /etc/nginx/ssl/artifact.key")
     assert conf.contains("ssl_certificate.*/etc/nginx/ssl/artifact.pem")
-    assert conf.contains("proxy_pass http://localhost:9090/jenkins")
 
 #fail2ban.service                           enabled
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
-
-
-
-
 
 # systemctl list-unit-files | grep enabled
 #
@@ -116,7 +111,7 @@ def test_listening_socket(host):
     for spec in (
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:22",
-"tcp://127.0.0.1:5432",
+"tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:25",
 "tcp://0.0.0.0:443",
 "tcp://0.0.0.0:10050",
