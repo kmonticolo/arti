@@ -54,7 +54,6 @@ def test_serv_active(host):
 "systemd-udevd",
 "systemd-update-utmp",
 "systemd-user-sessions",
-"thermald",
 "ufw",
 "unattended-upgrades",
 "zabbix-agent",
