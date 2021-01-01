@@ -55,6 +55,7 @@ def test_ldap_website(Command):
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
+# rc.local: su - fisheye -s /bin/bash -c '/home/fisheye/fecru/bin/start.sh'
 #  su - fisheye -s /bin/bash
 # cd fecru/bin/
 # ./stop.sh; ./start.sh
@@ -104,6 +105,7 @@ def test_prosody_running(Process, Service, Socket, Command):
     assert Socket("tcp://0.0.0.0:5224").is_listening
     assert Socket("tcp://0.0.0.0:5000").is_listening
 
+# /usr/local/bin/lmgrd -c /home/flexlm/license.dat
 def test_lmgrd_running(Process, Service, Socket, Command):
     lmgrd = Process.get(comm="lmgrd")
     assert lmgrd.user == "flexlm"
@@ -123,12 +125,6 @@ def test_epmd_running(Process, Service, Socket, Command):
     assert epmd.user == "ejabberd"
     assert epmd.group == "ejabberd"
     assert Socket("tcp://0.0.0.0:4369").is_listening
-
-def test_armlmd_running(Process, Service, Socket, Command):
-    armlmd = Process.get(comm="armlmd")
-    assert armlmd.user == "flexlm"
-    assert armlmd.group == "flexlm"
-    assert Socket("tcp://0.0.0.0:27010").is_listening
 
 #su - mk -c 'cd /home/mk/logserver && java -jar pinpadLogServer-1.0.r6329-onejar.jar ' &
 #def test_pinpadlogserver_running(Process, Service, Socket, Command):
@@ -269,7 +265,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:5280",
 "tcp://0.0.0.0:8224",
 "tcp://0.0.0.0:10050",
-"tcp://0.0.0.0:27010",
 "tcp://0.0.0.0:389",
 "tcp://0.0.0.0:5222",
 "tcp://0.0.0.0:5223",

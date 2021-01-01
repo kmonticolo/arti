@@ -9,7 +9,6 @@ def test_serv(host):
 "cgmanager",
 "cgproxy",
 "cron",
-"dbus-org.freedesktop.thermald",
 "dns-clean",
 "fail2ban",
 "getty@",
