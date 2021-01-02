@@ -16,6 +16,14 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
+def test_ssl_key_check(Command):
+    command = Command('sudo openssl rsa -in /etc/apache2/ssl/novelpay2020.key -check')
+    assert command.rc == 0
+
+def test_ssl_cert_ckeck(Command):
+    command = Command('openssl x509 -in /etc/apache2/ssl/novelpay2020.crt -text -noout')
+    assert command.rc == 0
+
 @pytest.mark.parametrize("name", [
     ("python"),
     ("apache2"),
