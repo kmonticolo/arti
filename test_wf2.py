@@ -66,7 +66,10 @@ def test_listening_socket(host):
     "tcp://127.0.0.53:53",
     "tcp://0.0.0.0:22",
     "tcp://0.0.0.0:10050",
+    "tcp://0.0.0.0:8787",
+    "tcp://0.0.0.0:9090",
     "tcp://0.0.0.0:9990",
+    "tcp://0.0.0.0:9993",
         ):
             socket = host.socket(spec)
             assert socket.is_listening
