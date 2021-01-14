@@ -4,7 +4,6 @@ def user='kmonti'
 
 for (host in [
   'soter',
-  'qantms',
   'vdisk',
   'ppos2']) {
   job("testinfra ${host}") {
