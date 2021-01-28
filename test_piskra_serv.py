@@ -25,7 +25,6 @@ def test_serv(host):
 "lxcfs",
 "lxd-containers",
 "networkd-dispatcher",
-"nginx",
 "ntp",
 "ondemand",
 "open-iscsi",

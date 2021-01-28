@@ -27,7 +27,6 @@ def test_serv_active(host):
 "lxcfs",
 "lxd-containers",
 "networkd-dispatcher",
-"nginx",
 "ntp",
 "polkit",
 "postfix",
