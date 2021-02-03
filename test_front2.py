@@ -44,6 +44,11 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
+def test_number_fail2ban_jails_unchanged(Command):
+    command = Command('sudo fail2ban-client status|grep Number|awk \'{print $5}\'')
+    assert command.stdout.rstrip() == '4'
+    assert command.rc == 0
+
 # netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
