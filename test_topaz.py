@@ -14,7 +14,7 @@ def test_ufw(Command):
 
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '27a923b57af10a3c42a1d89885cc4130  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'be7db758845b2aa763f176f995caa2a5  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_confluence_website(Command):
