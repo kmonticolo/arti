@@ -3,7 +3,6 @@ def sshconfig='./ssh_config'
 def user='kmonti'
 
 for (host in [
-  'soter',
   'vdisk',
   'ppos2']) {
   job("testinfra ${host}") {
