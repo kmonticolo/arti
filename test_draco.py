@@ -20,7 +20,7 @@ def test_ufw(Command):
 # ssh draco.artifact.pl sudo md5sum /etc/ufw/user.rules
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '55623d986beb69a2de70a52501da7049  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'c537758122ff31f6ab1980143e7f6de2  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
