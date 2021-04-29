@@ -10,7 +10,6 @@ def test_serv(host):
 "cloud-config",
 "cloud-final",
 "cloud-init-local",
-"cloud-init",
 "console-setup",
 "containerd",
 "cron",

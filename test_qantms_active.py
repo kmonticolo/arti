@@ -12,7 +12,6 @@ def test_serv_active(host):
 "cloud-config",
 "cloud-final",
 "cloud-init-local",
-"cloud-init",
 "console-setup",
 "containerd",
 "cron",
