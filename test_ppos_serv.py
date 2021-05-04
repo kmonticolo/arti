@@ -30,6 +30,7 @@ def test_serv(host):
 "urbackupclientbackend",
 "vzfifo",
 "yum-cron",
+"mongod",
 "zabbix-agent",
 
     ):  

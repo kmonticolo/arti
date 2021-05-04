@@ -142,23 +142,32 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
+def test_mongod_running(Process, Service, Socket, Command):
+    assert Service("mongod").is_enabled
+    assert Service("mongod").is_running
+    mongod = Process.get(comm="mongod")
+    assert mongod.user == "mongodb"
+    assert mongod.group == "mongodb"
+    assert Socket("tcp://10.103.0.1:27017").is_listening
+
 # netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
 
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://0.0.0.0:8443",
-"tcp://0.0.0.0:443",
-"tcp://0.0.0.0:10050",
-"tcp://0.0.0.0:35621",
-"tcp://127.0.0.1:9990",
-"tcp://0.0.0.0:35623",
 "tcp://0.0.0.0:41616",
 "tcp://0.0.0.0:8080",
 "tcp://0.0.0.0:80",
 "tcp://127.0.0.53:53",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
+"tcp://0.0.0.0:8443",
+"tcp://0.0.0.0:443",
+"tcp://0.0.0.0:10050",
+"tcp://0.0.0.0:35621",
+"tcp://127.0.0.1:9990",
+"tcp://0.0.0.0:35623",
+"tcp://10.103.0.1:27017",
     ):  
         socket = host.socket(spec)
         assert socket.is_listening

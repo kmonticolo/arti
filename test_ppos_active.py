@@ -24,6 +24,7 @@ def test_serv_active(host):
 "systemd-update-utmp",
 "systemd-user-sessions",
 "vzquota",
+"mongod",
 "zabbix-agent",
 
     ):  
