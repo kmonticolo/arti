@@ -41,7 +41,7 @@ for (host in [
   'pavo',
   'taurus',
   //'spinel',
-  'fantazja',
+  //'fantazja',
   'jerom',
   'taj',
   'piskra',
@@ -327,26 +327,6 @@ job("ansible ntp") {
     steps {
       shell("mkdir -p target/test-reports/")
       shell("sudo -u  ${user} /bin/py.test test_front2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.196 --junit-xml /tmp/junit_front2.xml")
-    }
-    }
-}
-
-  job("testinfra ppos") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_ppos_active.py  test_ppos.py  test_ppos_serv.py test_common.py --ssh-config=${sshconfig} --hosts ppos.novelpay.pl --junit-xml /tmp/junit_ppos.xml")
     }
     }
 }
