@@ -25,8 +25,6 @@ def test_cron_running(Process, Service, Socket, Command):
 
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(comm="java")
-    assert Socket("tcp://0.0.0.0:8080").is_listening
-    assert Socket("tcp://0.0.0.0:8180").is_listening
 
 def test_haproxy_running(Process, Service, Socket, Command):
     assert Service("haproxy").is_enabled
@@ -48,8 +46,6 @@ def test_haproxy_conf(host):
 
 def test_tomcat7_running(Process, Service, Socket, Command):
     assert Service("tomcat7").is_enabled
-    assert Service("tomcat7").is_running
-    assert Socket("tcp://0.0.0.0:8180").is_listening
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
@@ -63,15 +59,6 @@ def test_postgres_running(Process, Service, Socket, Command):
 def test_pg_isready_output(Command):
     command = Command('/usr/bin/pg_isready')
     assert command.stdout.rstrip() == '/var/run/postgresql:5432 - accepting connections'
-    assert command.rc == 0
-
-def test_zookeeper_running(Process, Service, Socket, Command):
-    assert Service("zookeeper").is_enabled
-    assert Service("zookeeper").is_running
-
-def test_zookeeper_conf_unchanged(Command):
-    command = Command('sudo md5sum /opt/zookeeper/conf/zoo.cfg')
-    assert command.stdout.rstrip() == 'edbd95bdc0b5e4189dcd3190477f947d  /opt/zookeeper/conf/zoo.cfg'
     assert command.rc == 0
 
 def test_ufw_running(Process, Service, Socket, Command):
@@ -106,13 +93,10 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://127.0.0.1:27017",
 "tcp://0.0.0.0:80",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:10050",
-"tcp://0.0.0.0:8080",
-"tcp://0.0.0.0:8180",
 "tcp://0.0.0.0:5432",
     ):
         socket = host.socket(spec)

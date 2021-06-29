@@ -34,8 +34,6 @@ def test_serv(host):
 "ureadahead",
 "vgauth",
 "zabbix-agent",
-"zookeeper",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
