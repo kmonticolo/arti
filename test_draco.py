@@ -20,7 +20,7 @@ def test_ufw(Command):
 # ssh draco.artifact.pl sudo md5sum /etc/ufw/user.rules
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '5ebc007368c4190f0f5cd025bafcbdb0  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == '11659473ef07ab41f014f51005994071  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -34,11 +34,6 @@ def test_jenkins_running(Process, Service, Socket, Command):
     assert Service("jenkins").is_enabled
     assert Service("jenkins").is_running
     assert Socket("tcp://0.0.0.0:9090").is_listening
-
-def test_jenkins_website(Command):
-    command = Command('curl -sSf "https://draco.artifact.pl/jenkins/" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '403' or  command.stdout.rstrip() == '000'
-    assert command.rc == 22
 
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
