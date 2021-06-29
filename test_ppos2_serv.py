@@ -59,7 +59,6 @@ def test_serv(host):
 "ureadahead",
 "vgauth",
 "vmtoolsd",
-"wildfly",
 "zabbix-agent",
     ):  
         service= host.service(spec)

@@ -63,7 +63,6 @@ def test_serv_active(host):
     "ufw",
     "unattended-upgrades",
     "urbackupclientbackend",
-    "wildfly",
     "zabbix-agent",
     ):  
         service= host.service(spec)
