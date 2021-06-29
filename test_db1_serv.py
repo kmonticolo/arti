@@ -24,7 +24,6 @@ def test_serv(host):
 "lvm2-monitor",
 "lxcfs",
 "lxd-containers",
-"mongod",
 "networkd-dispatcher",
 "ntp",
 "ondemand",

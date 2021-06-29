@@ -27,15 +27,6 @@ def test_graylog_service(Process, Service, Socket, Command):
     assert Service("graylog-server").is_running
     java = Process.get(user="graylog",comm="java")
 
-def test_mongod_running(Process, Service, Socket, Command):
-    assert Service("mongod").is_enabled
-    assert Service("mongod").is_running
-
-    mongod = Process.get(comm="mongod")
-    assert mongod.user == "mongodb"
-    assert mongod.group == "mongodb"
-    assert Socket("tcp://127.0.0.1:27017").is_listening
-
 @pytest.mark.parametrize("name,version", [
     ("python", "2.7"),
 ])

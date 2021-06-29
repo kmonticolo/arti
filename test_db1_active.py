@@ -28,7 +28,6 @@ def test_serv_active(host):
 "lvm2-pvscan@8:19",
 "lxcfs",
 "lxd-containers",
-"mongod",
 "networkd-dispatcher",
 "ntp",
 "polkit",
