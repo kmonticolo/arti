@@ -21,6 +21,11 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '5a628dd52d5eb8c0e741200eb495c648  /etc/ufw/user.rules'
     assert command.rc == 0
 
+def test_ulimit_unchanged(Command):
+    command = Command('ulimit -n')
+    assert command.stdout.rstrip() == '64000'
+    assert command.rc == 0
+
 def test_crond_running(Process, Service, Socket, Command):
     assert Service("cron").is_enabled
     assert Service("cron").is_running
