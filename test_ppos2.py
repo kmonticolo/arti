@@ -21,9 +21,19 @@ def test_ufw_unchanged(Command):
     assert command.stdout.rstrip() == '5a628dd52d5eb8c0e741200eb495c648  /etc/ufw/user.rules'
     assert command.rc == 0
 
+def test_dbdump_backup_output1(Command):
+    command = Command('sudo tail -2 /home/art/db_dump.log |grep -c OK$')
+    assert command.stdout.rstrip() == '2'
+    assert command.rc == 0
+
+def test_dbdump_backup_output2(Command):
+    command = Command('sudo tail -2 /home/art/db_dump.log |grep -c $(date +%m%d).sql.gz:\ OK$')
+    assert command.stdout.rstrip() == '1'
+    assert command.rc == 0
+
 def test_ulimit_unchanged(Command):
     command = Command('ulimit -n')
-    assert command.stdout.rstrip() == '64000'
+    assert command.stdout.rstrip() == '200000'
     assert command.rc == 0
 
 def test_crond_running(Process, Service, Socket, Command):
