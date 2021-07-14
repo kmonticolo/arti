@@ -144,20 +144,20 @@ def test_listening_socket(host):
     for spec in (
 "tcp://0.0.0.0:6080", # docker proxy
 "tcp://0.0.0.0:9090", # pproxy docker
-"tcp://0.0.0.0:10050",
+"tcp://0.0.0.0:10050", # zabbix agent
 "tcp://0.0.0.0:6787", # docker proxy
 "tcp://0.0.0.0:35621",
 "tcp://0.0.0.0:35623",
 "tcp://0.0.0.0:4200", # docker proxy
-"tcp://10.103.0.1:27017",
+"tcp://10.103.0.1:27017", # mongodb
 "tcp://0.0.0.0:6443", # docker proxy
 "tcp://0.0.0.0:5005", # pproxy docker
-"tcp://0.0.0.0:80",
+"tcp://0.0.0.0:80", # nginx
 "tcp://0.0.0.0:8081", # pproxy docker
 "tcp://127.0.0.53:53",
 "tcp://0.0.0.0:22",
-"tcp://0.0.0.0:5432",
-"tcp://0.0.0.0:443"
+"tcp://0.0.0.0:5432", # postgres
+"tcp://0.0.0.0:443" # nginx
     ):  
         socket = host.socket(spec)
         assert socket.is_listening
