@@ -3,8 +3,7 @@ def sshconfig='./ssh_config'
 def user='kmonti'
 
 for (host in [
-  'vdisk',
-  'ppos2']) {
+  'vdisk']) {
   job("testinfra ${host}") {
      logRotator {
         numToKeep(100)
