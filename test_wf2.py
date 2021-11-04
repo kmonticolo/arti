@@ -36,7 +36,7 @@ def test_docker_names(Command):
 
 def test_docker_images(Command):
     command = Command('sudo docker ps --format \'{{.Image}}\' |awk -F: \'{print $2}\'')
-    assert command.stdout.rstrip() == '2.2.1.5237\n2.2.1.5237'
+    assert command.stdout.rstrip() == 'NTMS-1340\nNTMS-1340'
     assert command.rc == 0
 
 import pytest
