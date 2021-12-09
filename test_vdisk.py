@@ -177,7 +177,24 @@ def test_owncloud_version(Command):
     assert command.stdout.rstrip() == 'ownCloud 10.3.2'
     assert command.rc == 0
 
-  
+def test_vdisk_website(Command):
+    command = Command('curl -sSf "http://vdisk.novelpay.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
+
+def test_vdisk_https_website(Command):
+    command = Command('curl -sSfk "https://vdisk.novelpay.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '302'
+    assert command.rc == 0
+
+def test_platform(host):
+    """
+    We are using Debian
+    """
+    assert host.system_info.type == "linux"
+    assert host.system_info.distribution == "debian"
+    assert host.system_info.codename == "stretch"
+    assert host.system_info.release == "8"
 
 # cd /var/www/owncloud/
 # sudo -u www-data php occ upgrade
