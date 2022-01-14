@@ -60,6 +60,7 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:8443",
 "tcp://0.0.0.0:443",
 "tcp://0.0.0.0:4832",
+"tcp://0.0.0.0:4747", # docker-compose in /home/adam, also added to adam's crontab 
 "tcp://0.0.0.0:10050",
 "tcp://:::443",
 "tcp://:::10050",
