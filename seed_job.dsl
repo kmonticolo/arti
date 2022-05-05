@@ -34,7 +34,7 @@ for (host in [
   //'beryl',
   'draco',
   'hydra',
-  'luna',
+  //'luna',
   'lynx',
   'orion',
   'pavo',
@@ -44,7 +44,7 @@ for (host in [
   'jerom',
   'taj',
   'piskra',
-  'miki',
+  //'miki',
   'gemini' ]) {
   job("testinfra ${host}") {
     logRotator {
@@ -189,25 +189,6 @@ job("ansible ntp") {
     }
 }
 
-  job("testinfra ntms db2") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_db2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.199 --junit-xml /tmp/junit_db2.xml")
-    }
-    }
-}
 
   job("testinfra ntms amq1") {
      logRotator {
@@ -225,26 +206,6 @@ job("ansible ntp") {
     steps {
       shell("mkdir -p target/test-reports/")
       shell("sudo -u  ${user} /bin/py.test test_amq1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.25 --junit-xml /tmp/junit_amq1.xml")
-    }
-    }
-}
-
-  job("testinfra ntms amq2") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_amq2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.197 --junit-xml /tmp/junit_amq2.xml")
     }
     }
 }
@@ -270,26 +231,6 @@ job("ansible ntp") {
     }
 }
 
-  job("testinfra ntms wf2") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_wf2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.198 --junit-xml /tmp/junit_wf2.xml")
-    }
-    }
-}
-
   job("testinfra ntms front1") {
      logRotator {
         numToKeep(100)
@@ -310,22 +251,3 @@ job("ansible ntp") {
     }
 }
 
-  job("testinfra ntms front2") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_front2*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 51.77.198.196 --junit-xml /tmp/junit_front2.xml")
-    }
-    }
-}
