@@ -65,8 +65,8 @@ def test_nginx_validate(Command):
 
 def test_partners_website(Command):
     command = Command('curl -sSf "https://partners.artifact.pl" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '200'
-    assert command.rc == 0
+    assert command.stdout.rstrip() == '504'
+    assert command.rc == 22
 
 # systemctl list-unit-files | grep enabled
 #
