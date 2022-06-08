@@ -25,6 +25,11 @@ def test_iptables_unchanged(Command):
     assert command.stdout.rstrip() == '9df0f21749cd1fae03e9bef0b8182867  /etc/iptables-save'
     assert command.rc == 0
 
+def test_sysctl_ipv6(Command):
+    command = Command('sudo sysctl net.ipv6.conf.default.disable_ipv6')
+    assert command.stdout.rstrip() == 'net.ipv6.conf.default.disable_ipv6 = 1'
+    assert command.rc == 0
+
 def test_gssproxy_running(Process, Service, Socket, Command):
     assert Service("gssproxy").is_running
     gssproxy= Process.get(comm="gssproxy")
