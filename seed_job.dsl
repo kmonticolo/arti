@@ -41,8 +41,8 @@ for (host in [
   'taurus',
   //'spinel',
   //'fantazja',
-  'jerom',
-  'taj',
+  //'jerom',
+  //'taj',
   'piskra',
   //'miki',
   'gemini' ]) {
