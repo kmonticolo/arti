@@ -32,8 +32,6 @@ def test_serv_active(host):
 "ntp",
 "polkit",
 "postgresql",
-"postgresql@10-main",
-"postgresql@11-main",
 "rsyslog",
 "setvtrgb",
 "snapd.seeded",
