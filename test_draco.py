@@ -30,11 +30,6 @@ def test_cron_running(Process, Service, Socket, Command):
 def test_java_running(Process, Service, Socket, Command):
     java = Process.filter(comm="java")
 
-def test_jenkins_running(Process, Service, Socket, Command):
-    assert Service("jenkins").is_enabled
-    assert Service("jenkins").is_running
-    assert Socket("tcp://0.0.0.0:9090").is_listening
-
 def test_postgres_running(Process, Service, Socket, Command):
     assert Service("postgresql").is_enabled
     assert Service("postgresql").is_running
@@ -110,7 +105,6 @@ def test_listening_socket(host):
 "tcp://0.0.0.0:25",
 "tcp://0.0.0.0:443",
 "tcp://0.0.0.0:10050",
-"tcp://0.0.0.0:9090",
     ):
         socket = host.socket(spec)
         assert socket.is_listening
