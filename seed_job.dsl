@@ -52,7 +52,7 @@ for (host in [
         cron('H 22 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
+        shell("sudo -u ${user} ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
      }
  }
 
@@ -65,7 +65,7 @@ for (host in [
         cron('H 12 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible -m shell -a \"needs-restarting -r|grep 'not necessary'\" centos:!ppos.novelpay.pl")
+        shell("sudo -u ${user} ansible -m shell -a \"needs-restarting -r|grep 'not necessary'\" centos:!ppos.novelpay.pl")
      }
  }
 
@@ -74,7 +74,7 @@ for (host in [
         numToKeep(300)
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/centos_reboot.yml")
+        shell("sudo -u ${user} ansible-playbook /home/kmonti/ansible/centos_reboot.yml")
      }
 }
 
@@ -83,7 +83,7 @@ for (host in [
         numToKeep(300)
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot.yml -i /home/kmonti/inventory -l artifactubuntu,novelpayubuntu")
+        shell("sudo -u ${user} ansible-playbook /home/kmonti/ansible/reboot.yml -i /home/kmonti/inventory -l artifactubuntu,novelpayubuntu")
      }
 }
 
@@ -95,7 +95,7 @@ for (host in [
         cron('H 21 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
+        shell("sudo -u ${user} ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l artifactubuntu,novelpayubuntu")
      }
  }
 
@@ -108,7 +108,7 @@ job("ansible centos_upgrade") {
         cron('H 20 * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/centos_upgrade.yml -i /home/kmonti/ansible/inventory")
+        shell("sudo -u ${user} ansible-playbook /home/kmonti/ansible/centos_upgrade.yml -i /home/kmonti/ansible/inventory")
      }
  }
 
@@ -120,7 +120,7 @@ job("ansible ntp") {
         cron('H * * * *')
     }
      steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/ntp.yml -i /home/kmonti/ansible/inventory")
+        shell("sudo -u ${user} ansible-playbook /home/kmonti/ansible/ntp.yml -i /home/kmonti/ansible/inventory")
      }
  }
 
@@ -139,7 +139,7 @@ job("ansible ntp") {
     }
     steps {
       shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_front1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.24 --junit-xml /tmp/junit_front1.xml")
+      shell("sudo -u ${user} /bin/py.test test_front1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.24 --junit-xml /tmp/junit_front1.xml")
     }
     }
 }
@@ -159,7 +159,8 @@ job("ansible ntp") {
         cron('H * * * *')
     }
     steps {
-      shell("sudo -u ${user} ssh tntms goss v")
+      shell("sudo -u ${user} py.test test_tntms.py --ssh-config=/home/kmonti/.ssh/config --hosts tntms")
+
     }
     }
 }
