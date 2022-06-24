@@ -144,3 +144,23 @@ job("ansible ntp") {
     }
 }
 
+
+  job("testinfra tntms") {
+     logRotator {
+        numToKeep(100)
+    }
+  scm {
+      git {
+          remote { url(repo) }
+          branches('master')
+          extensions { }
+        }
+    triggers {
+        cron('H * * * *')
+    }
+    steps {
+      shell("sudo -u ${user} ssh tntms goss v")
+    }
+    }
+}
+
