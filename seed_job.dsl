@@ -159,7 +159,7 @@ job("ansible ntp") {
         cron('H * * * *')
     }
     steps {
-      shell("sudo -u ${user} py.test test_tntms.py test_common.py test_ntp.py --ssh-config=/home/kmonti/.ssh/config --hosts tntms")
+      shell("sudo -u ${user} py.test -v test_tntms.py test_common.py test_ntp.py --ssh-config=/home/kmonti/.ssh/config --hosts tntms")
 
     }
     }
