@@ -3,29 +3,6 @@ def sshconfig='./ssh_config'
 def user='kmonti'
 
 for (host in [
-  'vdisk']) {
-  job("testinfra ${host}") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_${host}.py test_${host}_active.py test_${host}_serv.py test_common.py test_ntp.py --ssh-config=${sshconfig} --hosts ${host}.novelpay.pl --junit-xml /tmp/junit_${host}.xml")
-    }
-    }
-}
-}
-
-for (host in [
   //'diament',
   //'rubin',
   //'topaz',
@@ -79,17 +56,6 @@ for (host in [
      }
  }
 
- job("ansible NPNTMS is reboot needed") {
-    logRotator {
-        numToKeep(100)
-    }
-  triggers {
-        cron('H 12 * * *')
-    }
-     steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/reboot_needed.yml -i /home/kmonti/ansible/inventory -l npntms")
-     }
- }
 
  job("ansible Centos is reboot needed") {
     logRotator {
@@ -133,17 +99,6 @@ for (host in [
      }
  }
 
- job("ansible NPNTMS debian_upgrade") {
-    logRotator {
-        numToKeep(100)
-    }
-  triggers {
-        cron('H 21 * * *')
-    }
-     steps {
-        shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/debian_upgrade.yml -i /home/kmonti/ansible/inventory -l npntms")
-     }
- }
 
 job("ansible centos_upgrade") {
     logRotator {
@@ -168,68 +123,6 @@ job("ansible ntp") {
         shell("sudo -u kmonti ansible-playbook /home/kmonti/ansible/ntp.yml -i /home/kmonti/ansible/inventory")
      }
  }
-
-  job("testinfra ntms db1") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_db1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.27 --junit-xml /tmp/junit_db1.xml")
-    }
-    }
-}
-
-
-  job("testinfra ntms amq1") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_amq1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.25 --junit-xml /tmp/junit_amq1.xml")
-    }
-    }
-}
-
-  job("testinfra ntms wf1") {
-     logRotator {
-        numToKeep(100)
-    }
-  scm {
-      git {
-          remote { url(repo) }
-          branches('master')
-          extensions { }
-        }
-
-    triggers {
-        cron('H * * * *')
-    }
-    steps {
-      shell("mkdir -p target/test-reports/")
-      shell("sudo -u  ${user} /bin/py.test test_wf1*.py test_common.py --ssh-config=./ssh_ntms_config --hosts 192.99.119.26 --junit-xml /tmp/junit_wf1.xml")
-    }
-    }
-}
 
   job("testinfra ntms front1") {
      logRotator {
