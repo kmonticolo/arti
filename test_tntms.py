@@ -2,10 +2,6 @@ def test_goss(Command):
     command = Command('goss v')
     assert command.rc == 0
 
-def test_ufw(Command):
-    command = Command('sudo ufw status | grep -w "Status: active"')
-    assert command.rc == 0
-
 def test_ufw_running(Process, Service, Socket, Command):
     assert Service("ufw").is_enabled
     assert Service("ufw").is_running
