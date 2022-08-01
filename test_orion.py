@@ -63,6 +63,10 @@ def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
+def test_docker(Command):
+    command = Command('docker ps')
+    assert command.rc == 0
+
 def test_partners_website(Command):
     command = Command('curl -sSf "https://partners.artifact.pl" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '504'
