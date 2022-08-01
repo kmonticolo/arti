@@ -23,12 +23,10 @@ def test_firewalld_unchanged(Command):
     assert command.rc == 0
 
 def test_oracle_running(Process, Service, Socket, Command):
-
     proc= Process.get(comm="tnslsnr")
     assert proc.ppid == 1
     assert proc.user == "oracle"
     assert proc.group == "oinstall"
-
     assert Socket("tcp://0.0.0.0:1521").is_listening
 
 def test_nginx_running(Process, Service, Socket, Command):
@@ -51,7 +49,6 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_running
 
     agent = Process.filter(comm="zabbix_agentd")
-
     assert Socket("tcp://0.0.0.0:10050").is_listening
 
 def test_tuned_running(Process, Service, Socket, Command):
@@ -68,6 +65,11 @@ def test_postfix_running(Process, Service, Socket, Command):
 
 # root@lynx:/home/kamilm# ls /var/spool/cron/crontabs/
 # adam  root
+
+def test_redirect_website(Command):
+    command = Command('curl -sSf "http://gemini.artifact.pl" -o /dev/null -w %{http_code}')
+    assert command.stdout.rstrip() == '200'
+    assert command.rc == 0
 
 
 #ufw
