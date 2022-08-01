@@ -14,7 +14,6 @@ def test_mongod_running(Process, Service, Socket, Command):
     mongod = Process.get(comm="mongod")
     assert mongod.user == "mongodb"
     assert mongod.group == "mongodb"
-
     assert Socket("tcp://127.0.0.1:27017").is_listening
 
 def test_bind_running(Process, Service, Socket, Command):

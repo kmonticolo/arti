@@ -10,6 +10,7 @@ def test_serv(host):
 "cron",
 "fail2ban",
 "getty@",
+"haveged",
 "iscsi",
 "iscsid",
 "lvm2-monitor",
@@ -24,8 +25,10 @@ def test_serv(host):
 "postgresql",
 "resolvconf",
 "rsyslog",
+"snapd.apparmor",
 "snapd.autoimport",
 "snapd.core-fixup",
+"snapd.recovery-chooser-trigger",
 "snapd.seeded",
 "snapd",
 "snapd.system-shutdown",
@@ -33,12 +36,14 @@ def test_serv(host):
 "sshd",
 "syslog",
 "systemd-timesyncd",
+"ua-reboot-cmds",
+"ubuntu-advantage-cloud-id-shim",
+"ubuntu-advantage",
 "ufw",
 "unattended-upgrades",
 "ureadahead",
 "vgauth",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
