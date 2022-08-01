@@ -40,7 +40,6 @@ def test_serv(host):
 "vmtoolsd",
 "yum-cron",
 "zabbix-agent",
-
     ):  
         service= host.service(spec)
         assert service.is_enabled
