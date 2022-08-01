@@ -82,34 +82,14 @@ def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
     assert command.rc == 0
 
-
-#def test_nginx_conf(host):
-    #conf = host.file("/etc/nginx/sites-enabled/draco")
-    #assert conf.user == "root"
-    #assert conf.group == "root"
-    #assert conf.contains("server_name draco.artifact.pl")
-
-#fail2ban.service                           enabled
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
 
-
-
-
-# systemctl list-unit-files | grep enabled
-#
-#root@lynx:/home/kamilm# systemctl list-unit-files | grep enabled
-
-
-
-#root@spinel:/home/kamilm#  ls /var/spool/cron/crontabs/
-
-
-# na kazdym firewall ufw ufw status
-
-# root@lynx:/home/kamilm# netstat -alnp|grep LIST|head -20
+def test_docker(Command):
+    command = Command('docker ps')
+    assert command.rc == 0
 # netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
 
 ##
