@@ -50,7 +50,6 @@ def test_serv_active(host):
 "snapd.seeded",
 "ssh",
 "sysstat",
-"systemd-fsck@dev-disk-by\x2duuid-17fa6111\x2d6acd\x2d48b0\x2d96ca\x2db8064f2270dd",
 "systemd-fsck@dev-sdb1",
 "systemd-fsck@dev-sdc1",
 "systemd-journal-flush",
