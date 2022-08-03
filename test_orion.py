@@ -64,7 +64,7 @@ def test_nginx_validate(Command):
     assert command.rc == 0
 
 def test_docker(Command):
-    command = Command('docker ps')
+    command = Command('sudo docker ps')
     assert command.rc == 0
 
 def test_partners_website(Command):
