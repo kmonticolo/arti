@@ -14,7 +14,6 @@ def test_serv(host):
 "lxcfs",
 "lxd-containers",
 "networking",
-"nginx",
 "open-iscsi",
 "open-vm-tools",
 "postgresql",

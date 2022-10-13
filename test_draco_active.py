@@ -26,7 +26,6 @@ def test_serv_active(host):
 "lxd-containers",
 "mdadm",
 "networking",
-"nginx",
 "ondemand",
 "open-iscsi",
 "open-vm-tools",

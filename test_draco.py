@@ -20,7 +20,7 @@ def test_ufw(Command):
 # ssh draco.artifact.pl sudo md5sum /etc/ufw/user.rules
 def test_ufw_unchanged(Command):
     command = Command('sudo md5sum /etc/ufw/user.rules')
-    assert command.stdout.rstrip() == '1c8517e7d5f7f2454fc359fa01f081b5  /etc/ufw/user.rules'
+    assert command.stdout.rstrip() == 'd9abf11b2de5acf23654ac2392141258  /etc/ufw/user.rules'
     assert command.rc == 0
 
 def test_cron_running(Process, Service, Socket, Command):
@@ -51,18 +51,6 @@ def test_zabbix_agent_running(Process, Service, Socket, Command):
     assert Service("zabbix-agent").is_enabled
     assert Service("zabbix-agent").is_running
     assert Socket("tcp://0.0.0.0:10050").is_listening
-
-def test_nginx_running(Process, Service, Socket, Command):
-    assert Service("nginx").is_enabled
-    assert Service("nginx").is_running
-
-    nginxmaster = Process.get(user="root", ppid='1', comm="nginx")
-    assert nginxmaster.user == "root"
-    assert nginxmaster.group == "root"
-
-    nginxworker = Process.filter(ppid=nginxmaster.pid)
-    assert Socket("tcp://0.0.0.0:80").is_listening
-    assert Socket("tcp://0.0.0.0:443").is_listening
 
 def test_nginx_validate(Command):
     command = Command('sudo nginx -t')
@@ -99,11 +87,9 @@ def test_fail2ban_running(Process, Service, Socket, Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://0.0.0.0:80",
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:25",
-"tcp://0.0.0.0:443",
 "tcp://0.0.0.0:10050",
     ):
         socket = host.socket(spec)
