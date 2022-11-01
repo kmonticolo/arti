@@ -20,7 +20,7 @@ for (host in [
   //'fantazja',
   //'jerom',
   //'taj',
-  'piskra',
+  //'piskra',
   //'miki',
   'gemini' ]) {
   job("testinfra ${host}") {
