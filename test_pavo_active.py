@@ -20,7 +20,6 @@ def test_serv_active(host):
 "ifup@ens160",
 "irqbalance",
 "iscsid",
-"jenkins",
 "keyboard-setup",
 "kmod-static-nodes",
 "lvm2-lvmetad",
