@@ -165,3 +165,24 @@ job("ansible ntp") {
     }
 }
 
+
+  job("testinfra tbpost") {
+     logRotator {
+        numToKeep(100)
+    }
+  scm {
+      git {
+          remote { url(repo) }
+          branches('master')
+          extensions { }
+        }
+    triggers {
+        cron('H * * * *')
+    }
+    steps {
+      shell("sudo -u ${user} py.test -v test_tbpost.py test_common.py test_ntp.py --ssh-config=/home/kmonti/.ssh/config --hosts tbpost")
+
+    }
+    }
+}
+
