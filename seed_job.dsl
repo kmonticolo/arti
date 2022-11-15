@@ -186,3 +186,23 @@ job("ansible ntp") {
     }
 }
 
+  job("testinfra bpost prod") {
+     logRotator {
+        numToKeep(100)
+    }
+  scm {
+      git {
+          remote { url(repo) }
+          branches('master')
+          extensions { }
+        }
+    triggers {
+        cron('H * * * *')
+    }
+    steps {
+      shell("sudo -u ${user} py.test -v test_bpost.py test_common.py test_ntp.py --ssh-config=/home/kmonti/.ssh/config --hosts bpost")
+
+    }
+    }
+}
+
