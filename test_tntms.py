@@ -1,5 +1,5 @@
 def test_goss(Command):
-    command = Command('goss v -f tap')
+    command = Command('goss v')
     assert command.rc == 0
 
 def test_ufw_running(Process, Service, Socket, Command):
