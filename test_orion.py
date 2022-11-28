@@ -90,17 +90,18 @@ def test_partners_website(Command):
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
-"tcp://0.0.0.0:4747",
+"tcp://0.0.0.0:4747", # ntms_cm
 "tcp://0.0.0.0:61613",
-"tcp://0.0.0.0:8080",
-"tcp://0.0.0.0:61616",
+"tcp://0.0.0.0:8080", # ntms_appserver
+"tcp://0.0.0.0:61616", # ntms_amq
 "tcp://0.0.0.0:80",
-"tcp://0.0.0.0:8787",
+"tcp://0.0.0.0:8787", # ntms_appserver
 "tcp://0.0.0.0:22",
 "tcp://0.0.0.0:5432",
 "tcp://0.0.0.0:25",
 "tcp://0.0.0.0:443",
-"tcp://0.0.0.0:9090",
+"tcp://0.0.0.0:9090", # ntms_web
+"tcp://0.0.0.0:9091", # isv-web
 "tcp://0.0.0.0:10050",
     ):
         socket = host.socket(spec)
