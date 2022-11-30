@@ -15,14 +15,14 @@ for (host in [
   'lynx',
   'orion',
   'pavo',
-  'taurus',
+  //'taurus',
   //'spinel',
   //'fantazja',
   //'jerom',
   //'taj',
   //'piskra',
   //'miki',
-  'gemini' ]) {
+  //'gemini' ]) {
   job("testinfra ${host}") {
     logRotator {
         numToKeep(100)
