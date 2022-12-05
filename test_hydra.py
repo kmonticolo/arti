@@ -86,13 +86,7 @@ def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
     assert Service("fail2ban").is_running
 
-
-def test_docker(Command):
-    command = Command('docker ps')
-    assert command.rc == 0
 # netstat -aln |grep ^tcp.*LIST|awk '{print "\"tcp://"$4"\","}'
-
-##
 def test_listening_socket(host):
     listening = host.socket.get_listening_sockets()
     for spec in (
