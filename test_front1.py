@@ -41,8 +41,8 @@ def test_nginx_conf(host):
     assert conf.group == "root"
     assert conf.contains("server_name ntms.novelpay.pl")
     assert conf.contains("proxy_pass http://192.99.119.26:8080/ntmss")
-    assert conf.contains("ssl_certificate_key /etc/nginx/ssl/novelpay.key")
-    assert conf.contains("ssl_certificate.*/etc/nginx/ssl/novelpay.pem")
+    assert conf.contains("ssl_certificate_key /etc/nginx/ssl/wildcard_2023.key")
+    assert conf.contains("ssl_certificate.*/etc/nginx/ssl/wildcard_2023.pem")
 
 def test_fail2ban_running(Process, Service, Socket, Command):
     assert Service("fail2ban").is_enabled
