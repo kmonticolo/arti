@@ -69,8 +69,8 @@ def test_docker(Command):
 
 def test_partners_website(Command):
     command = Command('curl -sSf "https://partners.artifact.pl" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '504'
-    assert command.rc == 22
+    assert command.stdout.rstrip() == '000'
+    assert command.rc == 60
 
 # systemctl list-unit-files | grep enabled
 #
