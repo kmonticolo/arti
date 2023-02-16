@@ -52,7 +52,7 @@ def test_nginx_validate(Command):
     assert command.rc == 0
 
 def test_teservice_website(Command):
-    command = Command('curl -sSf "https://teservice.artifact.pl" -o /dev/null -w %{http_code}')
+    command = Command('curl -ksSf "https://teservice.artifact.pl" -o /dev/null -w %{http_code}')
     assert command.stdout.rstrip() == '200'
     assert command.rc == 0
 
