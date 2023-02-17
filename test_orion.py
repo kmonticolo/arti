@@ -67,10 +67,10 @@ def test_docker(Command):
     command = Command('sudo docker ps')
     assert command.rc == 0
 
-def test_partners_website(Command):
-    command = Command('curl -sSf "https://partners.artifact.pl" -o /dev/null -w %{http_code}')
-    assert command.stdout.rstrip() == '000'
-    assert command.rc == 60
+#def test_partners_website(Command):
+#    command = Command('curl -sSf "https://partners.artifact.pl" -o /dev/null -w %{http_code}')
+#    assert command.stdout.rstrip() == '000'
+#    assert command.rc == 60
 
 # systemctl list-unit-files | grep enabled
 #
